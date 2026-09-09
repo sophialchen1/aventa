@@ -1,14 +1,15 @@
-# Start here: getting your local site into GitHub
+# Start here: getting the site into GitHub
 
 Read this once end to end before typing anything. It takes about 20 minutes.
 
 **What we are doing and why:** right now this GitHub repository contains only
-setup files. Your actual website code exists only on your Mac. Until it is
-pushed here, nothing (including Claude Code sessions on the web) can see or
-change your site. This guide moves your code up safely.
+setup files. The only copy of the actual website code is on the Namecheap server
+at `/home/aveniqck/aventa`. That is a single point of failure, and it also means
+nothing (including Claude Code sessions on the web) can see or change the site.
+This guide pulls the code down, gets it onto your Mac, and pushes it here.
 
-The order below is deliberate. It puts a `.gitignore` in place *before* your
-files, so that huge folders and your password file cannot be committed by
+The order below is deliberate. It puts a `.gitignore` in place *before* the site
+files arrive, so that huge folders and your password file cannot be committed by
 accident. Do not reorder the steps.
 
 ---
@@ -60,36 +61,90 @@ DEPLOY.md, .gitignore and this file.
 git checkout -b main
 ```
 
-## Step 3: Copy your website files in
+## Step 3: Get the website code off the server
 
-Find the handoff folder on your Mac. It is the folder containing `artisan` and
-`package.json`.
+There is no copy of the site on your Mac. The only copy lives on the Namecheap
+server at `/home/aveniqck/aventa`. You need it locally, because builds happen on
+your machine, not on the server.
 
-Get its exact path without typing it: in Terminal type `ls -la ` (with a
-trailing space), then **drag the folder from Finder onto the Terminal window**.
-The path appears. Press Enter and confirm you see `artisan` and `package.json`
-in the output.
+Do **not** download the existing `aventa.zip` in the home folder. It is 534 MB,
+it dates from August 2025, and it includes the two huge dependency folders you
+do not want. Make a fresh, small one instead.
 
-Now copy everything across, skipping the folders that should not travel:
+### 3a. Turn on hidden files in File Manager
+
+Top right of File Manager -> **Settings** -> tick **Show Hidden Files
+(dotfiles)** -> Save.
+
+This matters. Files starting with a dot (`.env`, `.gitignore`, `.editorconfig`)
+are invisible otherwise, and `.env` is the one the site cannot run without.
+
+### 3b. Zip the project, minus the giant folders
+
+**If your cPanel has Terminal** (look for it in the cPanel menu under Advanced),
+this is one command and much more reliable:
 
 ```bash
-rsync -av \
-  --exclude '.git' \
-  --exclude 'node_modules' \
-  --exclude 'vendor' \
-  --exclude 'public/build' \
-  "PASTE_THE_PATH_HERE/" \
+cd ~ && zip -r aventa-source.zip aventa \
+  -x "aventa/node_modules/*" "aventa/vendor/*" "aventa/storage/logs/*"
+```
+
+**If there is no Terminal**, use File Manager:
+
+1. Double-click into the `aventa` folder
+2. Click **Select All**
+3. Hold Cmd and click `node_modules` and `vendor` to *deselect* them
+4. Click **Compress**, choose Zip Archive, name it `aventa-source.zip`, save it
+   into the parent folder
+
+Either way you should end up with something in the tens of megabytes, not
+hundreds. `node_modules` and `vendor` are excluded because they are rebuilt from
+scratch by `npm install` and `composer install`, and the server's copies are
+Linux builds that will not all work on your Mac anyway.
+
+### 3c. Download it
+
+Select `aventa-source.zip` in File Manager and click **Download**. It lands in
+your Mac's Downloads folder.
+
+### 3d. Unpack it into your repo folder
+
+```bash
+cd ~/Downloads
+unzip -q aventa-source.zip -d aventa-extracted
+ls aventa-extracted
+```
+
+If `ls` shows a single `aventa` folder, the real files are one level down. Copy
+the contents across:
+
+```bash
+rsync -av --exclude '.git' \
+  ~/Downloads/aventa-extracted/aventa/ \
   ~/Documents/aventa/
 ```
 
-Two things that matter:
-- Replace `PASTE_THE_PATH_HERE` by dragging the folder in again.
-- **Keep the trailing slash** after the path. With it, the folder's *contents*
-  are copied. Without it, the folder itself is nested inside, which is wrong.
+If instead `ls` already shows `artisan` and `package.json` directly, drop the
+`aventa/` from that path:
 
-`node_modules` and `vendor` are excluded on purpose. They contain Windows
-binaries from the previous developer's machine and will not work on your Mac.
-You will regenerate them in step 6.
+```bash
+rsync -av --exclude '.git' \
+  ~/Downloads/aventa-extracted/ \
+  ~/Documents/aventa/
+```
+
+Keep the trailing slashes. They mean "the contents of", which is what you want.
+
+### 3e. Confirm you got the real thing
+
+```bash
+cd ~/Documents/aventa
+ls artisan package.json composer.json
+ls resources/js/src/locales/
+```
+
+You should see `artisan`, `package.json`, `composer.json`, and the locale files
+(`es.json`, `en.json`). If any are missing, stop and ask before committing.
 
 ## Step 4: Look at what git sees, before committing anything
 

@@ -54,6 +54,9 @@ Namecheap shared hosting via cPanel.
 This split is unusual and worth knowing: **uploading to `aventa/` alone changes
 nothing on the live site.** The files the public sees are in `public_html/`.
 
+Full server map, including subdomains and old backups:
+[docs/server-layout.md](docs/server-layout.md).
+
 ## History
 
 The original developer kept this in his own GitHub repository, which had not
