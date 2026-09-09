@@ -18,6 +18,36 @@ The split is the single most important thing to understand about this setup.
 Changing files in `aventa/` does nothing to the live site on its own. The site
 only changes when `public_html/` changes.
 
+## How the site is actually wired (confirmed)
+
+`public_html/` is the document root. `public_html/index.php` is the front door
+for every request, and it reaches back into `aventa/` for the application:
+
+```php
+require __DIR__ . '/../aventa/vendor/autoload.php';
+$app = require_once __DIR__ . '/../aventa/bootstrap/app.php';
+```
+
+`__DIR__` is `/home/aveniqck/public_html`, so those resolve to
+`/home/aveniqck/aventa/`. This is the standard shared-hosting Laravel layout:
+the framework sits outside the web root where visitors cannot reach it, and only
+`public_html/` is exposed.
+
+Two independent confirmations:
+
+1. `https://www.aventawindows.com/media/puertas_home.JPG` serves successfully.
+   `media/` exists **only** in `public_html/` (1,134 MB) and nowhere in
+   `aventa/`. That URL could not resolve unless `public_html/` were the root.
+2. The `index.php` above, which only makes sense with `public_html/` as the root.
+
+### Unresolved detail
+
+cPanel File Manager's "Document Root for: aventawindows.com" preference
+navigated to `aventa/` rather than `public_html/` when tested. That contradicts
+both confirmations above and is most likely a UI artifact. It does not change
+the conclusion, but if it recurs, check cPanel -> Domains and read the Document
+Root column for the domain directly.
+
 ## Inside `aventa/`
 
 Confirmed September 2026. Standard Laravel 12 layout:
