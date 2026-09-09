@@ -1,0 +1,23 @@
+# Normalize line endings. The previous developer worked on Windows
+# (CRLF), Sophia works on a Mac (LF). Without this, whole files show
+# up as "changed" when only invisible line endings differ.
+* text=auto eol=lf
+
+# Binary files: never touch line endings
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.mp4 binary
+*.webm binary
+
+# Don't count vendored/build output in GitHub's language stats
+public/build/** linguist-generated=true

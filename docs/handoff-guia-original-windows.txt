@@ -1,0 +1,132 @@
+GUÍA RÁPIDA PARA EJECUTAR EL PROYECTO LARAVEL 12 + VUE EN WINDOWS
+
+Esta carpeta incluye:
+- El proyecto Laravel 12 con Vue.
+- Varias versiones de PHP: 8.3.30, 8.4.23 y 8.5.8.
+- Node.js.
+
+
+1. AGREGAR PHP A LAS VARIABLES DE ENTORNO (PATH)
+
+Esto permite ejecutar comandos de PHP desde CMD, PowerShell y la terminal del editor.
+
+1) Elige una de las carpetas de PHP incluidas.
+   Se recomienda usar la versión compatible con el proyecto.
+
+2) Abre la carpeta elegida y copia su ruta completa.
+   Debe ser la carpeta donde se encuentra el archivo php.exe.
+   Ejemplo:
+   C:\Herramientas\php-8.4.23
+
+3) En Windows, abre Inicio y busca:
+   Editar las variables de entorno del sistema
+
+4) Abre esa opción y pulsa "Variables de entorno".
+
+5) En "Variables de usuario", selecciona la variable "Path" y pulsa "Editar".
+
+6) Pulsa "Nuevo", pega la ruta de la carpeta de PHP y acepta todas las ventanas.
+
+7) Cierra y vuelve a abrir CMD, PowerShell y el editor de código para que detecten el cambio.
+
+8) Comprueba la instalación con:
+   php -v
+
+Debe aparecer la versión seleccionada, por ejemplo PHP 8.4.23.
+
+IMPORTANTE: Agrega al PATH solamente una versión de PHP a la vez para evitar conflictos.
+Si aparece otra versión, revisa el orden de las rutas de PHP en la variable Path.
+
+
+2. VERIFICAR NODE.JS
+
+Abre una terminal nueva y ejecuta:
+   node -v
+
+También puedes verificar npm con:
+   npm -v
+
+Si Windows no reconoce el comando "node", agrega al Path la carpeta que contiene node.exe,
+siguiendo los mismos pasos utilizados para PHP. Después, abre una terminal nueva.
+
+
+3. ABRIR EL PROYECTO EN UN EDITOR
+
+Puedes usar Visual Studio Code u otro editor gratuito.
+
+1) Abre el editor.
+2) Selecciona "Abrir carpeta".
+3) Elige la carpeta principal del proyecto Laravel.
+   Es la carpeta que contiene el archivo "artisan" y el archivo "package.json".
+4) Abre una terminal integrada desde el editor.
+
+También puedes usar IntelliJ IDEA u otro editor de JetBrains. Ten en cuenta que
+IntelliJ IDEA Ultimate es de pago, aunque existen otros editores y opciones gratuitas.
+
+
+4. INSTALAR DEPENDENCIAS (SOLO SI HACE FALTA)
+
+Desde una terminal ubicada en la carpeta principal del proyecto:
+
+- Si no existe la carpeta "vendor", ejecuta:
+  composer install
+
+- Si no existe la carpeta "node_modules", ejecuta:
+  npm install
+
+Si las dependencias ya están incluidas y el proyecto funciona, no es necesario volver
+a instalarlas.
+
+Nota: Para ejecutar "composer install" es necesario tener Composer disponible en el equipo.
+
+
+5. EJECUTAR TODO CON UN SOLO COMANDO
+
+Desde la carpeta principal del proyecto, ejecuta:
+   php artisan dev
+
+Mantén abierta la terminal mientras trabajas. La terminal mostrará las direcciones para
+abrir el proyecto en el navegador.
+
+
+6. EJECUTAR EL PROYECTO POR SEPARADO
+
+Si prefieres iniciar cada parte de forma independiente, abre dos terminales ubicadas en
+la carpeta principal del proyecto.
+
+Terminal 1 - servidor de Laravel:
+   php artisan serve
+
+Terminal 2 - servidor de desarrollo de Vue/Vite:
+   npm run dev
+
+Mantén abiertas las dos terminales. Normalmente, Laravel estará disponible en:
+   http://127.0.0.1:8000
+
+Usa la dirección exacta que aparezca en la terminal.
+
+Para detener cualquier servidor, selecciona su terminal y presiona Ctrl + C.
+
+
+7. SI UN COMANDO NO FUNCIONA
+
+- Confirma que la terminal esté abierta en la carpeta que contiene "artisan".
+- Ejecuta nuevamente "php -v", "node -v" y "npm -v".
+- Después de modificar el Path, cierra y vuelve a abrir la terminal y el editor.
+- Si faltan dependencias, ejecuta "composer install" o "npm install", según corresponda.
+- Revisa el archivo .env y la configuración de la base de datos si Laravel muestra errores
+  de conexión.
+
+
+8. OTRAS OPCIONES
+
+- PHP se puede descargar desde su sitio oficial:
+  https://www.php.net/downloads.php
+
+- También se puede usar Laragon para tener PHP y otras herramientas de desarrollo en
+  Windows con menos configuración:
+  https://laragon.org/
+
+Estas opciones son alternativas. Si ya recibiste PHP y Node junto con el proyecto y todo
+funciona correctamente, puedes utilizar los archivos incluidos.
+
