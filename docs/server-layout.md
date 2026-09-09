@@ -18,6 +18,32 @@ The split is the single most important thing to understand about this setup.
 Changing files in `aventa/` does nothing to the live site on its own. The site
 only changes when `public_html/` changes.
 
+## Inside `aventa/`
+
+Confirmed September 2026. Standard Laravel 12 layout:
+
+```
+app/  bootstrap/  config/  database/  public/  resources/  routes/
+storage/  tests/  vendor/  node_modules/
+.editorconfig  .env  .env.example  .gitattributes  .gitignore
+artisan  composer.json  composer.lock  package.json  package-lock.json
+phpunit.xml  README.md  vite.config.js
+.idea/  .vscode/
+```
+
+Two findings worth recording:
+
+**There is no `.git` folder.** The previous developer's version history does not
+exist on the server. He worked locally and uploaded files. This confirms the
+repository had to be started fresh, and that his own repo is the only place any
+history exists.
+
+**`.idea/` and `.vscode/` are present**, meaning he edited directly in this
+folder at least sometimes. Both are IDE settings folders and are gitignored.
+
+Most files date to April through August 2025. `public/` was last modified
+October 2025.
+
 ## Subdomains
 
 | Path | Notes |

@@ -115,36 +115,63 @@ unzip -q aventa-source.zip -d aventa-extracted
 ls aventa-extracted
 ```
 
-If `ls` shows a single `aventa` folder, the real files are one level down. Copy
-the contents across:
+If `ls` shows a single `aventa` folder, the real files are one level down. That
+is the expected case, and it is what the commands below assume. If instead you
+see `artisan` and `package.json` directly, remove `aventa/` from the paths in
+the two commands that follow.
+
+Now copy the files across:
 
 ```bash
-rsync -av --exclude '.git' \
+rsync -av \
+  --exclude '.git' \
+  --exclude '.gitignore' \
+  --exclude '.gitattributes' \
+  --exclude 'README.md' \
   ~/Downloads/aventa-extracted/aventa/ \
-  ~/Documents/aventa/
-```
-
-If instead `ls` already shows `artisan` and `package.json` directly, drop the
-`aventa/` from that path:
-
-```bash
-rsync -av --exclude '.git' \
-  ~/Downloads/aventa-extracted/ \
   ~/Documents/aventa/
 ```
 
 Keep the trailing slashes. They mean "the contents of", which is what you want.
 
+**Why the three extra excludes.** The project already contains its own
+`.gitignore`, `.gitattributes` and `README.md` from the previous developer.
+Without those exclude lines, rsync would overwrite the versions in this repo:
+
+- `.gitignore` would drop back to a smaller version, weakening the protection
+  that stops `.env` and `node_modules` from being committed
+- `README.md` would be replaced by Laravel's stock framework readme, which says
+  nothing about Aventa
+
+His `.gitignore` is probably just Laravel's default and losing it costs nothing.
+But check before assuming. Print it and send the output to Claude:
+
+```bash
+cat ~/Downloads/aventa-extracted/aventa/.gitignore
+```
+
+If it contains anything project-specific, those lines get merged into the
+repo's version.
+
 ### 3e. Confirm you got the real thing
 
 ```bash
 cd ~/Documents/aventa
-ls artisan package.json composer.json
+ls artisan package.json composer.json vite.config.js
 ls resources/js/src/locales/
 ```
 
-You should see `artisan`, `package.json`, `composer.json`, and the locale files
-(`es.json`, `en.json`). If any are missing, stop and ask before committing.
+Expected: `artisan`, `package.json`, `composer.json`, `vite.config.js`, and the
+locale files (`es.json`, `en.json`).
+
+Then confirm the repo's own files survived:
+
+```bash
+wc -c .gitignore README.md
+```
+
+`.gitignore` should be roughly 2000 bytes, not 286. If it says 286, the excludes
+did not apply. Stop and ask before committing.
 
 ## Step 4: Look at what git sees, before committing anything
 
