@@ -25,11 +25,19 @@ changes are code changes.
 ```
 resources/js/src/locales/es.json   Spanish copy (primary market language)
 resources/js/src/locales/en.json   English copy
-resources/js/                      Vue components, pages, router
+resources/js/src/pages/            11 page components (see below)
+resources/js/src/components/       18 shared components
+resources/js/src/data/             structured content: catalogos, instalaciones,
+                                   medias, trabajos, paises, modelo
+resources/js/src/router/i18n.js    vue-i18n setup
 resources/views/                   the single Blade view Laravel serves
 routes/web.php                     Laravel routes (SPA catch-all)
 public/build/                      Vite output. Generated. Never edit or commit.
+public/models/house_aventa.glb     124 MB, gitignored, exceeds GitHub's limit
 ```
+
+Pages: `Inicio`, `Ventanas`, `Puertas`, `Catalogo`, `Contacto`, `Inspiracion`,
+`DesignExperience`, `PlaneaVisita`, `Merida`, `AvisoPrivacidad`, `Loader`.
 
 ## Rules
 
@@ -39,7 +47,30 @@ public/build/                      Vite output. Generated. Never edit or commit.
 
 2. **Never change one language without the other.** `es.json` and `en.json` must
    have identical key structures. A missing key renders as a raw key string on
-   the live site. Verify parity after any copy change.
+   the live site. Verify parity after any copy change. As of the September 2026
+   import they are in perfect parity: 120 keys each, zero mismatches. Keep it
+   that way.
+
+   **But most of the site is not translated at all.** Measured coverage:
+
+   | Locale key prefix | Keys | Covers |
+   |---|---|---|
+   | `ini_` | 99 | Inicio (homepage) |
+   | `nav_` | 11 | Navigation |
+   | `f_` | 5 | Footer |
+   | `found_` | 3 | misc |
+   | `con_` | 2 | Contacto (partial) |
+
+   `Inicio.vue` makes 94 i18n calls. `Ventanas.vue`, `Puertas.vue` and
+   `Merida.vue` make one each. `Contacto.vue` and `Catalogo.vue` make none.
+   Their copy is hardcoded Spanish in the templates, for example
+   `>Cotizar Proyecto<` and `>El equilibrio perfecto entre estética y
+   eficiencia.<` in `Ventanas.vue`.
+
+   So the English site is the homepage, the nav and the footer. A visitor who
+   switches to English and clicks Ventanas or Puertas gets Spanish. Treat
+   extracting those pages into the locale files as real, scoped work, not an
+   incidental cleanup, and confirm with Sophia before starting it.
 
 3. **Spanish is the primary language.** Spanish is what most visitors see. When
    copy quality has to be prioritized, prioritize Spanish. Use Mexican business
