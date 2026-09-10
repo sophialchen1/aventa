@@ -117,6 +117,29 @@ Total account usage: **5,536 MB**.
 about 0.28 MB. The actual application logic is tiny. Essentially all the weight
 is media.
 
+## The 124 MB 3D model
+
+`public/models/house_aventa.glb` is **124 MB in a single file**.
+
+It cannot go in GitHub. The per-file hard limit is 100 MB, and a push containing
+it is rejected outright. It is excluded in `.gitignore` and must be backed up
+separately. It currently exists in three places: the server's `aventa/public`,
+the server's `public_html/models`, and Sophia's Mac.
+
+Worth investigating on its own merits, separately from the git question:
+
+- **Where does it load?** If any page fetches this model on load, every visitor
+  to that page downloads 124 MB. On Mexican mobile data that is minutes of
+  waiting and a real cost to the visitor. If it loads only on interaction, the
+  exposure is limited to people who ask for it.
+- **Can it be compressed?** glTF/GLB models routinely compress by 90% or more
+  with Draco or Meshopt without visible quality loss. A 124 MB model is very
+  likely an unoptimized export. Getting it under 10 MB is a realistic target and
+  would also make the git question disappear.
+
+The homepage measured LCP of 3.9s, which suggests the model is *not* loading
+there. That is worth confirming rather than assuming.
+
 ## The media problem
 
 **`public_html/media/` is 1,134 MB. `aventa/public/` in total is 364 MB.** The
