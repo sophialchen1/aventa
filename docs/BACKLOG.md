@@ -57,8 +57,50 @@ This was not visible in the old source, which used a rotating set of JPEGs for
 the hero instead. It explains why the live site is far slower than anything the
 stale code could account for.
 
-**To size it:** check `public_html/media/bannerHome.mp4` and
-`public_html/media/sobre_aventa_2026.mp4` in cPanel.
+**Measured 14 Sep 2026:**
+
+| File | Size | `preload` |
+|---|---|---|
+| `sobre_aventa_2026.mp4` | **227.02 MB** | `auto` |
+| `bannerHome.mp4` | **65.64 MB** | `auto` |
+| `house_aventa.glb` | 124 MB | `<link rel=preload>` |
+| homepage photographs | 20.2 MB | n/a |
+
+Chrome's network panel on the live homepage, with cache enabled and no
+throttling: **130 requests, 170 MB of resources, 1.7 minutes to finish
+loading.**
+
+A 227 MB video, set to download in full before the visitor scrolls anywhere
+near it, is the single largest problem on this site.
+
+### The hero used to be photographs
+
+In `Inicio.vue` the rotating photo banner is still in the file, commented out,
+directly above the video that replaced it:
+
+```html
+<!--<img class="object-cover absolute w-full h-full transition-opacity duration-2000"
+     v-for="(img, i) in banner" ... >-->
+```
+
+The `banner` array of 14 images is still declared, and `bannerInterval` still
+runs a timer cycling an index nothing reads. Dead code.
+
+So there is **no** photo-first-then-video arrangement. The photos were replaced
+by the video outright. `public_html/media/banner_home/` still holds all 14,
+including `banner_1.jpg` at 15.2 MB and `banner_2.jpg` at 18.35 MB, now unused.
+
+### Fixes, in order of payoff
+
+1. `preload="none"` on the about-us video, with a poster image. It is far down
+   the page and most visitors never reach it. Saves 227 MB.
+2. `preload="none"` or `metadata` on the hero video, with a poster frame so
+   something appears instantly. Saves most of 65 MB.
+3. Remove the `<link rel="preload">` for the 3D model. Saves 124 MB.
+4. Compress both videos. 227 MB is enormous for web video; properly encoded
+   H.264 or AV1 at 1080p should be single-digit MB per minute.
+5. Compress the three large homepage photographs. Saves 19 MB.
+6. Delete the dead banner code and the 14 unused images.
 
 **Likely fix:** `preload="metadata"` or `preload="none"` instead of `auto`, plus
 a poster image so something appears immediately. Compress the videos. Consider
