@@ -188,7 +188,28 @@ The missing alt text is simultaneously an SEO defect: Aventa competes on visual
 quality, holds a 1.1 GB photography library, and none of it is legible to a
 search engine.
 
-## 6. Code hygiene
+## 6. The project could not be built from a clean checkout
+
+**Severity: high. Discovered by attempting it.**
+
+`resources/js/app.js` line 10:
+
+```js
+import '@flaticon/flaticon-uicons/css/regular/rounded.css'
+```
+
+That package appeared in neither `package.json` nor `package-lock.json`. A clean
+checkout followed by `npm install && npm run build` failed outright.
+
+The site built on the developer's machine because the package was installed
+there locally and never recorded. Nobody else could reproduce a build, which
+means no colleague, contractor or successor could have shipped a change without
+first diagnosing this.
+
+Handing over a project that does not build is a more consequential omission than
+any single item in section 7, because it blocks every other kind of work.
+
+## 7. Code hygiene
 
 **Severity: low individually. Collectively it indicates the absence of review.**
 
@@ -212,7 +233,7 @@ afterwards.
 terminators, consistent with Windows editing against a Linux server, with no
 `.gitattributes` normalisation in place to manage it.
 
-## 7. Handover practice
+## 8. Handover practice
 
 **Severity: high, and the reason the first days of this engagement were spent on
 recovery rather than work.**

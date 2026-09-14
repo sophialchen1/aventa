@@ -136,7 +136,15 @@ compliance one.
 ## P2 · Reach and quality
 
 ### 9. The site is not actually bilingual
-**Confirmed.** The language toggle promises English; the site delivers it for
+**Confirmed. Homepage fixed 2026-09-14, ten pages remain.**
+
+> **Progress:** the homepage is done. 18 hardcoded strings were wired to i18n,
+> 11 new keys added, parity now 131/131. Remaining: Ventanas (28 strings),
+> Puertas (25), PlaneaVisita (30), Merida (10), Contacto (9), Inspiracion (7),
+> Catalogo (5), plus leftovers in navbar and bottombar. AvisoPrivacidad (32) is
+> deliberately excluded, see below.
+
+**Original finding.** The language toggle promises English; the site delivers it for
 the homepage, navigation and footer only.
 
 | Page | i18n calls |
@@ -189,6 +197,34 @@ and touch target items above.
 "Browser errors were logged to the console." Needs the console output read.
 
 ---
+
+### 12b. The project could not be built from a clean checkout
+**Confirmed. Fixed 2026-09-14.**
+
+`resources/js/app.js` line 10 imports `@flaticon/flaticon-uicons`, which
+appeared in neither `package.json` nor `package-lock.json`. Anyone cloning the
+repository and running `npm install && npm run build` got a module resolution
+failure and no site.
+
+It worked only on the previous developer's machine, where the package was
+installed locally but never recorded as a dependency. Added to `package.json`
+and verified with a clean build.
+
+Worth noting for the future: this is exactly the class of defect that having the
+code in version control surfaces immediately and having it only on one laptop
+hides indefinitely.
+
+### 12c. `npm ci` fails on platform-specific binaries
+**Confirmed. Workaround known, no fix needed yet.**
+
+`npm ci` does not reliably install the platform-native binaries for `rollup`,
+`lightningcss` and `@tailwindcss/oxide`, even though the lockfile lists them.
+This is a known npm bug rather than anything wrong with this project.
+
+If `npm run build` fails with "Cannot find module '@rollup/rollup-...'" or
+"Failed to load native binding", the fix is to use `npm install` rather than
+`npm ci`, or to install the binaries for your platform explicitly. On a Mac the
+names end in `-darwin-arm64` (Apple Silicon) or `-darwin-x64` (Intel).
 
 ## P3 · Housekeeping and unknowns
 
@@ -252,6 +288,41 @@ recurs, read the Document Root column in cPanel -> Domains directly.
 locally and uploaded files, so all history lives in his own GitHub repository,
 which has not been handed over. Worth continuing to ask for. No longer urgent
 now that the code is in version control.
+
+### 19b. Automate deployment with a GitHub Action
+**Wanted, not urgent.** Sophia's stated preference: build this eventually, not
+now.
+
+A GitHub Action can run `npm run build` on every push to `main` and upload the
+result over FTP, reducing the whole deploy to `git push`. It removes the
+manual upload, the risk of forgetting a folder, and the 11pm mistakes.
+
+Prerequisites, in order:
+1. Item 1 in P0, the public path fix, so there is only one upload target.
+2. A dedicated FTP account in cPanel scoped to the document root, rather than
+   reusing the main account credentials.
+3. Those credentials stored as GitHub repository secrets, never in the repo.
+4. A deliberate decision about whether the Action should also clear the old
+   `build` directory, given item 14.
+
+Worth doing once the manual process is familiar enough that Sophia can tell
+when the automated one has gone wrong.
+
+### 19c. Decide the English register: US buyers or international specifiers
+**Open decision, pending team confirmation.**
+
+The current Spanish copy is B2C and benefit-led. Translated faithfully it
+produces US-consumer English, which is what the September 2026 translation work
+is doing, deliberately, to fix a language switcher that currently lies.
+
+Sophia's current thinking is that Aventa will eventually lean international,
+confirming with the team first. If that is the direction, the English copy
+becomes a rewrite rather than a translation: Passivhaus certification,
+U-values in W/m²K, acoustic ratings in dB, project references and drawings,
+in a restrained register aimed at someone checking whether Aventa meets a spec.
+
+Treat that as a content and positioning project, separate from the translation
+work, and do not start it without an explicit decision.
 
 ### 20. Deploys are fully manual with no automation
 **Confirmed.** Build locally, upload to cPanel by hand. No CI/CD, no rollback
