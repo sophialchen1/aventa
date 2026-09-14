@@ -14,10 +14,38 @@ The server has two separate folders:
 - `/home/aveniqck/aventa` -> the full Laravel project. **Not** what visitors see.
 - `/home/aveniqck/public_html` -> the real document root. **This** is the live site.
 
-`public_html` is a manual copy of the project's `public/` folder. So the only
-thing a normal content or design change needs is:
+A normal content or design change needs the rebuilt `build` folder uploaded to
+**both** places:
 
-> rebuild `public/build` locally, then replace `public_html/build` on the server.
+> rebuild `public/build` locally, then replace **`aventa/public/build`** *and*
+> **`public_html/build`** on the server.
+
+### Why both, and what goes wrong if you skip one
+
+`bootstrap/app.php` does not override Laravel's public path, so `public_path()`
+resolves to `/home/aveniqck/aventa/public`. The `@vite()` directive in
+`resources/views/welcome.blade.php` reads its manifest from there:
+
+```
+/home/aveniqck/aventa/public/build/manifest.json
+```
+
+Vite gives every built file a content hash in its name, and the manifest is the
+lookup table from "app.js" to "app-D4f2a1.js". So:
+
+- **`aventa/public/build/`** is where Laravel *reads* which filenames to put in
+  the HTML.
+- **`public_html/build/`** is where the browser *downloads* those files from.
+
+Upload to only `public_html` and Laravel still reads the old manifest, writes
+the old filenames into the page, and the browser happily fetches those old files,
+which are still sitting there because nothing is ever deleted. **The site
+silently keeps serving the previous version.** Your change appears to have done
+nothing, with no error anywhere.
+
+That failure mode is almost certainly why both build folders have grown so
+large: `aventa/public/build` is 240 MB and `public_html/build` is 167 MB, when a
+single build should be a fraction of that.
 
 ---
 
@@ -59,10 +87,15 @@ build-backup-YYYY-MM-DD
 
 This is your undo button. Takes 10 seconds and has saved many people.
 
-### 5. Upload the new build
+### 5. Upload the new build, to both locations
 
-Upload the **contents** of your local `public/build/` into `public_html/build/`
-on the server, overwriting.
+Upload the **contents** of your local `public/build/` into **both**:
+
+1. `/home/aveniqck/aventa/public/build/`
+2. `/home/aveniqck/public_html/build/`
+
+Both, every time. See the explanation above for why skipping the first makes
+your change silently fail to appear.
 
 Two ways:
 - **cPanel File Manager**: compress `public/build` to a .zip locally, upload the

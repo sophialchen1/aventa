@@ -52,6 +52,37 @@ day Sophia was not working in it. Probably routine, worth one look.
 Over 70% of leads come from paid Meta and Google. Everything here degrades the
 return on that spend.
 
+### 4b. The 124 MB 3D model is preloaded on every single page
+**Confirmed.** This is the single highest-value fix on this list and it is one
+line of code.
+
+`resources/views/welcome.blade.php` line 8:
+
+```html
+<link rel="preload" href="/models/house_aventa.glb" as="fetch" crossorigin>
+```
+
+That sits in the `<head>` of every page on the site. `rel="preload"` instructs
+the browser to fetch the file **immediately, at high priority**, before it gets
+to the things the visitor actually needs. It is also requested again from
+`MainLayout.vue`, which wraps every page.
+
+So every visitor to every page begins downloading 124 MB the moment they arrive,
+competing for bandwidth with the CSS, the JavaScript and the images that would
+otherwise render the page. This answers the open question from item 7: the model
+is not lazy-loaded on interaction. It loads everywhere, always.
+
+This very likely accounts for most of the 3.1 s blank screen in item 5, and for
+the image that "takes forever to load".
+
+**Fix:** remove the preload, and load the model only on the page and interaction
+that actually needs it (the comparison modal in `VsModal.vue`). Then compress
+the model per item 7. Verify with a fresh PageSpeed run before and after.
+
+**Caution:** the 3D house is presumably a deliberate product feature. The fix is
+to stop loading it for people who never open it, not to remove the feature.
+Check with Sophia on where it is meant to appear.
+
 ### 5. Mobile visitors see a blank screen for 3.1 seconds
 **Confirmed.** Google Core Web Vitals assessment: **Failed**.
 
@@ -89,11 +120,10 @@ the premise first by checking the file size of two or three images.
 **Suspected.** 124 MB is extreme for a single GLB. Models like this routinely
 compress by 90%+ with Draco or Meshopt with no visible quality loss.
 
-**Unknown and worth answering first:** which pages load it, and whether it loads
-on page load or only on interaction. If any page fetches it on arrival, every
-visitor to that page downloads 124 MB. On Mexican mobile data that is minutes of
-waiting and a real cost to the visitor. The homepage LCP of 3.9 s suggests it is
-not loading there, but that is an inference, not a measurement.
+**Answered, and worse than assumed.** See item 4b: the model is preloaded in the
+`<head>` of every page, so every visitor on every page downloads 124 MB at high
+priority. The earlier guess that the homepage LCP of 3.9 s meant the model was
+not loading there was wrong. Remove the preload first (4b), then compress.
 
 ### 8. Touch targets are too small on mobile
 **Confirmed.** Lighthouse accessibility audit: "Touch targets do not have
@@ -129,6 +159,20 @@ matters for the US market and for any international architect evaluating Aventa.
 **Fix:** extract each page's strings into `es.json`, translate into `en.json`,
 replace with i18n keys. Scoped work, page by page. `es.json` and `en.json` are
 currently in perfect parity at 120 keys each, so the foundation is sound.
+
+### 9b. The page always declares itself Spanish
+**Confirmed.** `resources/views/welcome.blade.php` line 2 is hardcoded:
+
+```html
+<html lang="es">
+```
+
+It never changes when a visitor switches to English. That attribute is how
+search engines decide which language a page is in and how screen readers choose
+a pronunciation. An English page announcing itself as Spanish undercuts the
+English version in search and reads incorrectly to assistive technology.
+
+**Fix:** set `lang` from the active locale.
 
 ### 10. Images have no alt attributes
 **Confirmed.** Flagged in both the SEO and Accessibility audits. Alt text is how
