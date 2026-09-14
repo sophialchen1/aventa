@@ -8,7 +8,7 @@
         <div class="flex items-center justify-center gap-10 p-6 rounded-xl">
             <!-- Logo -->
             <img
-                class="w-40 lg:w-[180px] border-r-2 border-[#918164] pr-6"
+                class="w-40 lg:w-[180px] border-r-2 border-[#ee7465] pr-6"
                 src="../assets/media/aventaLogo.png"
                 alt="Aventa Logo"
             />
@@ -51,7 +51,7 @@
 .jimu-primary-loading:before,
 .jimu-primary-loading:after,
 .jimu-primary-loading {
-    background: #918164;
+    background: #ee7465;
     -webkit-animation: loading-keys-app-loading 0.8s infinite ease-in-out;
     animation: loading-keys-app-loading 0.8s infinite ease-in-out;
     width: 13.6px;
@@ -69,13 +69,13 @@
 @-webkit-keyframes loading-keys-app-loading {
     0%, 80%, 100% {
         opacity: 0.75;
-        box-shadow: 0 0 #918164;
+        box-shadow: 0 0 #ee7465;
         height: 32px;
     }
 
     40% {
         opacity: 1;
-        box-shadow: 0 -8px #918164;
+        box-shadow: 0 -8px #ee7465;
         height: 40px;
     }
 }
@@ -83,13 +83,13 @@
 @keyframes loading-keys-app-loading {
     0%, 80%, 100% {
         opacity: 0.75;
-        box-shadow: 0 0 #918164;
+        box-shadow: 0 0 #ee7465;
         height: 32px;
     }
 
     40% {
         opacity: 1;
-        box-shadow: 0 -8px #918164;
+        box-shadow: 0 -8px #ee7465;
         height: 40px;
     }
 }

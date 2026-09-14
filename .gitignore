@@ -72,3 +72,12 @@ yarn-error.log*
 
 # Exceeds GitHub 100 MB per-file limit. Backed up separately, see docs.
 /public/models/house_aventa.glb
+
+# Large media: exceeds GitHub limits. Lives on the server, backed up separately.
+*.mp4
+*.mov
+*.glb
+
+# Site media: served directly from the server, too large for git.
+# Keep a backup in Google Drive (see docs/BACKLOG.md item 1).
+/public/media/

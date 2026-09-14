@@ -70,15 +70,15 @@ function backAudio(val: number) {
                 <div class="w-full flex justify-end">
                     <h2 class="flex-1 font-light italic tracking-wider text-2xl lg:text-[2.5rem] text-start">Representación AventaWindows</h2>
 
-                    <button @click="emit('click')" class="h-fit w-fit border rounded-lg px-2 text-[#cccccc] cursor-pointer hover:text-[#918164] lg:text-lg">X</button>
+                    <button @click="emit('click')" class="h-fit w-fit border rounded-lg px-2 text-[#cccccc] cursor-pointer hover:text-[#657d88] lg:text-lg">X</button>
                 </div>
 
                 <div class="flex-1 flex justify-start overflow-hidden rounded-lg relative bg-gray-400">
                     <img :src="img_aventa" class="w-full h-full object-cover" alt="Presentacion Aventa"/>
 
                     <div class="absolute inset-x-2 bottom-2 flex justify-end gap-2">
-                        <button class="p-2 w-40 rounded-lg cursor-pointer" :class="!vs ? 'text-white bg-[#918164]' : 'bg-white text-black'" @click="backAudio(2)">Sin Aventa</button>
-                        <button class="p-2 w-40 rounded-lg cursor-pointer" :class="vs ? 'text-white bg-[#918164]' : 'bg-white text-black'" @click="backAudio(1)">Con Aventa</button>
+                        <button class="p-2 w-40 rounded-lg cursor-pointer" :class="!vs ? 'text-white bg-[#657d88]' : 'bg-white text-black'" @click="backAudio(2)">Sin Aventa</button>
+                        <button class="p-2 w-40 rounded-lg cursor-pointer" :class="vs ? 'text-white bg-[#657d88]' : 'bg-white text-black'" @click="backAudio(1)">Con Aventa</button>
                         <bg-audio v-if="props.show" :vs="vs"/>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ export const medias = [
     {
         id: 1,
         name: 'whatsapp',
-        url: 'https://bit.ly/ChatAventa',
+        url: /*'https://wa.me/message/RL46H5JT7E3SM1'*/ 'https://api.whatsapp.com/send/?phone=%2B524151246467',
         evento: 'whatsapp_sec',
         target: '_blank',
         imagen: {
@@ -47,7 +47,7 @@ export const medias = [
     {
         id: 4,
         name: 'linkedin',
-        url: 'https://www.linkedin.com/company/aventapuertasyventanas/',
+        url: 'https://www.linkedin.com/company/aventa-windows',
         evento: 'linkedin_click',
         target: '_blank',
         imagen: {

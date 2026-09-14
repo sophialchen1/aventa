@@ -5,14 +5,14 @@ export const instalaciones = [
                 id: 1,
                 name_o: "San Miguel de Allende",
                 name_a: "SMA",
-                direccion: "Rancho La Troje, Km. 3.0 Carretera a Dr. Mora, 37740 San Miguel de Allende, Gto.",
+                direccion: "Polígono Empresarial San Miguel Circuito Corral de Piedras 22 San Miguel de Allende, Guanajuato 37884",
                 telefono: "52 415 124 6467",
-                url_map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d410.9953030068289!2d-100.70660985427381!3d20.939868134837447!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b533ad99666dd%3A0x54e0a88cae20a967!2sAventa%20Windows!5e0!3m2!1ses-419!2smx!4v1758671960294!5m2!1ses-419!2smx",
+                url_map: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14908.980438690773!2d-100.6314178!3d20.9024561!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b53cff88de3cd%3A0xbcb56009f8e1ee85!2sCircuito%20Corral%20de%20Piedras%2040!5e0!3m2!1ses-419!2smx!4v1782764909450!5m2!1ses-419!2smx",
                 img: [
                     "/media/fab-sma.jpg",
                     "/media/oficina_aventa.jpg",
                     "/media/juntas_aventa.jpg",
-                    "/media/fabrica_aventa.jpg"
+                    "/media/demostracion_sma.jpg"
                 ]
             }
         ],

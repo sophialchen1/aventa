@@ -6,46 +6,6 @@ import MainLayout from "@/src/layouts/MainLayout.vue";
 
 const img_home = "/media/puertas_home.JPG";
 
-const beneficios = [
-    'Aislamiento superior: Confort térmico y acústico excepcional para espacios más silenciosos, privados y eficientes.',
-    'Diseño personalizado: Selecciona el tipo de madera, acabado y sistema de apertura que mejor se adapte a tu estilo y necesidades.',
-    'Máxima durabilidad: Fabricadas con perfiles de madera laminada sólida que resisten deformaciones y alargan la vida útil de tu pieza.',
-    'Instalación de presición: Montaje experto desde el primer milímetro hasta el último detalle, garantizando un cierre perfecto.'
-];
-
-const caracteristicas = [
-    'Disponibles en nuestras líneas Luxury y Essential, para diferentes estilos y necesidades.',
-    'Cierre hermético que supera a sistemas convencionales, bloqueando eficazmente ruido y variaciones de temperatura.',
-    'Elaboradas con madera sustentable, a diferencia de materiales con mayor impacto ambiental.',
-    'Fácil mantenimiento, incluso en condiciones exigentes, frente a opciones tradicionales que requieren cuidados constantes.',
-    'Estructura sólida que ofrece mayor estabilidad y rigidez frente a materiales huecos o de baja densidad'
-];
-
-
-const vs = [
-    {
-        op1: "Madera Sólida",
-        op2: "Aglomerado"
-    },
-    {
-        op1: "Cierre Hermético",
-        op2: "Ninguno"
-    },
-    {
-        op1: "Personalización Total",
-        op2: "Parcial"
-    },
-    {
-        op1: "Durabilidad Exterior/Interior",
-        op2: "Limitada"
-    }
-];
-
-function dividirBeneficio(texto) {
-    const [titulo, descripcion] = texto.split(':');
-    return { titulo, descripcion };
-}
-
 const openForm = ref(false);
 
 function openFormW(){
@@ -66,15 +26,14 @@ function openFormW(){
 
             <div class="relative flex flex-col px-5 gap-8 justify-center w-full lg:max-w-[1150px]">
                 <div class="flex flex-col gap-0">
-                    <tittle-custom titulo="Puertas de Madera con Tecnología Termoacústica y Diseño Personalizado"/>
-                    <h2 class="text-center text-white leading-none italic tracking-wider text-base lg:leading-7 lg:text-left lg:text-[1.8rem] lg:max-w-[900px]">
-                        De madera sólida termoacústicas, combinamos tecnología de alto nivel con el arte de lo natural. Transformamos espacios con diseño, silencio y distinción.
+                    <tittle-custom titulo="Puertas de madera laminada diseñadas a la medida: aislantes de ruido y temperatura."/>
+                    <h2 class="text-center text-white leading-none italic tracking-wider text-base lg:leading-7 lg:text-left lg:text-[1.8rem] lg:max-w-[900px]">Combinamos fabricación mexicana sostenible con precisión alemana de última generación. Nuestras soluciones ofrecen un alto desempeño termoacústico, diseñadas para adaptarse a las exigencias arquitectónicas de tu proyecto.
                     </h2>
                 </div>
                 <div class="flex justify-center gap-2 lg:gap-5 lg:justify-start">
                     <router-link
-                        class="font-bold items-center w-fit py-2 px-1 bg-[#275A50] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:flex-none lg:py-4 lg:px-5"
-                        to="/inspiracion">
+                        class="font-bold items-center w-fit py-2 px-1 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:flex-none lg:py-4 lg:px-5"
+                        to="/design-experience">
                         <div class="flex gap-3 items-center text-sm lg:text-base">
                             <p>Descubrir Diseños</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
@@ -82,7 +41,7 @@ function openFormW(){
                         </div>
                     </router-link>
                     <button
-                        class="font-bold items-center w-fit py-2 cursor-pointer px-1 bg-[#275A50] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" @click="openFormW">
+                        class="font-bold items-center w-fit py-2 cursor-pointer px-1 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" @click="openFormW">
                         <div class="flex gap-1 items-center text-sm lg:text-base">
                             <p>Cotizar Proyecto</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
@@ -97,96 +56,234 @@ function openFormW(){
         <!--2-->
         <div class="flex justify-center">
             <div class="w-full lg:max-w-[1150px] px-5 flex flex-col py-8 gap-5 lg:px-0">
-                <h2 class="text-[1.7rem] text-center text-[#918164] italic lg:text-left lg:text-[2.5rem]">Cada puerta es un portal a lo extraordinario</h2>
-                <div class="flex flex-col w-full h-max gap-5 lg:gap-10 lg:flex-row">
-                    <div class="h-[150px] md:h-80 relative lg:h-full overflow-hidden rounded-xl lg:flex-2/6">
-                        <img class="h-full w-full object-cover "
-                             src="../assets/media/Puertas-landing.png" alt="" title="puertas-landing">
+                <h2
+                    class="text-[1.55rem] text-center text-[#657d88] italic lg:text-left lg:text-[2.25rem]"
+                >
+                    Cada puerta es un portal a lo extraordinario
+                </h2>
+
+                <div class="flex flex-col w-full h-max gap-6 lg:gap-10 lg:flex-row">
+                    <!-- Imagen -->
+                    <div
+                        class="h-[230px] md:h-[380px] lg:h-[520px] overflow-hidden rounded-xl lg:basis-[35%] lg:flex-none"
+                    >
+                        <img
+                            class="h-full w-full object-cover"
+                            src="../assets/media/puertas.png"
+                            alt="Puerta de madera abierta hacia exterior"
+                            title="Puertas de madera"
+                        />
                     </div>
-                    <div class="lg:flex-4/6 flex flex-col gap-8">
-                        <div class="flex-none grid grid-cols-1 gap-y-2">
-                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">Beneficios Clave
+
+                    <!-- Textos -->
+                    <div class="lg:basis-[65%] flex flex-col justify-center gap-8">
+                        <!-- Beneficios -->
+                        <div class="grid grid-cols-1 gap-y-2">
+                            <h3
+                                class="text-xl text-[#657d88] italic font-bold tracking-wider mb-2 lg:text-[2rem]"
+                            >
+                                Beneficios clave
                             </h3>
-                            <div v-for="i in beneficios" class="flex gap-5 ">
-                                <div class="w-[10px] h-[10px] bg-[#918164] rounded-full mt-1"></div>
-                                <p class="text-[#757575] flex-1 lg:text-xl m-0 leading-5">
-                                    <b>{{ dividirBeneficio(i).titulo }}:</b>{{ dividirBeneficio(i).descripcion }}
+
+                            <div class="flex gap-3">
+                                <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                                    <b>Aislamiento superior.</b> Espacios más silenciosos, privados y eficientes.
                                 </p>
                             </div>
-                        </div>
-                        <div class="flex-none grid grid-cols-1 gap-y-2">
-                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">Características
-                                Destacadas
-                            </h3>
-                            <div v-for="i in caracteristicas" class="flex gap-5 ">
-                                <div class="w-[10px] h-[10px] bg-[#918164] rounded-full mt-1"></div>
-                                <p class="text-[#757575] flex-1 lg:text-xl m-0 leading-5">{{ i }}</p>
+
+                            <div class="flex gap-3">
+                                <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                                    <b>Diseño personalizado.</b> Selecciona el tipo de madera, acabado y sistema de apertura.
+                                </p>
                             </div>
-                        </div>
+
+                    <div class="flex gap-3">
+                        <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                            Fabricadas con <b>perfiles de madera laminada</b> multicapa que evitan deformaciones por humedad o climatología.
+                        </p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                            Instalación milimétrica ejecutada por expertos, asegurando un <b>funcionamiento y cierre hermético superior.</b>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Características -->
+                <div class="grid grid-cols-1 gap-y-2">
+                    <h3
+                        class="text-xl text-[#657d88] italic font-bold tracking-wider mb-2 lg:text-[2rem]"
+                    >
+                        La diferencia está en los detalles
+                    </h3>
+
+                    <div class="flex gap-3">
+                        <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                            <b>Alta ingeniería alemana.</b>
+                        </p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                            Sistema de <b>triple sello</b> perimetral.
+                        </p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                            Fabricación <b>sostenible y amigable con el medio ambiente.</b>
+                        </p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                            Protección <b>contra parásitos y mantenimiento mínimo.</b>
+                        </p>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
+                            Componentes <b>resistentes a la torsión</b> que garantizan un funcionamiento impecable.
+                        </p>
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>
+</div>
         <!--3-->
         <div class="flex justify-center">
-            <div class="w-full px-5 lg:px-0 lg:max-w-[1150px] flex flex-col py-8">
+    <div class="w-full px-5 lg:px-0 lg:max-w-[1150px] flex flex-col py-8">
+        <h2 class="text-center text-xl lg:text-2xl text-black mb-3">
+            Desempeño o estructura
+        </h2>
 
-                <div class="relative bg-white rounded-xl w-full h-max shadow-lg">
-                    <div class="absolute hidden w-[800px] rounded-xl bg-[#E6E9EE] top-0 bottom-0 right-0 lg:flex"></div>
+        <div class="w-full overflow-x-auto">
+            <table class="w-full min-w-[800px] border-collapse text-xs lg:text-sm text-black">
+                <thead>
+                    <tr>
+                        <th class="w-[28%] px-4 py-2 text-center font-normal border-0"></th>
+                        <th class="w-[38%] px-4 py-2 text-center font-normal border-0">
+                            Aventa Wood
+                        </th>
+                        <th class="w-[34%] px-4 py-2 text-center font-normal border-0">
+                            Carpintería tradicional
+                        </th>
+                    </tr>
+                </thead>
 
-                    <div class="relative grid lg:px-10 lg:py-2">
-                        <div class="grid grid-cols-3 text-sm pt-2 lg:pt-0 lg:text-base">
-                            <div class="border-b-4 border-[#918164] px-2 lg:px-4 lg:py-2">
-                                <p class="text-[#918164] font-bold lg:text-lg">Aventa vs Otros</p>
-                            </div>
-                            <div class="border-b-4 border-[#918164] flex justify-center lg:py-2">
-                                <p class="text-[#918164] font-bold lg:text-lg">Aventa</p>
-                            </div>
-                            <div class="border-b-4 border-[#918164] flex justify-center lg:py-2">
-                                <p class="text-[#918164] font-bold lg:text-lg">Otros</p>
-                            </div>
-                        </div>
+                <tbody>
+                    <tr>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
+                            Estabilidad
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
+                            Madera laminada: No se deforma ni se tuerce
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
+                            Se hincha o agrieta
+                        </td>
+                    </tr>
 
-                        <div v-for="(i, index) in vs" :key="index" class="text-sm lg:text-base"
-                             :class="['grid grid-cols-3', index !== vs.length - 1 ? 'border-b-2' : '']">
-                            <div class=" px-2 lg:px-4  flex items-center">
-                                <p class="text-[#757575]">{{ i.op1 }}</p>
-                            </div>
-                            <div class="lg:px-4 flex items-center justify-center">
-                                <img class="w-7 h-7 lg:w-[40px] lg:h-[40px]" src="../assets/media/icons/comprobado.png" alt="comprobado">
-                            </div>
-                            <div class="lg:px-4 py-3 flex justify-center">
-                                <div class="flex items-center justify-center gap-x-1 lg:gap-x-2">
-                                    <img class="w-5 h-5 lg:w-[32px] lg:h-[32px]" src="../assets/media/icons/eliminar.png" alt="eliminar">
-                                    <p class="hidden text-sm lg:w-[100px] text-[#757575] lg:flex lg:text-base">{{ i.op2 }}</p>
-                                </div>
-                            </div>
-                        </div>
+                    <tr>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
+                            Aislamiento
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            <b>Triple sello:</b> Bloquea ruido, frío y calor.<br />
+                            Doble acristalamiento con cámara de aire:
+                            &#40;a elegir depende a las características del proyecto,
+                            aplicable si la pieza lo requiere&#41;.
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            Filtraciones de aire, ruido y temperatura.<br />
+                            Vidrio monolítico sencillo.
+                        </td>
+                    </tr>
 
-                    </div>
-                </div>
+                    <tr>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
+                            Protección
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            Antiparásitos y tintas UV, acabado de poro abierto:
+                            no forma una capa plastificada.
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            Vulnerable al daño: Propensa a plagas y pudrición.
+                            Acabado plastificado.
+                        </td>
+                    </tr>
 
-            </div>
+                    <tr>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
+                            Seguridad
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            Herraje europeo con múltiples puntos de cierre en la periferia
+                            resistente a climas extremos.
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            Herrajes tradicionales propensos a intrusiones y oxidación.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
+                            Mantenimiento
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            No necesita químicos o productos adicionales.
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            Requiere de barnices que encapsulan más la madera.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
+                            Materiales sustentables
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            Certificación FSC y fabricación sustentable.
+                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">
+                            Origen y procedencia desconocido propiciando la tala prohibida de árboles.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
+</div>
 
         <div class="flex  justify-center">
             <div class="w-full lg:max-w-[1150px] px-5 flex flex-col py-8 lg:px-0">
                 <div class="flex flex-col md:flex-row lg:flex-row gap-[2vw] h-[800px] md:h-[300px] lg:h-[350px]">
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car1.JPG"
+                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car1.png"
                              alt="nosotros_ventana">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car2.JPG"
+                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car2.png"
                              alt="nosotros_interior">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car3.JPG"
+                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car3.png"
                              alt="nosotros_exterior">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car4.jpg"
+                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car4.png"
                              alt="nosotros_puerta">
                     </div>
                 </div>
@@ -195,13 +292,13 @@ function openFormW(){
         <!--4-->
         <div class="flex justify-center">
             <div class="w-full lg:max-w-[1150px] p-5 lg:py-8">
-                <div class="bg-white rounded-xl p-3 lg:p-10 border-1 border-[#918164] shadow-lg flex flex-col gap-5 lg:flex-row">
+                <div class="bg-white rounded-xl p-3 lg:p-10 border-1 border-[#657d88] shadow-lg flex flex-col gap-5 lg:flex-row">
                     <div class="flex flex-col flex-1">
-                        <h2 class="text-lg text-center text-[#918164] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">Cada proyecto comienza con una gran entrada</h2>
+                        <h2 class="text-lg text-center text-[#657d88] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">Cada proyecto comienza con una gran entrada</h2>
                         <p class="text-[#757575] md:text-center lg:text-xl">Diseño, aislamiento y durabilidad que necesitas.</p>
                     </div>
                     <div class="flex-none flex flex-col gap-2 lg:gap-4 items-center lg:p-4 lg:flex-row">
-                        <button class="bg-[#2B5A51] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">Solicitar Asesoría</button>
+                        <button class="bg-[#ee7465] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">Solicitar Asesoría</button>
                     </div>
                 </div>
             </div>
@@ -212,7 +309,7 @@ function openFormW(){
                 <div class="w-full flex justify-end items-center">
                     <h2 class="flex-1 text-[#757575] text-xl">Escribe y nos pondremos en contacto</h2>
                     <button @click="openFormW"
-                            class="border rounded-lg py-1 px-2 text-[#cccccc] leading-none cursor-pointer transition-colors duration-300 hover:text-[#918164] lg:text-[1.5rem]">X</button>
+                            class="border rounded-lg py-1 px-2 text-[#cccccc] leading-none cursor-pointer transition-colors duration-300 hover:text-[#657d88] lg:text-[1.5rem]">X</button>
                 </div>
                 <div class="overflow-auto">
                     <div class="hs-form-frame" data-region="na1" data-form-id="e6b36d11-6197-4aa2-815f-9b13fd86cd41" data-portal-id="24148893"></div>

@@ -35,7 +35,6 @@ router.afterEach(() => {
     }, 2000);
 });
 
-
 </script>
 
 <template>
@@ -49,12 +48,10 @@ router.afterEach(() => {
 
     <!-- Contenido con fade-in -->
     <div
-        :class="[
-        isLoading ? 'hidden' : 'block',
-        'transition-opacity duration-700 opacity-100'
-    ]"
+        class="transition-opacity duration-700"
+        :class="isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'"
     >
-        <router-view/>
+        <router-view />
     </div>
 </template>
 

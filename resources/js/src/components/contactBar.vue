@@ -14,7 +14,7 @@ function setLenguaje(lang) {
 </script>
 
 <template>
-    <div class="flex justify-center pt-1 pb-1 px-3 lg:px-0 bg-[#918164] text-white">
+    <div class="flex justify-center pt-1 pb-1 px-3 lg:px-0 bg-[#657d88] text-white">
         <div class="flex w-full items-center max-w-[1150px] justify-end gap-[2vw]">
             <social-medias tam="xs" gap="3" color="blanco"/>
             <div class="flex gap-2 font-bold">

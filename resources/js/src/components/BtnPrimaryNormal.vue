@@ -10,7 +10,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <button class="bg-[#275A50] text-white cursor-pointer rounded-xl py-2 hover:bg-[#568a64]" @click="emit('click')">
+    <button class="bg-[#ee7465] text-white cursor-pointer rounded-xl py-2 hover:bg-[#ee7465]/80" @click="emit('click')">
         {{props.titulo}}
     </button>
 </template>

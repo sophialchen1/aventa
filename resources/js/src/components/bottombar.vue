@@ -52,10 +52,10 @@ function openFormW(){
                     </router-link>
                     <div class="flex w-full gap-2 lg:flex-col lg:justify-center lg:items-center">
                         <router-link
-                            class=" flex-1/2 text-center border border-white/20 rounded-xl py-3 bg-white/10 text-[#918164]/80 hover:bg-white/20 hover:text-yellow-200 hover:shadow-lg transition-all duration-300 lg:w-50"
+                            class=" flex-1/2 text-center border border-white/20 rounded-xl py-3 bg-white/10 text-[#ee7465]/60 hover:bg-white/20 hover:text-[#ee7465] hover:shadow-lg transition-all duration-300 lg:w-50"
                             to="/inspiracion">Inspiración de Diseño</router-link>
                         <button
-                            class="flex-1/2 text-center border border-white/20 rounded-xl cursor-pointer py-3 bg-white/10 text-[#918164]/80 hover:bg-white/20 hover:text-yellow-200 hover:shadow-lg transition-all duration-300 lg:w-50" @click="openFormW">Escríbenos</button>
+                            class="flex-1/2 text-center border border-white/20 rounded-xl cursor-pointer py-3 bg-white/10 text-[#ee7465]/60 hover:bg-white/20 hover:text-[#ee7465] hover:shadow-lg transition-all duration-300 lg:w-50" @click="openFormW">Escríbenos</button>
                     </div>
                 </div>
                 <div class="my-3 h-[1px] bg-[rgba(255,255,255,0.3)] flex-none lg:w-[1px] lg:h-full lg:m-0"></div>
@@ -68,6 +68,9 @@ function openFormW(){
                                     to="/puertas">Puertas</router-link></li>
                             <li class="hover:underline hover:text-white"><router-link
                                     to="/ventanas">Ventanas</router-link></li>
+                            <li class="hover:underline hover:text-white">
+                                <router-link to="/recursos-profesionales">Recursos</router-link>
+                            </li>
                             <li class="hover:underline hover:text-white"><router-link
                                     to="/contacto">Contacto</router-link></li>
                         </ul>
@@ -89,8 +92,10 @@ function openFormW(){
                         <ul class="text-[rgba(255,255,255,0.3)] underline grid grid-cols-2 gap-0.5 lg:flex lg:flex-col lg:gap-1.5 lg:no-underline">
                             <li class="hover:underline hover:text-white"><router-link to="/aviso-privacidad">Aviso de
                                     Privacidad</router-link></li>
-                            <li class="hover:underline hover:text-white"><router-link to="">Política de
-                                    Privacidad</router-link></li>
+                            <li class="hover:underline hover:text-white"><router-link to="/condiciones-venta">Condiciones de Venta</router-link></li>
+                            <li class="hover:underline hover:text-white"><router-link to="/condiciones-compra">Condiciones de Compra</router-link></li>
+                            <li class="hover:underline hover:text-white"><router-link to="/politica-de-garantia">Política de Garantía</router-link></li>
+
                         </ul>
                     </div>
                 </div>

@@ -75,6 +75,36 @@ const routes = [
         }
     },
     {
+        path: "/condiciones-venta",
+        name: "condiciones-venta",
+        component: () => import("../pages/CondicionesVenta.vue"),
+        meta: {
+            title: "Condiciones venta | Aventa Windows",
+            description: "",
+            canonical: "https://www.aventawindows.com/condiciones-venta"
+      }
+    },
+    {
+        path: "/condiciones-compra",
+        name: "condiciones-compra",
+        component: () => import("../pages/TerminosCompra.vue"),
+        meta: {
+            title: "Condiciones compra | Aventa Windows",
+            description: "",
+            canonical: "https://www.aventawindows.com/condiciones-compra"
+        }
+    },
+    {
+        path: "/politica-de-garantia",
+        name: "politica-de-garantia",
+        component: () => import("../pages/PoliticaGarantia.vue"),
+        meta: {
+            title: "Politica Garantia | Aventa Windows",
+            description: "",
+            canonical: "https://www.aventawindows.com/politica-de-garantia"
+        }
+    },
+    {
         path: "/merida",
         name: "Merida",
         component: () => import("../pages/Merida.vue"),
@@ -124,6 +154,11 @@ const routes = [
         path: "/inspiracion",
         name: "inspiracion",
         component: () => import("../pages/Inspiracion.vue"),
+    },
+    {
+        path: "/recursos-profesionales",
+        name: "Recursos Profesionales",
+        component: () => import("../pages/RecursosProfesionales.vue"),
     },
     {
         path: "/:pathMatch",

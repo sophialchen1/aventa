@@ -11,7 +11,7 @@ const props = defineProps({
 })
 </script>
 <template>
-    <router-link class="bg-[#275A50] text-white cursor-pointer rounded-xl py-2 text-center hover:bg-[#568a64]" :to="props.link">
+    <router-link class="bg-[#ee7465] text-white cursor-pointer rounded-xl py-2 text-center hover:bg-[#ee7465]/80" :to="props.link">
         {{props.titulo}}
     </router-link>
 </template>

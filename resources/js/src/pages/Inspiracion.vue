@@ -32,7 +32,7 @@ import SwiperSection from "@/src/layouts/SwiperSection.vue";
 
         <div class="flex justify-center">
             <div class="w-full lg:max-w-[1150px] p-5 lg:px-0 lg:py-12 flex flex-col gap-5 lg:flex-row">
-                <h3 class="flex-1/2 w-full italic font-semibold text-xl text-center text-[#918164] tracking-wider lg:text-left lg:text-[1.8rem]">
+                <h3 class="flex-1/2 w-full italic font-semibold text-xl text-center text-[#657d88] tracking-wider lg:text-left lg:text-[1.8rem]">
                     ¿Buscas ideas para tu proyecto?
                 </h3>
                 <div class="flex-1/2 flex flex-col gap-5">
@@ -40,8 +40,8 @@ import SwiperSection from "@/src/layouts/SwiperSection.vue";
                         Este documento te dará una visión integral de nuestras líneas de puertas y ventanas, con especificaciones, estilos y soluciones a tu medida.
                     </p>
                     <div class="flex justify-center lg:justify-start">
-                        <a class="bg-[#275A50] w-fit px-5 py-2 text-white rounded-xl hover:shadow-xl"
-                           :href="'/media/docs/Copy%20of%20ESP%20-%20Brochure%202025.pdf'" download>Descargar Guía</a>
+                        <a class="bg-[#ee7465] w-fit px-5 py-2 text-white rounded-xl hover:shadow-xl"
+                           :href="'/media/docs/Copy%20of%20DESIGN%20INSPIRATION%20COMP.pdf'" download>Descargar Guía</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@ import SwiperSection from "@/src/layouts/SwiperSection.vue";
 
             <div class="flex flex-col w-full relative gap-2 px-5 lg:flex-row lg:max-w-[1150px]">
                 <div class="flex-1/4 flex flex-col">
-                    <p class="w-full text-[#918164] italic font-semibold text-xl text-center lg:text-left">
+                    <p class="w-full text-[#657d88] italic font-semibold text-xl text-center lg:text-left">
                         Nuestro equipo de expertos está listo para apoyarte.
                     </p>
                 </div>
@@ -79,16 +79,16 @@ import SwiperSection from "@/src/layouts/SwiperSection.vue";
 <style scoped>
 :deep(.swiper-button-next),
 :deep(.swiper-button-prev) {
-    color: #275A50;
+    color: #ee7465;
     z-index: 10;
 }
 
 :deep(.swiper-pagination-bullet-active) {
-    background-color: #275a50;
+    background-color: #ee7465;
 }
 
 input::file-selector-button {
-    background-color: #918164;
+    background-color: #657d88;
     padding: 10px;
     border-radius: 10px;
     color: white;

@@ -38,8 +38,8 @@ function openModal() {
                         <lista-ubicaciones title="NUESTRA FÁBRICA" :items="s.fabricas" :tipo="props.tipo" v-model:selected="seleccionado"/>
                     </div>
                     <div class="row-span-3 px-3 pt-3 hidden lg:flex">
-                        <div class="flex flex-col justify-center items-center gap-2 w-full h-full shadow-md" :class="val ? 'bg-[#918164]/10 rounded-xl' : 'bg-white'">
-                            <h4 class="text-lg font-bold text-center text-[#918164]">¿Eres parte de la industria?</h4>
+                        <div class="flex flex-col justify-center items-center gap-2 w-full h-full shadow-md" :class="val ? 'bg-[#657d88]/10 rounded-xl' : 'bg-white'">
+                            <h4 class="text-lg font-bold text-center text-[#657d88]">¿Eres parte de la industria?</h4>
                             <p class="text-center px-3">{{val ? 'Forma parte de nuestro programa de aliados' : 'Agenda una visita privada'}}</p>
                             <btn-primary-normal v-if="val" :tipo="props.tipo" titulo="Agenda una Reunion" class="w-44" @click="openModal"/>
                             <btn-primary-normal v-else :tipo="props.tipo" titulo="Ver Más" class="w-40"/>
@@ -60,8 +60,8 @@ function openModal() {
                         </div>
                         <div class="flex flex-col gap-5 justify-center w-full h-full px-2">
                             <div>
-                                <h3 class="text-2xl font-bold" :class="val ? 'text-[#918164]':''">{{seleccionado.name_a}}</h3>
-                                <div class="w-full h-1.5" :class="val ? 'bg-[#918164]' : 'bg-black'"></div>
+                                <h3 class="text-2xl font-bold" :class="val ? 'text-[#657d88]':''">{{seleccionado.name_a}}</h3>
+                                <div class="w-full h-1.5" :class="val ? 'bg-[#657d88]' : 'bg-black'"></div>
                             </div>
                             <p class="h-18">{{seleccionado.direccion}}</p>
                             <div class="flex items-center">
@@ -76,8 +76,8 @@ function openModal() {
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col justify-center items-center gap-4 py-7 w-full h-full shadow-md lg:hidden" :class="val ? 'bg-[#918164]/10 rounded-xl' : 'bg-white'">
-                    <h4 class="text-lg font-bold text-center text-[#918164]">¿Eres parte de la industria?</h4>
+                <div class="flex flex-col justify-center items-center gap-4 py-7 w-full h-full shadow-md lg:hidden" :class="val ? 'bg-[#657d88]/10 rounded-xl' : 'bg-white'">
+                    <h4 class="text-lg font-bold text-center text-[#657d88]">¿Eres parte de la industria?</h4>
                     <p class="text-center px-3">{{val ? 'Forma parte de nuestro programa de aliados' : 'Agenda una visita privada'}}</p>
                     <btn-primary-normal v-if="val" :tipo="props.tipo" titulo="Agenda una Reunion" class="w-44" @click="openModal"/>
                     <btn-primary-normal v-else :tipo="props.tipo" titulo="Ver Más" class="w-40"/>

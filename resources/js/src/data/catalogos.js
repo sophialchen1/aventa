@@ -12,10 +12,6 @@ export const cat_en = [
     '/media/cat-en/p11.jpg',
     '/media/cat-en/p12.jpg',
     '/media/cat-en/p13.jpg',
-    '/media/cat-en/p14.jpg',
-    '/media/cat-en/p15.jpg',
-    '/media/cat-en/p16.jpg',
-    '/media/cat-en/p17.jpg',
 ];
 export const cat_es = [
     '/media/cat-es/p1.jpg',
@@ -31,10 +27,6 @@ export const cat_es = [
     '/media/cat-es/p11.jpg',
     '/media/cat-es/p12.jpg',
     '/media/cat-es/p13.jpg',
-    '/media/cat-es/p14.jpg',
-    '/media/cat-es/p15.jpg',
-    '/media/cat-es/p16.jpg',
-    '/media/cat-es/p17.jpg',
 ];
 export const inspiracion = [
     '/media/inspirate/p1.jpg',
@@ -61,4 +53,6 @@ export const inspiracion = [
     '/media/inspirate/p22.jpg',
     '/media/inspirate/p23.jpg',
     '/media/inspirate/p24.jpg',
-]
+    '/media/inspirate/p25.jpg',
+    '/media/inspirate/p26.jpg',
+];

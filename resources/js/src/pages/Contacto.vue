@@ -88,7 +88,7 @@ function openFormW(){
 
             <div class="flex flex-col w-full relative gap-2 px-5 lg:flex-row lg:max-w-[1150px]">
                 <div class="flex-1/4 flex flex-col">
-                    <p class="w-full text-[#918164] italic font-semibold text-xl text-center lg:text-left">
+                    <p class="w-full text-[#657d88] italic font-semibold text-xl text-center lg:text-left">
                         Nuestro equipo de expertos está listo para apoyarte.
                     </p>
                 </div>
