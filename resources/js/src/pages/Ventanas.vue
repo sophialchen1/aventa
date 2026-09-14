@@ -1,46 +1,37 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import {useI18n} from "vue-i18n";
 import TittleCustom from "@/src/components/TittleCustom.vue";
 import MainLayout from "@/src/layouts/MainLayout.vue";
 
+const {t} = useI18n();
+
 const img_home = "/media/ventanas_home.jpeg";
 
-const beneficios = [
-    'Silencio y confort: Aislamiento acústico y térmico que transforma cada espacio en un refugio tranquilo y eficiente.',
-    'Diseño a tu estilo: Estilo, acabado y apertura personalizados para que tus ventanas reflejen tu visión arquitectónica.',
-    'Eficiencia energética: Control de temperatura que reduce el uso de aire acondicionado y calefacción.',
-    'Calidad inigualable: Madera sólida, herrajes europeos y cristales dobles o triples que elevan el estándar en funcionalidad y durabilidad.'
-];
+const beneficios = computed(() => [
+    t('ven_ben1'),
+    t('ven_ben2'),
+    t('ven_ben3'),
+    t('ven_ben4')
+]);
 
 
-const caracteristicas = [
-    'Aperturas disponibles: corredizas, abatibles, proyectables y de guillotina.',
-    'Elaboradas con madera sustentable de alta gama',
-    'Sistema de cierre hermético que optimiza el aislamiento',
-    'Opciones de cristal: doble o triple acristalamiento, templado, con control solar o película anti asalto.',
-    'Fabricación artesanal con precisión industrial para un ajuste impecable.',
-    'Compatibles con shutters, postigos y mosquiteros sin afectar el diseño original.'
-];
+const caracteristicas = computed(() => [
+    t('ven_car1'),
+    t('ven_car2'),
+    t('ven_car3'),
+    t('ven_car4'),
+    t('ven_car5'),
+    t('ven_car6')
+]);
 
-const vs = [
-    {
-        op1: "Madera Sólida",
-        op2: "Aglomerado"
-    },
-    {
-        op1: "Doble o triple acristalamiento",
-        op2: "Parcial"
-    },
-    {
-        op1: "Diseño a medida por apertura y estilo",
-        op2: "Diseños fijos"
-    },
-    {
-        op1: "Aislamiento térmico y sonoro",
-        op2: "Sin aislantes"
-    }
-];
+const vs = computed(() => [
+    {op1: t('ven_vs1a'), op2: t('ven_vs1b')},
+    {op1: t('ven_vs2a'), op2: t('ven_vs2b')},
+    {op1: t('ven_vs3a'), op2: t('ven_vs3b')},
+    {op1: t('ven_vs4a'), op2: t('ven_vs4b')}
+]);
 
 const openForm = ref(false);
 
@@ -65,16 +56,16 @@ function dividirBeneficio(texto) {
 
             <div class="relative flex flex-col gap-8 justify-center w-full px-5 lg:px-0 md:max-w-[800px] lg:max-w-[1150px]">
                 <div class="flex flex-col gap-0">
-                    <tittle-custom titulo="Ventanas de Madera Termoacústicas para Ambientes de Alto Confort"/>
+                    <tittle-custom :titulo="$t('ven_hero_titulo')"/>
                     <p class="text-white text-center leading-none lg:leading-7 italic tracking-wider lg:text-left lg:text-[1.8rem] lg:max-w-[900px]">
-                        De madera sólida termoacústica, diseñadas para iluminar tu espacio sin comprometer la tranquilidad, el diseño ni la eficiencia.
+                        {{ $t('ven_hero_sub') }}
                     </p>
                 </div>
                 <div class="flex justify-center gap-2 lg:gap-5 lg:justify-start">
                     <router-link
                         class="font-bold w-fit text-sm py-2 px-1 bg-[#275A50] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" to="/inspiracion">
                         <div class="flex gap-3 items-center">
-                            <p>Descubrir Diseños</p>
+                            <p>{{ $t('cta_descubrir_disenos') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -82,7 +73,7 @@ function dividirBeneficio(texto) {
                     <button
                         class="font-bold w-fit bg-[#275A50] cursor-pointer text-sm py-2 px-1 text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" @click="openFormW">
                         <div class="flex gap-3 items-center">
-                            <p>Cotizar Proyecto</p>
+                            <p>{{ $t('cta_cotizar') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -95,7 +86,7 @@ function dividirBeneficio(texto) {
         <!--2-->
         <div class="flex justify-center">
             <div class="w-full lg:max-w-[1150px] flex flex-col px-5 py-8 gap-5 lg:px-0">
-                <h2 class="text-[1.7rem] text-center text-[#918164] italic lg:text-left lg:text-[2.5rem]">El equilibrio perfecto entre estética y eficiencia.</h2>
+                <h2 class="text-[1.7rem] text-center text-[#918164] italic lg:text-left lg:text-[2.5rem]">{{ $t('ven_equilibrio') }}</h2>
                 <div class="flex flex-col w-full gap-5 lg:h-fit lg:gap-10 lg:flex-row">
                     <div class="flex-2/6 relative w-full h-full overflow-hidden rounded-xl">
                         <img class="object-cover h-[150px] md:h-100 lg:h-full w-full"
@@ -103,8 +94,7 @@ function dividirBeneficio(texto) {
                     </div>
                     <div class="flex-4/6 flex flex-col gap-8">
                         <div class="flex-none grid grid-cols-1 gap-y-2">
-                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">Beneficios Clave
-                            </h3>
+                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">{{ $t('ui_beneficios') }}</h3>
                             <div v-for="i in beneficios" class="flex gap-5 ">
                                 <div class="w-[10px] h-[10px] bg-[#918164] rounded-full mt-1"></div>
                                 <p class="text-[#757575] flex-1 lg:text-xl m-0 leading-5">
@@ -113,9 +103,7 @@ function dividirBeneficio(texto) {
                             </div>
                         </div>
                         <div class="flex-none grid grid-cols-1 gap-y-2">
-                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">Caracteristicas
-                                Destacadas
-                            </h3>
+                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">{{ $t('ui_caracteristicas') }}</h3>
                             <div v-for="i in caracteristicas" class="flex gap-5 ">
                                 <div class="w-[10px] h-[10px] bg-[#918164] rounded-full mt-1"></div>
                                 <p class="text-[#757575] flex-1 lg:text-xl m-0 leading-5">{{ i }}</p>
@@ -136,13 +124,13 @@ function dividirBeneficio(texto) {
                     <div class="relative grid lg:px-10 lg:py-2">
                         <div class="grid grid-cols-3 text-sm pt-2 lg:pt-0 lg:text-base">
                             <div class="border-b-4 border-[#918164] px-2 lg:px-4 lg:py-2">
-                                <p class="text-[#918164] font-bold lg:text-lg">Aventa vs Otros</p>
+                                <p class="text-[#918164] font-bold lg:text-lg">{{ $t('ui_vs_titulo') }}</p>
                             </div>
                             <div class="border-b-4 border-[#918164] flex justify-center lg:py-2">
                                 <p class="text-[#918164] font-bold lg:text-lg">Aventa</p>
                             </div>
                             <div class="border-b-4 border-[#918164] flex justify-center lg:py-2">
-                                <p class="text-[#918164] font-bold lg:text-lg">Otros</p>
+                                <p class="text-[#918164] font-bold lg:text-lg">{{ $t('ui_vs_otros') }}</p>
                             </div>
                         </div>
 
@@ -196,11 +184,11 @@ function dividirBeneficio(texto) {
             <div class="w-full lg:max-w-[1150px] py-8 px-5 lg:px-0">
                 <div class="bg-white rounded-xl p-5 lg:p-10 border-1 border-[#918164] shadow-lg flex flex-col gap-5 lg:flex-row">
                     <div class="flex flex-col flex-1">
-                        <h2 class="text-xl text-center text-[#918164] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">Cada proyecto comienza con una gran entrada</h2>
-                        <p class="text-justify text-[#757575] md:text-center lg:text-left lg:text-xl">Optimiza tu espacio con diseño, confort y tecnología.</p>
+                        <h2 class="text-xl text-center text-[#918164] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">{{ $t('ui_gran_entrada') }}</h2>
+                        <p class="text-justify text-[#757575] md:text-center lg:text-left lg:text-xl">{{ $t('ven_cta_sub') }}</p>
                     </div>
                     <div class="flex-none flex flex-col  gap-4 items-center lg:flex-row lg:p-4">
-                        <button class="bg-[#2B5A51] text-white lg:text-lg px-4 py-2 rounded-full cursor-pointer transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">Solicitar Asesoría</button>
+                        <button class="bg-[#2B5A51] text-white lg:text-lg px-4 py-2 rounded-full cursor-pointer transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">{{ $t('cta_asesoria') }}</button>
                     </div>
                 </div>
             </div>
@@ -209,7 +197,7 @@ function dividirBeneficio(texto) {
         <div v-if="openForm" class="fixed inset-0 z-20 bg-black/20 p-5 lg:p-15 flex items-center justify-center" @click.self="openFormW">
             <div class="bg-white w-120 h-full rounded-xl flex flex-col gap-5 p-3 shadow-xl">
                 <div class="w-full flex justify-end items-center">
-                    <h2 class="flex-1 text-[#757575] text-xl">Escribe y nos pondremos en contacto</h2>
+                    <h2 class="flex-1 text-[#757575] text-xl">{{ $t('form_escribe') }}</h2>
                     <button @click="openFormW"
                             class="border rounded-lg py-1 px-2 text-[#cccccc] leading-none cursor-pointer transition-colors duration-300 hover:text-[#918164] lg:text-[1.5rem]">X</button>
                 </div>

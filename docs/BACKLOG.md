@@ -180,7 +180,8 @@ one.
 
 ## 9. Translation does not work past the homepage
 
-**Confirmed. Homepage fixed 14 Sep 2026. Ten pages still broken.**
+**Confirmed. Homepage, Ventanas and Puertas fixed 14 Sep 2026. Eight pages
+still broken.**
 
 The site shows a language switcher on every page. It only works on the homepage,
 the navigation, and the footer. Switch to English, click Ventanas, and you get
@@ -192,8 +193,8 @@ instead of going through the translation system.
 | Page | Status | Text to translate |
 |---|---|---|
 | Inicio (homepage) | **Done** | 18 strings fixed |
-| Ventanas | To do | 28 |
-| Puertas | To do | 25 |
+| Ventanas | **Done** | 28 strings fixed |
+| Puertas | **Done** | 25 strings fixed |
 | PlaneaVisita | To do | 30 |
 | Merida | To do | 10 |
 | Contacto | To do | 9 |

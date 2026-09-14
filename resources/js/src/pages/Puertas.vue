@@ -1,45 +1,36 @@
 <script setup>
 
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import {useI18n} from "vue-i18n";
 import TittleCustom from "@/src/components/TittleCustom.vue";
 import MainLayout from "@/src/layouts/MainLayout.vue";
 
+const {t} = useI18n();
+
 const img_home = "/media/puertas_home.JPG";
 
-const beneficios = [
-    'Aislamiento superior: Confort térmico y acústico excepcional para espacios más silenciosos, privados y eficientes.',
-    'Diseño personalizado: Selecciona el tipo de madera, acabado y sistema de apertura que mejor se adapte a tu estilo y necesidades.',
-    'Máxima durabilidad: Fabricadas con perfiles de madera laminada sólida que resisten deformaciones y alargan la vida útil de tu pieza.',
-    'Instalación de presición: Montaje experto desde el primer milímetro hasta el último detalle, garantizando un cierre perfecto.'
-];
+const beneficios = computed(() => [
+    t('pue_ben1'),
+    t('pue_ben2'),
+    t('pue_ben3'),
+    t('pue_ben4')
+]);
 
-const caracteristicas = [
-    'Disponibles en nuestras líneas Luxury y Essential, para diferentes estilos y necesidades.',
-    'Cierre hermético que supera a sistemas convencionales, bloqueando eficazmente ruido y variaciones de temperatura.',
-    'Elaboradas con madera sustentable, a diferencia de materiales con mayor impacto ambiental.',
-    'Fácil mantenimiento, incluso en condiciones exigentes, frente a opciones tradicionales que requieren cuidados constantes.',
-    'Estructura sólida que ofrece mayor estabilidad y rigidez frente a materiales huecos o de baja densidad'
-];
+const caracteristicas = computed(() => [
+    t('pue_car1'),
+    t('pue_car2'),
+    t('pue_car3'),
+    t('pue_car4'),
+    t('pue_car5')
+]);
 
 
-const vs = [
-    {
-        op1: "Madera Sólida",
-        op2: "Aglomerado"
-    },
-    {
-        op1: "Cierre Hermético",
-        op2: "Ninguno"
-    },
-    {
-        op1: "Personalización Total",
-        op2: "Parcial"
-    },
-    {
-        op1: "Durabilidad Exterior/Interior",
-        op2: "Limitada"
-    }
-];
+const vs = computed(() => [
+    {op1: t('pue_vs1a'), op2: t('pue_vs1b')},
+    {op1: t('pue_vs2a'), op2: t('pue_vs2b')},
+    {op1: t('pue_vs3a'), op2: t('pue_vs3b')},
+    {op1: t('pue_vs4a'), op2: t('pue_vs4b')}
+]);
 
 function dividirBeneficio(texto) {
     const [titulo, descripcion] = texto.split(':');
@@ -66,9 +57,9 @@ function openFormW(){
 
             <div class="relative flex flex-col px-5 gap-8 justify-center w-full lg:max-w-[1150px]">
                 <div class="flex flex-col gap-0">
-                    <tittle-custom titulo="Puertas de Madera con Tecnología Termoacústica y Diseño Personalizado"/>
+                    <tittle-custom :titulo="$t('pue_hero_titulo')"/>
                     <h2 class="text-center text-white leading-none italic tracking-wider text-base lg:leading-7 lg:text-left lg:text-[1.8rem] lg:max-w-[900px]">
-                        De madera sólida termoacústicas, combinamos tecnología de alto nivel con el arte de lo natural. Transformamos espacios con diseño, silencio y distinción.
+                        {{ $t('pue_hero_sub') }}
                     </h2>
                 </div>
                 <div class="flex justify-center gap-2 lg:gap-5 lg:justify-start">
@@ -76,7 +67,7 @@ function openFormW(){
                         class="font-bold items-center w-fit py-2 px-1 bg-[#275A50] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:flex-none lg:py-4 lg:px-5"
                         to="/inspiracion">
                         <div class="flex gap-3 items-center text-sm lg:text-base">
-                            <p>Descubrir Diseños</p>
+                            <p>{{ $t('cta_descubrir_disenos') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -84,7 +75,7 @@ function openFormW(){
                     <button
                         class="font-bold items-center w-fit py-2 cursor-pointer px-1 bg-[#275A50] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" @click="openFormW">
                         <div class="flex gap-1 items-center text-sm lg:text-base">
-                            <p>Cotizar Proyecto</p>
+                            <p>{{ $t('cta_cotizar') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -97,7 +88,7 @@ function openFormW(){
         <!--2-->
         <div class="flex justify-center">
             <div class="w-full lg:max-w-[1150px] px-5 flex flex-col py-8 gap-5 lg:px-0">
-                <h2 class="text-[1.7rem] text-center text-[#918164] italic lg:text-left lg:text-[2.5rem]">Cada puerta es un portal a lo extraordinario</h2>
+                <h2 class="text-[1.7rem] text-center text-[#918164] italic lg:text-left lg:text-[2.5rem]">{{ $t('pue_portal') }}</h2>
                 <div class="flex flex-col w-full h-max gap-5 lg:gap-10 lg:flex-row">
                     <div class="h-[150px] md:h-80 relative lg:h-full overflow-hidden rounded-xl lg:flex-2/6">
                         <img class="h-full w-full object-cover "
@@ -105,8 +96,7 @@ function openFormW(){
                     </div>
                     <div class="lg:flex-4/6 flex flex-col gap-8">
                         <div class="flex-none grid grid-cols-1 gap-y-2">
-                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">Beneficios Clave
-                            </h3>
+                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">{{ $t('ui_beneficios') }}</h3>
                             <div v-for="i in beneficios" class="flex gap-5 ">
                                 <div class="w-[10px] h-[10px] bg-[#918164] rounded-full mt-1"></div>
                                 <p class="text-[#757575] flex-1 lg:text-xl m-0 leading-5">
@@ -115,9 +105,7 @@ function openFormW(){
                             </div>
                         </div>
                         <div class="flex-none grid grid-cols-1 gap-y-2">
-                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">Características
-                                Destacadas
-                            </h3>
+                            <h3 class="text-xl text-[#918164] italic font-bold tracking-wider mb-2 lg:text-[2rem]">{{ $t('ui_caracteristicas') }}</h3>
                             <div v-for="i in caracteristicas" class="flex gap-5 ">
                                 <div class="w-[10px] h-[10px] bg-[#918164] rounded-full mt-1"></div>
                                 <p class="text-[#757575] flex-1 lg:text-xl m-0 leading-5">{{ i }}</p>
@@ -138,13 +126,13 @@ function openFormW(){
                     <div class="relative grid lg:px-10 lg:py-2">
                         <div class="grid grid-cols-3 text-sm pt-2 lg:pt-0 lg:text-base">
                             <div class="border-b-4 border-[#918164] px-2 lg:px-4 lg:py-2">
-                                <p class="text-[#918164] font-bold lg:text-lg">Aventa vs Otros</p>
+                                <p class="text-[#918164] font-bold lg:text-lg">{{ $t('ui_vs_titulo') }}</p>
                             </div>
                             <div class="border-b-4 border-[#918164] flex justify-center lg:py-2">
                                 <p class="text-[#918164] font-bold lg:text-lg">Aventa</p>
                             </div>
                             <div class="border-b-4 border-[#918164] flex justify-center lg:py-2">
-                                <p class="text-[#918164] font-bold lg:text-lg">Otros</p>
+                                <p class="text-[#918164] font-bold lg:text-lg">{{ $t('ui_vs_otros') }}</p>
                             </div>
                         </div>
 
@@ -197,11 +185,11 @@ function openFormW(){
             <div class="w-full lg:max-w-[1150px] p-5 lg:py-8">
                 <div class="bg-white rounded-xl p-3 lg:p-10 border-1 border-[#918164] shadow-lg flex flex-col gap-5 lg:flex-row">
                     <div class="flex flex-col flex-1">
-                        <h2 class="text-lg text-center text-[#918164] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">Cada proyecto comienza con una gran entrada</h2>
-                        <p class="text-[#757575] md:text-center lg:text-xl">Diseño, aislamiento y durabilidad que necesitas.</p>
+                        <h2 class="text-lg text-center text-[#918164] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">{{ $t('ui_gran_entrada') }}</h2>
+                        <p class="text-[#757575] md:text-center lg:text-xl">{{ $t('pue_cta_sub') }}</p>
                     </div>
                     <div class="flex-none flex flex-col gap-2 lg:gap-4 items-center lg:p-4 lg:flex-row">
-                        <button class="bg-[#2B5A51] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">Solicitar Asesoría</button>
+                        <button class="bg-[#2B5A51] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">{{ $t('cta_asesoria') }}</button>
                     </div>
                 </div>
             </div>
@@ -210,7 +198,7 @@ function openFormW(){
         <div v-if="openForm" class="fixed inset-0 z-20 bg-black/20 p-5 lg:p-15 flex items-center justify-center" @click.self="openFormW">
             <div class="bg-white w-120 h-full rounded-xl flex flex-col gap-5 p-3 shadow-xl">
                 <div class="w-full flex justify-end items-center">
-                    <h2 class="flex-1 text-[#757575] text-xl">Escribe y nos pondremos en contacto</h2>
+                    <h2 class="flex-1 text-[#757575] text-xl">{{ $t('form_escribe') }}</h2>
                     <button @click="openFormW"
                             class="border rounded-lg py-1 px-2 text-[#cccccc] leading-none cursor-pointer transition-colors duration-300 hover:text-[#918164] lg:text-[1.5rem]">X</button>
                 </div>
