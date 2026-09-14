@@ -12,7 +12,59 @@ Fixed items stay on the list with the date, so there is a record.
 
 # P0 · BLOCKING · The source code is older than the live site
 
-## 0. Do not deploy anything built from this code
+## 0a. The real source was found on Sophia's Desktop, 14 Sep 2026
+
+`Proyecto Aventa/aventawindows.com/` on Sophia's Mac is the current source. The
+developer sent it in August when Aventa asked about updating the site, and it
+was never unpacked because the only instructions with it were a Windows setup
+guide.
+
+Confirmed against the live site:
+
+- `navbar.vue` links to `/recursos-profesionales` using `$t('nav_recursos')`.
+  That is the Resources menu item missing from the old copy.
+- The nav is `#FFFFFA` with `#657d88` text, and buttons are `#ee7465`. No
+  `#918164` gold anywhere. That is the grey navigation bar.
+- The hero reads "Puertas y Ventanas de Madera Laminada con Ingeniería Alemana",
+  which matches the live site exactly.
+
+Folder dates are 7 to 14 August 2026, against April to October 2025 for the
+server copy, and the live build is 28 August 2026.
+
+**Next step: replace this repository's contents with that copy.** Once that is
+done, everything below about not deploying stops applying.
+
+## 0b. The homepage plays two videos, both set to preload fully
+
+**Confirmed in the real source. This is very likely the main cause of the
+224.5 second Largest Contentful Paint.**
+
+`Inicio.vue` in the real source loads two videos:
+
+```js
+const video_src = "/media/sobre_aventa_2026.mp4";
+const srcVideoBanner = "/media/bannerHome.mp4";
+```
+
+The hero banner is a video with `autoplay muted loop playsinline preload="auto"`.
+The "about us" section is a second video, also `preload="auto"`.
+
+`preload="auto"` tells the browser to download the **entire file immediately**,
+before the visitor has done anything. Two of them, on the homepage, on top of
+the 124 MB 3D model and 20 MB of photographs.
+
+This was not visible in the old source, which used a rotating set of JPEGs for
+the hero instead. It explains why the live site is far slower than anything the
+stale code could account for.
+
+**To size it:** check `public_html/media/bannerHome.mp4` and
+`public_html/media/sobre_aventa_2026.mp4` in cPanel.
+
+**Likely fix:** `preload="metadata"` or `preload="none"` instead of `auto`, plus
+a poster image so something appears immediately. Compress the videos. Consider
+whether the second one needs to load before the visitor scrolls to it.
+
+## 0c. Do not deploy anything built from the old code
 
 **Confirmed 14 Sep 2026, the hard way.** A build from this source was deployed
 and reverted the live site to an older version.
