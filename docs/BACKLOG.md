@@ -10,9 +10,19 @@ Fixed items stay on the list with the date, so there is a record.
 
 ---
 
-# P0 · BLOCKING · The source code is older than the live site
+# P0 · RESOLVED 14 Sep 2026 · The source is now correct
 
-## 0a. The real source was found on Sophia's Desktop, 14 Sep 2026
+## 0a. RESOLVED. The real source is now in this repository
+
+Pushed 14 Sep 2026 in commit 9bd9271. This repository now holds the source that
+matches the live site: 15 pages including RecursosProfesionales,
+CondicionesVenta, TerminosCompra and PoliticaGarantia, the
+`/recursos-profesionales` route, and the correct navigation bar.
+
+Deploys from this repository are no longer blocked. The old warning below is
+kept for the record.
+
+### How it was found
 
 `Proyecto Aventa/aventawindows.com/` on Sophia's Mac is the current source. The
 developer sent it in August when Aventa asked about updating the site, and it
@@ -106,7 +116,7 @@ including `banner_1.jpg` at 15.2 MB and `banner_2.jpg` at 18.35 MB, now unused.
 a poster image so something appears immediately. Compress the videos. Consider
 whether the second one needs to load before the visitor scrolls to it.
 
-## 0c. Do not deploy anything built from the old code
+## 0c. Historical: why the old source could not be deployed
 
 **Confirmed 14 Sep 2026, the hard way.** A build from this source was deployed
 and reverted the live site to an older version.
@@ -132,7 +142,11 @@ Every build from this code reverts the site. That applies to a one-word text
 change exactly as much as to a large one, because a build replaces all the
 compiled files, not just the part that changed.
 
-So: **no deploys from this repository until the divergence is resolved.**
+So: no deploys were possible until the divergence was resolved. **It now is.**
+
+**Before the next deploy**, verify the fix: run `npm run build` and compare the
+generated `manifest.json` against the live one from 28 Aug. If the chunk names
+line up, the source genuinely matches what is running and deploys are safe.
 
 ### Exactly what is missing, measured against the live manifest
 
@@ -409,8 +423,11 @@ one.
 
 ## 9. Translation does not work past the homepage
 
-**Confirmed. Homepage, Ventanas and Puertas fixed 14 Sep 2026. Eight pages
-still broken.**
+**Confirmed. Needs redoing against the real source.**
+
+The homepage, Ventanas and Puertas translations done on 14 Sep were written
+against the stale code and were discarded when the real source landed. The real
+pages differ. Start again from the current files.
 
 The site shows a language switcher on every page. It only works on the homepage,
 the navigation, and the footer. Switch to English, click Ventanas, and you get
@@ -422,8 +439,8 @@ instead of going through the translation system.
 | Page | Status | Text to translate |
 |---|---|---|
 | Inicio (homepage) | **Done** | 18 strings fixed |
-| Ventanas | **Done** | 28 strings fixed |
-| Puertas | **Done** | 25 strings fixed |
+| Ventanas | To redo | was done against the stale source, discarded |
+| Puertas | To redo | was done against the stale source, discarded |
 | PlaneaVisita | To do | 30 |
 | Merida | To do | 10 |
 | Contacto | To do | 9 |
