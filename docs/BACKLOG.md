@@ -144,9 +144,24 @@ compiled files, not just the part that changed.
 
 So: no deploys were possible until the divergence was resolved. **It now is.**
 
-**Before the next deploy**, verify the fix: run `npm run build` and compare the
-generated `manifest.json` against the live one from 28 Aug. If the chunk names
-line up, the source genuinely matches what is running and deploys are safe.
+**Verified 14 Sep 2026.** Built from this source and compared the output against
+the live 28 Aug build:
+
+- Both builds produce **exactly 103 files**, 78 with identical names, meaning
+  identical content.
+- Decompiled comparison of three pages against the live files:
+
+| Page | Live strings | Our strings | Content differences |
+|---|---|---|---|
+| `Inicio` | 589 | 589 | **0** |
+| `Ventanas` | 118 | 118 | **0** |
+| `Puertas` | 119 | 119 | **0** |
+
+The only differences on any of them are the filenames of imported chunks and
+Vue's scoped-CSS id, both of which change on any rebuild.
+
+So the 14 Aug source and the 28 Aug build are the same code. Deploying from this
+repository reproduces the live site. The divergence is closed.
 
 ### Exactly what is missing, measured against the live manifest
 
