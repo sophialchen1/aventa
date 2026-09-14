@@ -110,17 +110,26 @@ more expensive too.
 
 ## 7. Photos are full-size camera originals
 
-**Suspected, strongly.**
+**Confirmed 14 Sep 2026, measured.** Worse than suspected.
 
-The homepage image is called `puertas_home.JPG`. A capital `.JPG` is what
-cameras and phones produce. Web tools never produce it. The media folder is
-1,134 MB, which fits with everything being full-resolution originals.
+Measured directly in the built site:
 
-A photo straight off a camera can be 5 to 15 MB. The same photo sized for a
-website is usually under 300 KB and looks identical on screen.
+| File | Size now | Dimensions | Resized to 1920px, quality 80 | Saving |
+|---|---|---|---|---|
+| `puertas_car4.jpg` | 22.8 MB | 4672 x 7008 | 0.29 MB | 99% |
+| `puertas_car1.JPG` | 15.9 MB | 5472 x 3648 | 0.39 MB | 98% |
+| `maderas.jpg` | 8.3 MB | 4532 x 3399 | 0.37 MB | 96% |
 
-**Check it first:** open one photo in Finder and look at the file size. If it is
-over 1 MB, this item is confirmed.
+`puertas_car4` is a 33 megapixel photograph. It is displayed on the site a few
+hundred pixels wide. Every visitor to that page downloads all 22.8 MB of it.
+
+Across the whole built site: **61 images totalling 79 MB.** Compressed the same
+way, that becomes roughly 2 to 3 MB.
+
+For context, a visitor landing on the Puertas page currently downloads about
+50 MB of photographs, on top of the 124 MB 3D model from item 5.
+
+None of this is visible to the eye. The screen cannot show 33 megapixels.
 
 ### How to compress the photos
 
