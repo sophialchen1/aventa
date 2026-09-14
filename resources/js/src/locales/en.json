@@ -1,0 +1,148 @@
+{
+    "nav_inicio": "Home",
+    "nav_puertas": "Doors",
+    "nav_ventanas": "Windows",
+    "nav_cocomprar": "How to buy",
+    "nav_contact": "Contact",
+    "nav_cotiza": "Request a Quote",
+    "nav_pres": "Request quote",
+    "nav_p1": "Don't know where to start?",
+    "nav_p2": "Take the quiz and find your perfect window",
+    "nav_p3": "Explore on your own",
+    "nav_p4": "Go to the render tool",
+
+    "ini_sub": "The art of transforming your spaces",
+    "ini_btn1": "New Products",
+    "ini_btn2": "Configure your Design",
+
+    "ini_confian": "They Trust Us",
+
+    "ini_sub1": "The best For Your Spaces",
+    "ini_accesorios": "Woods",
+    "ini_soluciones": "Learn About Our Solutions!",
+    "ini_p1": "We have a wide range of doors, windows, and accessories designed to enhance and make each of your spaces unique.",
+    "ini_cocomprar": "How to Buy?",
+    "ini_puertas": "Our Doors",
+    "ini_ventanas": "Our Windows",
+    "ini_maderas": "Our Woods",
+    "ini_descubrir": "Discover",
+
+    "ini_cer": "Certified by:",
+
+    "ini_sub2": "The right solution for any project",
+    "ini_ab": "Tilting",
+    "ini_osc": "Tilt-And-Turn",
+    "ini_pro": "Projectable",
+    "ini_gui": "Sash",
+    "ini_ab_p": "Manual or motorized opening, ideal for small spaces and ventilation control. Its top opening offers security for high-rise projects or for children's rooms. Customize the design to suit your project.",
+    "ini_osc_p": "Practical and functional thanks to its dual-opening system, it adapts to your ventilation needs. Enjoy space-saving, modern design perfect for any type of space, whether it's a window or door.",
+    "ini_pro_p": "Optimize interior space and enjoy excellent ventilation without sacrificing your space. Practicality without sacrificing thermal and acoustic insulation. Security inside and out thanks to its controlled opening, ideal for different family spaces.",
+    "ini_gui_p": "An ideal and functional design for classic-style projects, it saves space and controls ventilation thanks to its versatility. Control ventilation and add a touch of comfort to your spaces without sacrificing design and functionality.",
+    "ini_div": "Design your",
+    "ini_ventana": "Window",
+
+    "ini_sol": "Solid",
+    "ini_vid": "Glass",
+    "ini_com": "Combination",
+    "ini_sol_p": "Elegance, privacy, and insulation. Solid doors are ideal for those seeking security and discretion without sacrificing style. Perfect for sophisticated interiors or main entrances that require extra protection. Their robust design adds character to any space.",
+    "ini_vid_p": "Natural light, spaciousness, and modernity. Glass doors are perfect for projects that prioritize lighting and visual connection between spaces. Ideal for contemporary environments that seek a sense of openness without sacrificing elegance.",
+    "ini_com_p": "The best of both worlds. The combination door combines the strength of traditional materials with the lightness of glass. Functional and aesthetic, it adapts to all styles, providing security and light in a single design.",
+    "ini_puerta": "Door",
+
+    "ini_sub3": "Discover featured projects",
+    "ini_p2": "Explore each of our works",
+    "ini_val_sub": "Breathtaking privacy. Soothing beauty. La Valise, doors and windows overlooking the heart of San Miguel.",
+    "ini_val_dt": "At La Valise, every entrance and every opening was designed to invite rest.",
+    "ini_val_dp1": "Solid wood doors and windows that insulate noise, maintain temperature, and frame the best of the surroundings without disrupting the design harmony. A perfect balance of beauty and functionality for those who enjoy silence.",
+    "ini_val_dp2": "On this facade, our windows frame more than views: they frame experiences.",
+    "ini_val_dp3": "Its thermoacoustic system protects the interior from the hustle and bustle outside, while the handcrafted design blends with the textures, trees, and natural essence of San Miguel.",
+    "ini_val_ep1": "Wood not only builds, it connects.",
+    "ini_val_ep2": "Every project we touch bears our signature: quiet functionality, bespoke design, and fine materials. Here, every open door and every closed window tells a story of well-settled rest.",
+    "ini_val_ep3": "Our doors and windows respond to each space with unparalleled precision.",
+
+    "ini_agu_sub": "Design that connects with the essential.",
+    "ini_agu_dt": "Discover the Las Agujas project: a residential development in harmony with the forest, equipped with solid wood thermoacoustic doors and windows, designed by Aventa, to merge aesthetics and functionality.",
+    "ini_agu_dp1": "Sliding wooden doors that maximize light, views, and connection to the outdoors.",
+    "ini_agu_dp2": "The wide-opening system with high-performance glass allows for complete integration with the landscape, without sacrificing privacy or energy efficiency. Ideal for spaces where design and functionality must coexist with nature.",
+    "ini_agu_ep1": "Custom architectural solutions in solid wood.",
+    "ini_agu_ep2": "Each door and window was designed to exacting specifications to ensure insulation, durability, and a consistent aesthetic. We used high-quality hardware and finishes that complement the project's contemporary rustic style.",
+
+    "ini_ceb_sub": "A total opening towards the extraordinary",
+    "ini_ceb_dt": "Aura is a residential project where every design line emphasizes the connection with the outdoors. The pieces we installed create a warm atmosphere without compromising insulation or elegance.",
+    "ini_ceb_dp1": "Solid wood sliding doors connect the dining and living rooms to a terrace surrounded by greenery. The space was designed to allow for unobstructed views and a seamless integration between the interior and exterior social spaces, while maintaining thermal and acoustic comfort.",
+    "ini_ceb_ep1": "The selection of pieces for this project responded to a clear intention: to achieve a welcoming, sophisticated, and naturally lit atmosphere. Thanks to the warm finishes and precision of the assembly, Aura exemplifies how Aventa Windows can define the character of a home.",
+
+    "ini_gru_sub": "Enjoy the scenery without sacrificing privacy, style, and comfort.",
+    "ini_gru_dt": "At Los Grullos, every door and window we designed had a clear mission: to frame the landscape without interrupting it. This project achieved the perfect balance between interior design, functionality, and connection with the outdoors. A space that flows naturally and with light.",
+    "ini_gru_dp1": "The warmth of solid wood, framing natural light and vegetation, was the guiding thread throughout this masterpiece. Doors and windows that, in addition to looking incredible, provide insulation and thermal comfort without disrupting the aesthetics of the space.",
+    "ini_gru_ep1": "Each piece was designed to complement the project's architectural style: clean lines, premium materials, and a consistent visual connection with the exterior. The result was a subtle, elegant, and fully functional integration.",
+
+    "ini_ritz_sub": "Luxury, nature, and comfort",
+    "ini_ritz_dt": "A seaside retreat designed to bring tranquility. Its architecture invites you to enjoy every space in serenity.",
+    "ini_ritz_dp1": "Our doors and windows connect the indoors with the outdoors in a natural way, while preserving silence and the ideal temperature—creating the perfect setting to live unforgettable moments.",
+    "ini_ritz_ep1": "Wood doesn’t just build, it connects.",
+    "ini_ritz_ep2": "Every project we touch carries our signature: quiet functionality, bespoke design, and noble materials.",
+    "ini_ritz_ep3": "Our doors and windows respond to every space with unmatched precision.",
+
+    "ini_goe_sub": "Where harmony feels at home.",
+    "ini_goe_dt": "A warm, timeless-style residence designed to enjoy beauty in every detail.",
+    "ini_goe_dp1": "Every opening in our pieces enhances the space’s aesthetics without sacrificing functionality—delivering silence and comfort, and allowing the surroundings to converse softly with the architecture.",
+    "ini_goe_ep1": "Bespoke architectural solutions in laminated (solid) wood.",
+    "ini_goe_ep2": "Each door and window was designed to exact specifications to ensure insulation, durability, and superior aesthetics. We use high-quality hardware and finishes that honor the project’s contemporary rustic style.",
+
+    "ini_oas_sub": "The ideal place to live in Tulum.",
+    "ini_oas_dt": "The architecture creates a sense of refuge without disconnecting from the outdoors.",
+    "ini_oas_dp1": "This project is developed from a direct relationship with its surroundings. The layout, materials, and proportions define sober, well-controlled spaces.",
+    "ini_oas_dp2": "AVENTA’s doors and windows are part of that logic, resolving the transition between indoors and outdoors with thermal and acoustic control, without interfering with the design.",
+    "ini_oas_ep1": "Each element is custom-designed, responding to site conditions and the real use of the spaces.",
+    "ini_oas_ep2": "The doors and windows meet the project with precision and durability.",
+
+    "ini_et_nuevo": "New",
+    "ini_p3": "Are you ready to start your project?",
+    "ini_p4": "Contact us and let's make your vision take shape",
+    "ini_p5": "Do you have a project where the architectural design demands pieces that are up to par?",
+    "ini_p6": "Let's talk. At Aventa Windows, we create pieces that not only work, they enhance every space.",
+    "ini_btn3": "I want to quote",
+
+    "ini_sub4":"About Us",
+    "ini_p7": "We manufacture solid wood doors and windows with thermal and acoustic insulation, combining German technology with Mexican craftsmanship. Our solutions stand out for their design, functionality, and energy efficiency.",
+    "ini_p8": "Produced in Mexico with a high level of detail, our products are adapted to luxury residential and hotel projects. With double and triple glazing options, we redefine the use of wood in contemporary architecture.",
+    "ini_p9": "Benefits",
+    "ini_p10": "Sustainability",
+    "ini_p11": "Luxury",
+    "ini_p12": "Security",
+    "ini_p13": "Tranquillity",
+
+    "ini_sub5": "Turn your ideas into reality",
+    "ini_p14": "Explore different options for your spaces. Choose your design, opening, color, and more.",
+    "ini_p15": "Configure your",
+
+    "ini_sub6": "Find us throughout the country",
+    "ini_p16": "Our Factory",
+    "ini_btn4":"Plan your visit",
+    "ini_p17": "Are you part of the industry?",
+    "ini_p18": "Be part of our partner program.",
+    "ini_btn5": "Schedule a meeting",
+
+    "ini_sub7": "We are here for you",
+    "ini_p19": "Do you have any questions?",
+    "ini_p20": "Tell us how we can help you.",
+
+
+    "con_t1": "Contact Us",
+    "con_p1": "Stay in touch with us",
+
+
+    "f_name": "Name",
+    "f_numero": "Telephone Number",
+    "f_correo": "E-mail",
+    "f_msg": "Message",
+    "f_enviar": "Send",
+
+
+    "found_p1": "Page not found",
+    "found_p2": "Sorry, the page you're looking for doesn't exist. Please check the URL or return to the top.",
+    "found_p3": "Go back"
+
+
+}

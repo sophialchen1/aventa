@@ -69,3 +69,6 @@ desktop.ini
 npm-debug.log*
 yarn-error.log*
 *.log
+
+# Exceeds GitHub 100 MB per-file limit. Backed up separately, see docs.
+/public/models/house_aventa.glb

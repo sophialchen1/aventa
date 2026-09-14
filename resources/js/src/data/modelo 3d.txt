@@ -1,0 +1,27 @@
+<!-- Monta el visor solo cuando el Blob existe -->
+                <!--<vue3d-loader
+                    v-if="status === 'loaded'"
+                    :width="w"
+                    :height="h"
+                    :file-path="glbUrl || '/models/house_aventa.glb'"
+                    :camera-position="{ x:-6, y:0.5, z:0 }"
+                    :controls-options="{ enablePan:false }"
+                    :min-distance="0"
+                    :max-distance="w < 480 ? 20 : (w < 768 ? 20 : 6)"
+                    :point-light-follow-camera="true"
+                    @load="onLoad"
+                    class="transition-opacity duration-150 cursor-grab active:cursor-grabbing"
+                    :class="ready ? 'opacity-100' : 'opacity-0'"
+                /> -->
+
+                <!-- Overlay loader (hasta que el visor emita @load) -->
+                <!--<div v-if="!ready" class="absolute inset-0 grid place-items-center ">
+                    <div class="w-64">
+                        <div class="h-2 rounded">
+                            <div class="h-full bg-[#918164] rounded" :style="{ width: (status==='loaded' ? 100 : progress) + '%' }"></div>
+                        </div>
+                        <p class=" text-sm mt-2 text-center">
+                            {{ status==='loaded' ? 'Preparando...' : `Cargando: ${progress}%` }}
+                        </p>
+                    </div>
+                </div>-->
