@@ -10,6 +10,226 @@ Fixed items stay on the list with the date, so there is a record.
 
 ---
 
+# P0 · BLOCKING · The source code is older than the live site
+
+## 0a. The real source was found on Sophia's Desktop, 14 Sep 2026
+
+`Proyecto Aventa/aventawindows.com/` on Sophia's Mac is the current source. The
+developer sent it in August when Aventa asked about updating the site, and it
+was never unpacked because the only instructions with it were a Windows setup
+guide.
+
+Confirmed against the live site:
+
+- `navbar.vue` links to `/recursos-profesionales` using `$t('nav_recursos')`.
+  That is the Resources menu item missing from the old copy.
+- The nav is `#FFFFFA` with `#657d88` text, and buttons are `#ee7465`. No
+  `#918164` gold anywhere. That is the grey navigation bar.
+- The hero reads "Puertas y Ventanas de Madera Laminada con Ingeniería Alemana",
+  which matches the live site exactly.
+
+Folder dates are 7 to 14 August 2026, against April to October 2025 for the
+server copy, and the live build is 28 August 2026.
+
+**Next step: replace this repository's contents with that copy.** Once that is
+done, everything below about not deploying stops applying.
+
+## 0b. The homepage plays two videos, both set to preload fully
+
+**Confirmed in the real source. This is very likely the main cause of the
+224.5 second Largest Contentful Paint.**
+
+`Inicio.vue` in the real source loads two videos:
+
+```js
+const video_src = "/media/sobre_aventa_2026.mp4";
+const srcVideoBanner = "/media/bannerHome.mp4";
+```
+
+The hero banner is a video with `autoplay muted loop playsinline preload="auto"`.
+The "about us" section is a second video, also `preload="auto"`.
+
+`preload="auto"` tells the browser to download the **entire file immediately**,
+before the visitor has done anything. Two of them, on the homepage, on top of
+the 124 MB 3D model and 20 MB of photographs.
+
+This was not visible in the old source, which used a rotating set of JPEGs for
+the hero instead. It explains why the live site is far slower than anything the
+stale code could account for.
+
+**Measured 14 Sep 2026:**
+
+| File | Size | `preload` |
+|---|---|---|
+| `sobre_aventa_2026.mp4` | **227.02 MB** | `auto` |
+| `bannerHome.mp4` | **65.64 MB** | `auto` |
+| `house_aventa.glb` | 124 MB | `<link rel=preload>` |
+| homepage photographs | 20.2 MB | n/a |
+
+Chrome's network panel on the live homepage, with cache enabled and no
+throttling: **130 requests, 170 MB of resources, 1.7 minutes to finish
+loading.**
+
+A 227 MB video, set to download in full before the visitor scrolls anywhere
+near it, is the single largest problem on this site.
+
+### The hero used to be photographs
+
+In `Inicio.vue` the rotating photo banner is still in the file, commented out,
+directly above the video that replaced it:
+
+```html
+<!--<img class="object-cover absolute w-full h-full transition-opacity duration-2000"
+     v-for="(img, i) in banner" ... >-->
+```
+
+The `banner` array of 14 images is still declared, and `bannerInterval` still
+runs a timer cycling an index nothing reads. Dead code.
+
+So there is **no** photo-first-then-video arrangement. The photos were replaced
+by the video outright. `public_html/media/banner_home/` still holds all 14,
+including `banner_1.jpg` at 15.2 MB and `banner_2.jpg` at 18.35 MB, now unused.
+
+### Fixes, in order of payoff
+
+1. `preload="none"` on the about-us video, with a poster image. It is far down
+   the page and most visitors never reach it. Saves 227 MB.
+2. `preload="none"` or `metadata` on the hero video, with a poster frame so
+   something appears instantly. Saves most of 65 MB.
+3. Remove the `<link rel="preload">` for the 3D model. Saves 124 MB.
+4. Compress both videos. 227 MB is enormous for web video; properly encoded
+   H.264 or AV1 at 1080p should be single-digit MB per minute.
+5. Compress the three large homepage photographs. Saves 19 MB.
+6. Delete the dead banner code and the 14 unused images.
+
+**Likely fix:** `preload="metadata"` or `preload="none"` instead of `auto`, plus
+a poster image so something appears immediately. Compress the videos. Consider
+whether the second one needs to load before the visitor scrolls to it.
+
+## 0c. Do not deploy anything built from the old code
+
+**Confirmed 14 Sep 2026, the hard way.** A build from this source was deployed
+and reverted the live site to an older version.
+
+What broke, and why each one proves the point:
+
+| Symptom | Evidence in this repository |
+|---|---|
+| Menu bar turned from grey to gold | `navbar.vue` uses `bg-[#918164]`, the gold, five times. Our source's navbar *is* gold. The live one is grey. |
+| The Resources menu item disappeared | There is **no** Resources or Recursos route, page, menu item or translation key anywhere in this codebase. Searched all of `resources/js/src`. Zero matches. |
+| Photos loaded slower, some errored | Our source references the uncompressed originals and an older set of image filenames. |
+
+The live site therefore includes work that was never in the folder handed over.
+Someone built and uploaded a newer version whose source we do not have.
+
+**The source for the current live site exists only on the previous developer's
+machine, and in his GitHub repository.** `public_html` holds only compiled
+output. Vue source cannot be recovered from it.
+
+### What this blocks
+
+Every build from this code reverts the site. That applies to a one-word text
+change exactly as much as to a large one, because a build replaces all the
+compiled files, not just the part that changed.
+
+So: **no deploys from this repository until the divergence is resolved.**
+
+### Exactly what is missing, measured against the live manifest
+
+The live site's `manifest.json` (from its 28 Aug 2026 build) lists everything it
+loads. Compared against this repository:
+
+**Four pages exist on the live site with no source here:**
+
+| Page | Almost certainly |
+|---|---|
+| `RecursosProfesionales.vue` | The "Resources" menu item that disappeared |
+| `CondicionesVenta.vue` | Conditions of sale |
+| `TerminosCompra.vue` | Purchase terms |
+| `PoliticaGarantia.vue` | Warranty policy |
+
+**Images the live site uses that we do not have:**
+`puertas.png`, `puertas_car1.png` through `puertas_car4.png`,
+`Conversación.jpg`, `nosotros_puer.jpg`, `nosotros_ventana.jpg`,
+`nosotros_interior.jpg`, `nosotros_exterior.jpg`.
+
+**Images we have that the live site no longer uses:** the `.JPG` versions of the
+puertas carousel, `.jpeg` versions of the nosotros photos, `puerta.gif`,
+`ventana.gif`, `sume.png`, `Puertas-landing.png` and three icons.
+
+Note the pattern: the live site moved the puertas carousel from `.JPG` to
+`.png`, and the nosotros photos from `.jpeg` to `.jpg`. Somebody replaced those
+images after our copy was taken.
+
+**Everything else matches**, including every page we do have and most of the
+image set. So the gap is bounded: four pages, one navigation bar, and a set of
+image swaps. That is recoverable work, not a rewrite.
+
+### Correction to item 7, and the confirmed figures
+
+The 22.8 MB and 15.9 MB puertas images were measured in a build from this stale
+source, and the live site uses different files for those. That specific claim is
+withdrawn.
+
+**But the general finding is confirmed, measured against the live manifest.**
+Any file with the same name in both builds is byte identical, so these sizes are
+exactly what the live site serves:
+
+| File | Live size |
+|---|---|
+| `maderas.jpg` | 8.3 MB |
+| `nuestras_puertas_aventa.jpg` | 6.5 MB |
+| `nuestras_ventanas_aventa.jpg` | 4.6 MB |
+| everything else on the homepage | 0.8 MB |
+
+**The homepage loads 23 images totalling 20.2 MB**, of which three files are
+19.4 MB. All three are 4500 to 5800 pixels wide, displayed a few hundred pixels
+wide. Resized to 1920px at quality 82 they come to 0.99 MB combined, a 95%
+reduction with nothing visible lost.
+
+The ventanas carousel, by contrast, is 191 KB to 367 KB and is fine.
+
+### These three can be fixed without a deploy
+
+They are static files in `public_html/build/assets/`. Replacing them with
+compressed versions **under the same filenames** requires no build, no manifest
+change and no source code, so it is unaffected by the stale source problem.
+
+Caveat: a future real deploy would restore the large versions, because the
+source still contains the originals. Fix the source too once the divergence is
+resolved.
+
+Item 7 measured 22.8 MB and 15.9 MB puertas images. Those were measured in a
+build **from this stale source**, and the live site uses different files for
+exactly those images. So the claim that the live site serves 22 MB photographs
+is **not confirmed** and must be re-measured against the live site before being
+repeated. Check the real sizes of `puertas_car1-DAAwHFau.png` and its siblings
+in `public_html/build/assets`.
+
+The general finding stands: `ventanas_car1` through `car4` are identical files
+in both builds, and those are 191 KB to 367 KB, which is reasonable. The
+uncompressed originals may be a problem only in our stale copy.
+
+### How to resolve it, in order of preference
+
+1. **Get the previous developer's repository.** This is no longer a nice to
+   have. It is the only complete copy of the current site's source. Item 22 was
+   filed as low priority. It is now the highest priority item on this list.
+2. **Reconstruct the differences by hand.** Read the live compiled files, work
+   out what changed (nav colour, the Resources link, image handling), and
+   re-apply those changes to this source. Feasible if the list is short.
+   Laborious and error-prone if it is not.
+3. **Patch the live compiled files directly** for anything urgent. Surgical, and
+   overwritten by the next real deploy. A stopgap, not a way of working.
+
+### How this was missed
+
+The risk was recorded in `server-layout.md` on day one, under "Open question
+worth resolving": `public_html` had a modification date ten months later than
+`aventa`, and the note said to flag it before making changes. It was never
+closed out, and the deploy went ahead anyway. The check that would have caught
+it is comparing the live `manifest.json` against a freshly built one.
+
 # P0 · We could lose things
 
 ## 1. The site's photos are not backed up anywhere
@@ -110,17 +330,26 @@ more expensive too.
 
 ## 7. Photos are full-size camera originals
 
-**Suspected, strongly.**
+**Confirmed 14 Sep 2026, measured.** Worse than suspected.
 
-The homepage image is called `puertas_home.JPG`. A capital `.JPG` is what
-cameras and phones produce. Web tools never produce it. The media folder is
-1,134 MB, which fits with everything being full-resolution originals.
+Measured directly in the built site:
 
-A photo straight off a camera can be 5 to 15 MB. The same photo sized for a
-website is usually under 300 KB and looks identical on screen.
+| File | Size now | Dimensions | Resized to 1920px, quality 80 | Saving |
+|---|---|---|---|---|
+| `puertas_car4.jpg` | 22.8 MB | 4672 x 7008 | 0.29 MB | 99% |
+| `puertas_car1.JPG` | 15.9 MB | 5472 x 3648 | 0.39 MB | 98% |
+| `maderas.jpg` | 8.3 MB | 4532 x 3399 | 0.37 MB | 96% |
 
-**Check it first:** open one photo in Finder and look at the file size. If it is
-over 1 MB, this item is confirmed.
+`puertas_car4` is a 33 megapixel photograph. It is displayed on the site a few
+hundred pixels wide. Every visitor to that page downloads all 22.8 MB of it.
+
+Across the whole built site: **61 images totalling 79 MB.** Compressed the same
+way, that becomes roughly 2 to 3 MB.
+
+For context, a visitor landing on the Puertas page currently downloads about
+50 MB of photographs, on top of the 124 MB 3D model from item 5.
+
+None of this is visible to the eye. The screen cannot show 33 megapixels.
 
 ### How to compress the photos
 
@@ -180,7 +409,8 @@ one.
 
 ## 9. Translation does not work past the homepage
 
-**Confirmed. Homepage fixed 14 Sep 2026. Ten pages still broken.**
+**Confirmed. Homepage, Ventanas and Puertas fixed 14 Sep 2026. Eight pages
+still broken.**
 
 The site shows a language switcher on every page. It only works on the homepage,
 the navigation, and the footer. Switch to English, click Ventanas, and you get
@@ -192,8 +422,8 @@ instead of going through the translation system.
 | Page | Status | Text to translate |
 |---|---|---|
 | Inicio (homepage) | **Done** | 18 strings fixed |
-| Ventanas | To do | 28 |
-| Puertas | To do | 25 |
+| Ventanas | **Done** | 28 strings fixed |
+| Puertas | **Done** | 25 strings fixed |
 | PlaneaVisita | To do | 30 |
 | Merida | To do | 10 |
 | Contacto | To do | 9 |
