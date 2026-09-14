@@ -1,281 +1,217 @@
-# Handover assessment
+# What the previous developer left behind
 
-An evidence-based review of the state aventawindows.com was left in, September
-2026, after the third-party developer's departure.
+A plain record of the state aventawindows.com was in when Sophia took it over,
+September 2026.
 
-**Purpose.** To give Sophia an accurate picture of what was inherited, to inform
-whether the site should be repaired or rebuilt, and to serve as a factual record
-if the engagement is ever discussed with the developer, the GM or the board.
+**Why this exists.** To show what was inherited, to decide whether to repair the
+site or rebuild it, and to have a factual record if this is ever discussed with
+the developer, the GM or the board.
 
-**Method.** Every item below was read directly from the code or measured from
-the live site or hosting account. Each cites its evidence. Nothing here is
-inferred. Items that remain uncertain live in `BACKLOG.md` marked *Suspected*
-and are deliberately excluded from this document.
+**How it was checked.** Every item below was read in the code or measured on the
+live site. Each one says where. Nothing here is a guess. Anything uncertain is
+in `BACKLOG.md` marked *Suspected* and is deliberately left out of this
+document.
 
-**A note on fairness.** Much of this work was competent. The findings below are
-concentrated in a few areas rather than spread across the whole build, and the
-assessment opens with what holds up, because that bears directly on the
-repair-or-rebuild decision.
+**Conclusion: repair, do not rebuild.** The reasoning is at the end.
 
 ---
 
-## What holds up
+# What was done well
 
-These are not consolation prizes. They are load-bearing.
+Listed first because it is true, and because it decides whether a rebuild is
+worth paying for.
 
-**Cumulative Layout Shift is 0.** Measured by Google on real user traffic over 28
-days. Nothing on the page jumps or reflows while loading. This is genuinely
-difficult and a large share of professional sites fail it.
+**Nothing jumps around while the page loads.** Google measures this on real
+visitors. Aventa scores a perfect 0. It is genuinely hard and most professional
+sites fail it.
 
-**Lighthouse SEO 92, Best Practices 96.** The structural fundamentals are sound.
+**SEO 92 out of 100. Best practices 96 out of 100.** The basics are right.
 
-**Bilingual infrastructure is correctly built.** `vue-i18n` is properly wired,
-and `es.json` and `en.json` are in exact parity: 120 keys each, zero mismatches.
-The mechanism works. The problem is how little of the site was connected to it.
+**The translation system is built correctly.** The mechanism works, and the
+Spanish and English files match each other exactly. The problem was how little
+of the site was plugged into it, not how it was built.
 
-**The component architecture is reasonable.** 11 pages, 18 shared components,
-layouts and composables separated sensibly. A competent developer can work in
-this codebase.
+**The code is organised sensibly.** 11 pages, 18 reusable components, clear
+folders. A competent developer can work in it without a fight.
 
-**Analytics and conversion tracking are properly instrumented.** Google Tag
-Manager, Google Ads conversion IDs and HubSpot forms are all correctly embedded
-in `welcome.blade.php`, including per-event conversion mapping for WhatsApp,
-phone and social clicks.
-
-The conclusion this supports: **this site should be repaired, not rebuilt.**
+**Tracking is properly installed.** Google Tag Manager, Google Ads conversion
+tracking and HubSpot forms are all correctly wired, including separate
+conversion events for WhatsApp, phone and social clicks.
 
 ---
 
-## 1. A deployment design that silently discards your changes
+# 1. Updating the site silently did nothing
 
-**Severity: critical. This is the most consequential finding.**
+**The most serious finding.**
 
-`bootstrap/app.php` never calls `usePublicPath()`, so Laravel's `public_path()`
-resolves to `/home/aveniqck/aventa/public`. But the document root, confirmed
-through `public_html/index.php`, is `/home/aveniqck/public_html`.
+Laravel was never told where the website's public folder actually is. So it
+looked for its list of files in one folder, while visitors' browsers downloaded
+those files from a completely different one.
 
-The consequence is that `@vite()` in `welcome.blade.php` reads its manifest from
+In plain terms: when the site is updated, the build tool renames every file with
+a random code so browsers do not show a stale version. It writes a list matching
+old names to new ones. Laravel read that list from `aventa/public/build`. The
+browser downloaded the actual files from `public_html/build`.
 
-```
-/home/aveniqck/aventa/public/build/manifest.json
-```
+Update only the folder that visitors reach, which is the obvious thing to do and
+what every general Laravel guide describes, and Laravel keeps reading the old
+list, keeps writing the old filenames into the page, and the browser finds those
+old files still sitting there. **The site keeps serving the previous version. No
+error. No warning. It just looks like the upload did not work.**
 
-while the browser downloads the hashed asset files from
+The proof that this kept happening: `aventa/public/build` is 240 MB and
+`public_html/build` is 167 MB. One build is a small fraction of that. Both are
+layers of every update ever made.
 
-```
-/home/aveniqck/public_html/build/
-```
+Fixed 14 September 2026. It was one line.
 
-Two different directories, both required, neither obviously related to the
-other. Deploying to only the document root, which is the intuitive thing to do
-and what every generic Laravel guide describes, leaves Laravel reading a stale
-manifest and emitting the previous build's filenames. Those files still exist,
-because nothing is ever deleted. **The site continues serving the old version
-with no error, no warning, and no indication that anything went wrong.**
+# 2. A 124 MB file downloaded on every page
 
-The evidence that this actually happened repeatedly: `aventa/public/build` is
-240 MB and `public_html/build` is 167 MB. A single build of this project is a
-fraction of that. Both directories are strata of every deploy ever made.
+One line in `resources/views/welcome.blade.php` told every browser to download
+the 124 MB 3D model immediately, at high priority, ahead of the content the
+visitor came for. The same instruction appears again in `MainLayout.vue`, so it
+happens twice.
 
-This is fixable in one line, and should be fixed before anything else is
-deployed.
+The model is only ever displayed inside a pop-up the visitor has to click.
 
-## 2. A 124 MB file preloaded on every page
+So every visitor on every page downloads 124 MB for a feature most of them never
+open. On a phone that is minutes of waiting, paid for out of the visitor's own
+data.
 
-**Severity: critical.**
+What it does to real visitors, measured by Google over 28 days: 3.1 seconds
+before anything appears at all, against a 1.8 second target. 3.9 seconds for the
+main image, against 2.5. Overall Core Web Vitals result: **Failed**.
 
-`resources/views/welcome.blade.php`, line 8:
+The model is also almost certainly an unoptimised export. Files like it normally
+shrink by 90% or more with no visible difference.
 
-```html
-<link rel="preload" href="/models/house_aventa.glb" as="fetch" crossorigin>
-```
+# 3. The site was never really bilingual
 
-`rel="preload"` instructs the browser to fetch a resource immediately at high
-priority. The file is 124 MB. This tag is in the `<head>` of every page.
+There is a language switcher on every page. It worked on the homepage, the
+navigation and the footer. Nowhere else.
 
-It is then requested a second time by `MainLayout.vue`, which wraps every page:
+An English-speaking visitor switched language, saw an English homepage, clicked
+Windows, and landed on Spanish.
 
-```js
-onMounted(() => { if (status.value !== 'loaded') preload(); })
-```
+About 224 pieces of text were typed directly into the page files instead of
+going through the translation system that was already built and working.
 
-And a third time by `VsModal.vue`, which is the only place the model is ever
-displayed, and which is a modal the visitor has to deliberately open.
+The homepage is the clearest illustration. It was not untranslated, it was
+translated carelessly. The hero headline, both hero buttons, every section
+heading and two of the five contact form fields were typed in by hand, while
+everything around them used the translation system properly. In three cases the
+English translation already existed and simply was not used: the key for "Our
+Doors" is called on line 517, three lines below where "Nuestras Puertas" had
+been typed in directly.
 
-So the model is fetched eagerly, twice, on every page view, to support a feature
-most visitors never trigger. On a mobile connection this consumes the bandwidth
-that would otherwise be rendering the page, and it consumes the visitor's own
-mobile data allowance.
+Nobody viewed the page in English after building it.
 
-Measured effect on real users over 28 days: First Contentful Paint 3.1 s against
-a 1.8 s threshold, Largest Contentful Paint 3.9 s against 2.5 s, Core Web Vitals
-assessment **Failed**.
+Separately, every page declares itself Spanish to Google regardless of what the
+visitor selected.
 
-The model itself is also almost certainly an unoptimised export. GLB files of
-this kind routinely compress by 90% or more with no visible quality loss.
+# 4. The site's photos were kept outside the project
 
-## 3. Bilingual in the navigation only
+The `media` folder on the live server is 1,134 MB. The project's entire public
+folder is 364 MB and contains no `media` folder at all. `proyectos` is 102 MB
+live and empty in the project.
 
-**Severity: high.**
+So roughly 1.24 GB of what the website shows was uploaded straight to the server
+and never existed in the project. It was not in the code, not in the backup zips
+on the server, and would not have been in any version control.
 
-The site presents a language switcher on every page. Measured i18n usage:
+The practical result: a complete backup of the project was not a backup of the
+site, and nothing in the handover made that distinction visible. If the hosting
+account had been lost, the photography would have been gone.
 
-| Page | i18n calls |
-|---|---|
-| `Inicio.vue` (homepage) | 94 |
-| `Ventanas.vue` (windows) | 1 |
-| `Puertas.vue` (doors) | 1 |
-| `Merida.vue` | 1 |
-| `Contacto.vue` | 0 |
-| `Catalogo.vue` | 0 |
+# 5. The project could not be built by anyone else
 
-Locale key prefixes corroborate: 99 `ini_`, 11 `nav_`, 5 `f_`, 3 `found_`,
-2 `con_`. Nothing else exists.
+The code imports an icon library that was never recorded as a requirement.
+Download the project, install it, build it, and you get an error and no website.
 
-Approximately 224 user-facing strings across the site are hardcoded Spanish in
-the templates and in JavaScript arrays, for example in `Ventanas.vue`:
+It only ever worked on the developer's own laptop, where the library happened to
+be installed. No colleague, contractor or successor could have made a single
+change without first diagnosing this.
 
-```js
-const beneficios = [
-    'Silencio y confort: Aislamiento acústico y térmico que...',
-```
+Handing over a project that does not build is more consequential than any
+individual item in section 7, because it blocks everything else.
 
-An English-speaking visitor switches language, sees an English homepage, clicks
-Ventanas, and lands on Spanish. The switcher advertises a capability that exists
-for one page out of eleven.
+Fixed 14 September 2026.
 
-Compounding it, `welcome.blade.php` line 2 hardcodes `<html lang="es">`, which
-never changes with the locale. Every English page declares itself Spanish to
-search engines and screen readers.
+# 6. Accessibility was treated as optional
 
-## 4. Site media kept outside the project entirely
+Score: 77 out of 100.
 
-**Severity: high.**
+In the code: 23 images with no description at all, and 6 with placeholders like
+`alt="img_home"`, which describes the variable name rather than the picture.
 
-`public_html/media/` is 1,134 MB. The project's entire `public/` directory is
-364 MB and contains no `media` folder at all. `public_html/proyectos/` is 102 MB
-while the project's `public/proyectos/` is empty.
+Also flagged: text that does not contrast enough with its background, links with
+no readable name, embedded frames with no titles, and buttons too small or too
+close together to tap reliably on a phone.
 
-So roughly 1.24 GB of what the website serves was uploaded straight to the
-document root and never existed in the project. It is absent from the codebase,
-absent from the three backup zips on the server, which snapshot `aventa/`
-rather than `public_html/`, and would have been absent from any version control.
+That last one costs money directly. Over 70% of Aventa's leads come from paid
+Meta and Google, mostly on phones. A button that is hard to tap loses a form
+submission that was already paid for.
 
-The practical effect is that a complete backup of the project is not a backup of
-the site, and nothing in the handover made that distinction visible. Had the
-hosting account been lost at any point, the photography would have been gone.
+The missing image descriptions are also an SEO problem. Aventa competes on how
+its products look, owns 1.1 GB of photography, and Google cannot read any of it.
 
-## 5. Accessibility treated as optional
+# 7. Nothing was left tidy
 
-**Severity: medium, with commercial consequences.**
+Small on their own. Together they show nobody reviewed the work.
 
-Measured Lighthouse accessibility score: **77**.
+**A corrupted duplicate file was left in the project.** Two files exist:
+`ConfigDiseños.vue` and `ConfigDiseдos.vue`. The second has a Cyrillic "д" where
+the "ñ" should be, from a text-encoding accident. Only the correct one is used.
+The broken copy was created, never used, and never deleted. Nobody looked at the
+folder afterwards.
 
-In the code: 23 instances of `alt=""` and 6 placeholder values such as
-`alt="img_home"` and `alt="icono_ir"`, which describe the variable rather than
-the image.
+**Editor settings were left in the project.** PhpStorm and VS Code configuration
+folders, neither of which belongs there.
 
-Also flagged: insufficient colour contrast, links with no discernible name,
-iframes without titles, no main landmark, and touch targets too small or too
-closely spaced.
+**Line endings are inconsistent**, from editing on Windows against a Linux
+server with nothing set up to manage it.
 
-The last of these is a direct conversion issue rather than a compliance one.
-Over 70% of Aventa's leads come from paid Meta and Google, predominantly mobile.
-Buttons that are difficult to tap on a phone lose form submissions that were
-paid for at the moment of the click.
+# 8. The handover itself
 
-The missing alt text is simultaneously an SEO defect: Aventa competes on visual
-quality, holds a 1.1 GB photography library, and none of it is legible to a
-search engine.
+This is why the first days of the takeover went on recovery instead of work.
 
-## 6. The project could not be built from a clean checkout
+**No version history was handed over.** There is none on the server at all. The
+developer worked locally and uploaded files. The entire history of the project
+exists only in a personal repository that was never transferred.
 
-**Severity: high. Discovered by attempting it.**
+**No copy of the code was provided.** At handover, the only copy of the source
+code Aventa possessed was the one running on the production server.
 
-`resources/js/app.js` line 10:
+**The only documentation was a Windows setup guide.** It explains how to install
+PHP on Windows and start a development server. It says nothing about how to
+publish a change, nothing about the two-folder problem in section 1, nothing
+about where the photos live. All of it had to be worked out from scratch.
 
-```js
-import '@flaticon/flaticon-uicons/css/regular/rounded.css'
-```
-
-That package appeared in neither `package.json` nor `package-lock.json`. A clean
-checkout followed by `npm install && npm run build` failed outright.
-
-The site built on the developer's machine because the package was installed
-there locally and never recorded. Nobody else could reproduce a build, which
-means no colleague, contractor or successor could have shipped a change without
-first diagnosing this.
-
-Handing over a project that does not build is a more consequential omission than
-any single item in section 7, because it blocks every other kind of work.
-
-## 7. Code hygiene
-
-**Severity: low individually. Collectively it indicates the absence of review.**
-
-**A corrupted duplicate component is sitting in the repository.** Two files
-exist:
-
-```
-resources/js/src/components/ConfigDiseños.vue    (ñ  = UTF-8 C3 B1)
-resources/js/src/components/ConfigDiseдos.vue    (д  = Cyrillic, UTF-8 D0 B4)
-```
-
-The second is a character-encoding accident that replaced `ñ` with a Cyrillic
-`д`. Only the correct file is imported, in `routes.js`. The broken duplicate was
-created, never used, and never removed. Nobody read the directory listing
-afterwards.
-
-**Editor configuration was committed.** `.idea/` (PhpStorm, 0.43 MB) and
-`.vscode/` were both left in the project.
-
-**Line endings are inconsistent.** `public_html/index.php` carries CRLF
-terminators, consistent with Windows editing against a Linux server, with no
-`.gitattributes` normalisation in place to manage it.
-
-## 8. Handover practice
-
-**Severity: high, and the reason the first days of this engagement were spent on
-recovery rather than work.**
-
-**No version control was transferred.** There is no `.git` directory anywhere on
-the server. The developer worked locally and uploaded files. The entire history
-of the project exists only in a personal repository that was not handed over.
-
-**No local copy was provided.** At handover, the only copy of the site's source
-code in Aventa's possession was the one on the production server.
-
-**The only documentation was a Windows setup guide.** `GUIA.txt` covers adding
-PHP to the Windows PATH and running `php artisan dev`. It contains nothing about
-the deployment process, the split between `aventa/` and `public_html/`, the
-manifest behaviour described in section 1, where the media lives, or how to
-release a change safely. Every one of those had to be reverse-engineered.
-
-**Bundled Windows binaries.** The handover package included PHP 8.3, 8.4 and 8.5
-plus Node as Windows executables, which do not run on the client's Mac.
+**The bundled software did not run on the client's computer.** The handover
+package included PHP and Node as Windows programs. Sophia uses a Mac.
 
 ---
 
-## Assessment
+# Assessment
 
-The build is structurally sound and worth keeping. The failures cluster in three
-places: **release engineering** (section 1), **performance discipline**
-(section 2), and **handover practice** (section 7).
+The site is soundly built and worth keeping. The failures cluster in three
+places: **publishing** (sections 1 and 5), **performance** (section 2), and
+**the handover itself** (section 8).
 
-Sections 1 and 7 compound each other. A deployment process that silently
-discards changes is difficult to diagnose at the best of times. Handing it over
-with no documentation, no version history and no local copy meant the client had
-no way to discover it before shipping a change that appeared to do nothing.
+Those compound each other. A publishing process that silently discards your
+changes is hard enough to diagnose. Handing it over with no documentation, no
+history and no copy of the code meant there was no way to find out before
+shipping a change that appeared to do nothing.
 
-Sections 1, 2 and 3 are all fixable within the existing codebase. None requires
-a rebuild.
+Sections 1, 2 and 3 are all fixable inside the existing code. None needs a
+rebuild.
 
-**Three fixes, in order:**
+**In order:**
 
-1. The public path, so deployments stop silently failing. One line.
-2. The model preload, so the site stops shipping 124 MB to every visitor. One
-   line, plus scoping the load to the modal that uses it.
-3. The remaining pages into the locale files, so the language switcher tells the
-   truth. Roughly 224 strings, page by page.
+1. **The publishing path**, so updates stop silently failing. Done.
+2. **The model preload**, so the site stops sending 124 MB to every visitor.
+   One line, pending a decision on where the 3D house belongs.
+3. **The remaining pages into the translation system**, so the language switcher
+   tells the truth. Homepage done, ten pages to go.
 
 The full working list, including unverified items, is in `BACKLOG.md`.
