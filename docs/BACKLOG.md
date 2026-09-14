@@ -71,7 +71,39 @@ images after our copy was taken.
 image set. So the gap is bounded: four pages, one navigation bar, and a set of
 image swaps. That is recoverable work, not a rewrite.
 
-### Correction to item 7
+### Correction to item 7, and the confirmed figures
+
+The 22.8 MB and 15.9 MB puertas images were measured in a build from this stale
+source, and the live site uses different files for those. That specific claim is
+withdrawn.
+
+**But the general finding is confirmed, measured against the live manifest.**
+Any file with the same name in both builds is byte identical, so these sizes are
+exactly what the live site serves:
+
+| File | Live size |
+|---|---|
+| `maderas.jpg` | 8.3 MB |
+| `nuestras_puertas_aventa.jpg` | 6.5 MB |
+| `nuestras_ventanas_aventa.jpg` | 4.6 MB |
+| everything else on the homepage | 0.8 MB |
+
+**The homepage loads 23 images totalling 20.2 MB**, of which three files are
+19.4 MB. All three are 4500 to 5800 pixels wide, displayed a few hundred pixels
+wide. Resized to 1920px at quality 82 they come to 0.99 MB combined, a 95%
+reduction with nothing visible lost.
+
+The ventanas carousel, by contrast, is 191 KB to 367 KB and is fine.
+
+### These three can be fixed without a deploy
+
+They are static files in `public_html/build/assets/`. Replacing them with
+compressed versions **under the same filenames** requires no build, no manifest
+change and no source code, so it is unaffected by the stale source problem.
+
+Caveat: a future real deploy would restore the large versions, because the
+source still contains the originals. Fix the source too once the divergence is
+resolved.
 
 Item 7 measured 22.8 MB and 15.9 MB puertas images. Those were measured in a
 build **from this stale source**, and the live site uses different files for
