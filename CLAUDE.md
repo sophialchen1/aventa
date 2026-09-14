@@ -104,6 +104,21 @@ git, deploys, and infrastructure.
 - Match the language of the task. Team-facing content leans Spanish, strategy
   and investor communication leans English.
 
+## How we work
+
+**Claude commits directly to `main`.** No feature branches unless a change is
+risky enough to want looked at separately, in which case say so and branch.
+
+Sophia's side is `git pull` before editing and `git pull` to collect new work.
+
+This is safe because **nothing in this repository deploys itself**. The live
+site changes only when Sophia builds and uploads to cPanel. A bad commit costs
+a `git revert`, never an outage. See DEPLOY.md.
+
+Two habits that keep it working:
+- Sophia pulls before she starts editing.
+- When Sophia says she is editing a file, stay off that file.
+
 ## Repository history
 
 Started fresh from the local handoff copy because the previous developer had not
