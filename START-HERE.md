@@ -115,10 +115,24 @@ unzip -q aventa-source.zip -d aventa-extracted
 ls aventa-extracted
 ```
 
-If `ls` shows a single `aventa` folder, the real files are one level down. That
-is the expected case, and it is what the commands below assume. If instead you
-see `artisan` and `package.json` directly, remove `aventa/` from the paths in
-the two commands that follow.
+What you see determines the path in the next command.
+
+- If `ls` shows `artisan`, `package.json` and `public` **directly**, the files
+  are at the top level. Use the command below as written. This is what happens
+  when you zipped from *inside* `aventa/` by selecting its contents.
+- If `ls` shows a single `aventa` folder, everything is one level down. Add
+  `aventa/` to the end of the source path.
+
+Confirm the hidden files survived the round trip before copying, since `ls` on
+its own does not show them:
+
+```bash
+ls -a ~/Downloads/aventa-extracted | head -20
+```
+
+You must see `.env` in that list. If it is missing, the zip was made without
+hidden files showing and needs to be redone. Everything else can be
+regenerated. `.env` cannot.
 
 Now copy the files across:
 
@@ -128,7 +142,7 @@ rsync -av \
   --exclude '.gitignore' \
   --exclude '.gitattributes' \
   --exclude 'README.md' \
-  ~/Downloads/aventa-extracted/aventa/ \
+  ~/Downloads/aventa-extracted/ \
   ~/Documents/aventa/
 ```
 
