@@ -1086,7 +1086,7 @@ onBeforeUnmount(() => {
                                 :src="video_src"
                                 playsinline
                                 muted
-                                preload="auto"
+                                preload="none"
                             ></video>
                         </div>
                     </div>
