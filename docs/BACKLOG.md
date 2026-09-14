@@ -40,6 +40,50 @@ compiled files, not just the part that changed.
 
 So: **no deploys from this repository until the divergence is resolved.**
 
+### Exactly what is missing, measured against the live manifest
+
+The live site's `manifest.json` (from its 28 Aug 2026 build) lists everything it
+loads. Compared against this repository:
+
+**Four pages exist on the live site with no source here:**
+
+| Page | Almost certainly |
+|---|---|
+| `RecursosProfesionales.vue` | The "Resources" menu item that disappeared |
+| `CondicionesVenta.vue` | Conditions of sale |
+| `TerminosCompra.vue` | Purchase terms |
+| `PoliticaGarantia.vue` | Warranty policy |
+
+**Images the live site uses that we do not have:**
+`puertas.png`, `puertas_car1.png` through `puertas_car4.png`,
+`Conversación.jpg`, `nosotros_puer.jpg`, `nosotros_ventana.jpg`,
+`nosotros_interior.jpg`, `nosotros_exterior.jpg`.
+
+**Images we have that the live site no longer uses:** the `.JPG` versions of the
+puertas carousel, `.jpeg` versions of the nosotros photos, `puerta.gif`,
+`ventana.gif`, `sume.png`, `Puertas-landing.png` and three icons.
+
+Note the pattern: the live site moved the puertas carousel from `.JPG` to
+`.png`, and the nosotros photos from `.jpeg` to `.jpg`. Somebody replaced those
+images after our copy was taken.
+
+**Everything else matches**, including every page we do have and most of the
+image set. So the gap is bounded: four pages, one navigation bar, and a set of
+image swaps. That is recoverable work, not a rewrite.
+
+### Correction to item 7
+
+Item 7 measured 22.8 MB and 15.9 MB puertas images. Those were measured in a
+build **from this stale source**, and the live site uses different files for
+exactly those images. So the claim that the live site serves 22 MB photographs
+is **not confirmed** and must be re-measured against the live site before being
+repeated. Check the real sizes of `puertas_car1-DAAwHFau.png` and its siblings
+in `public_html/build/assets`.
+
+The general finding stands: `ventanas_car1` through `car4` are identical files
+in both builds, and those are 191 KB to 367 KB, which is reasonable. The
+uncompressed originals may be a problem only in our stale copy.
+
 ### How to resolve it, in order of preference
 
 1. **Get the previous developer's repository.** This is no longer a nice to
