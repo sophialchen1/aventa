@@ -466,15 +466,15 @@ onBeforeUnmount(() => {
 
            <div class="relative flex flex-col gap-8 px-5 justify-center w-full lg:px-0 lg:items-start lg:max-w-[1150px] ">
                <div class="flex flex-col gap-0">
-                   <tittle-custom titulo="Puertas y Ventanas de Madera Termoacústicas Hechas a Medida"/>
+                   <tittle-custom :titulo="$t('ini_hero_titulo')"/>
                    <h2 class="text-white italic tracking-wider text-[1.2rem] lg:text-[1.875rem]"> {{ $t('ini_sub') }} </h2>
                </div>
                <div class="flex gap-2 items-center justify-center lg:gap-5">
                    <button
-                       class="font-bold w-fit cursor-pointer text-sm py-3 px-3 bg-[#275A50] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px]  lg:py-4 lg:px-5 lg:text-base" @click="scrollToProductos">Nuestros Productos</button>
+                       class="font-bold w-fit cursor-pointer text-sm py-3 px-3 bg-[#275A50] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px]  lg:py-4 lg:px-5 lg:text-base" @click="scrollToProductos">{{ $t('ini_productos') }}</button>
                    <router-link
                        class="font-bold w-fit text-sm py-3 px-3 bg-[#275A50] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5 lg:text-base"
-                       to="/inspiracion">Inspiración de Diseño</router-link>
+                       to="/inspiracion">{{ $t('ini_inspiracion') }}</router-link>
                </div>
 
            </div>
@@ -508,10 +508,10 @@ onBeforeUnmount(() => {
                        <router-link to="/puertas" class="w-full h-[150px] flex flex-col group lg:w-1/3 lg:h-full">
                            <div class=" relative w-full h-full overflow-hidden rounded-xl lg:rounded-t-xl lg:rounded-b-none select-btn">
                                <div class="hidden absolute bottom-0 right-0 left-0 h-[10px] z-10 bg-[#C8A97E] lg:flex"></div>
-                               <p class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden"> Nuestras Puertas</p>
+                               <p class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden">{{ $t('ini_puertas') }}</p>
                                <img src="../assets/media/nuestras_puertas_aventa.jpg"
                                     class="absolute top-0 left-0 w-full h-full lg:scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
-                                    alt="puertas" title="Nuestras Puertas">
+                                    alt="puertas" :title="$t('ini_puertas')">
                            </div>
                            <div class="hidden lg:flex lg:flex-col">
                                <p class="text-[1.3rem]">{{ $t('ini_puertas') }}</p>
@@ -524,11 +524,11 @@ onBeforeUnmount(() => {
                        <router-link to="/ventanas" class="w-full h-[150px] flex flex-col group lg:w-1/3 lg:h-full">
                            <div class="relative w-full h-full overflow-hidden rounded-xl lg:rounded-t-xl lg:rounded-b-none select-btn">
                                <div class="hidden absolute bottom-0 right-0 left-0 h-[10px] z-10 bg-[#C8A97E] lg:flex"></div>
-                               <p class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden"> Nuestras Ventanas</p>
+                               <p class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden">{{ $t('ini_ventanas') }}</p>
 
                                <img src="../assets/media/nuestras_ventanas_aventa.jpg"
                                     class="absolute top-0 left-0 w-full h-full scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
-                                    alt="ventanas" title="Nuestras Ventanas">
+                                    alt="ventanas" :title="$t('ini_ventanas')">
                            </div>
                            <div class="hidden lg:flex lg:flex-col">
                                <p class="text-[1.3rem]"> {{ $t('ini_ventanas') }} </p>
@@ -543,11 +543,11 @@ onBeforeUnmount(() => {
                                <div class="flex-none w-full h-[150px] lg:h-[180px] relative flex flex-col" @click="openM('', 'woods')">
                                    <div class="relative w-full h-full overflow-hidden rounded-xl lg:rounded-t-xl lg:rounded-b-none select-btn">
                                        <div class="hidden absolute bottom-0 right-0 left-0 h-[10px] z-10 bg-[#C8A97E] lg:flex"></div>
-                                       <p class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden"> Nuestras Maderas</p>
+                                       <p class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden">{{ $t('ini_maderas') }}</p>
 
                                        <img src="../assets/media/maderas.jpg"
                                             class="absolute top-0 left-0 w-full h-full scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
-                                            alt="maderas" title="Nuestras Maderas">
+                                            alt="maderas" :title="$t('ini_maderas')">
                                    </div>
                                </div>
                                <div class="hidden lg:flex lg:flex-col">
@@ -560,7 +560,7 @@ onBeforeUnmount(() => {
                            <div class="flex flex-none mb-14">
                                <router-link
                                    class=" flex items-center py-4 justify-center bg-[#2B5A51] text-white text-xl w-full  rounded-xl transition-normal duration-300  hover:translate-y-[-15px] hover:text-[1.35rem] lg:h-[62px] lg:py-0"
-                                   to="/inspiracion">Inspiración de Diseño</router-link>
+                                   to="/inspiracion">{{ $t('ini_inspiracion') }}</router-link>
                            </div>
                        </div>
                    </div>
@@ -585,9 +585,9 @@ onBeforeUnmount(() => {
                        <div class="flex-1/4 gap-5 lg:gap-15">
                            <div class="flex justify-center">
                                <img class="object-contain w-15 h-15 lg:w-[120px] lg:h-[120px]" src="../assets/media/nfrlogo.png"
-                                    alt="proximo1" title="Proximo Colaborador">
+                                    alt="proximo1" :title="$t('ini_proximo_colab')">
                            </div>
-                           <h3 class="text-base text-[#918164] text-center tracking-wider italic ">Próximamente</h3>
+                           <h3 class="text-base text-[#918164] text-center tracking-wider italic ">{{ $t('ini_proximamente') }}</h3>
                        </div>
                    </div>
                </transition>
@@ -672,7 +672,7 @@ onBeforeUnmount(() => {
            </div>
            <div class="mt-[4vh] mb-[4vh] bg-white flex justify-center pt-[2vh] pb-[2vh]">
                <div class="flex flex-col w-full px-2 items-center lg:gap-5 md:gap-5 md:max-w-[1000px] lg:max-w-[1150px] lg:flex-row">
-                   <h2 class="text-[1.7rem] italic text-[#918164] tracking-wider lg:text-[2.5rem] lg:flex-2/5"> Elegidos por: </h2>
+                   <h2 class="text-[1.7rem] italic text-[#918164] tracking-wider lg:text-[2.5rem] lg:flex-2/5">{{ $t('ini_elegidos') }}</h2>
                    <div class="flex gap-5 lg:flex-3/5 lg:gap-15  md:w-[100%]">
                        <div class="flex-1/4 flex items-center justify-center"><img class="object-contain w-20 lg:w-[160px]" src="../assets/media/bernardi.jpg" alt="bernardi" title="Bernardi"></div>
                        <div class="flex-1/4 flex items-center justify-center"><img class="object-contain w-20 lg:w-[180px]" src="../assets/media/tallerg.png" alt="taller-g" title="Taller-g"></div>
@@ -798,7 +798,7 @@ onBeforeUnmount(() => {
                            <p class="text-xl lg:text-[1.3rem]"><b>{{ $t('ini_p9') }}:</b></p>
                            <div class="grid grid-cols-2 md:grid-cols-4 lg:flex">
                                <div class="flex-1/4 flex flex-col justify-center items-center gap-5">
-                                   <img class="w-15 lg:w-[3.5vw]" src="../assets/media/icons/icon-sus.png" alt="icon-sus" title="Sustentabilidad">
+                                   <img class="w-15 lg:w-[3.5vw]" src="../assets/media/icons/icon-sus.png" alt="icon-sus" :title="$t('ini_sustentabilidad')">
                                    <p>{{ $t('ini_p10') }}</p>
                                </div>
                                <div class="flex-1/4 flex flex-col justify-center items-center gap-5">
@@ -873,7 +873,7 @@ onBeforeUnmount(() => {
 
        <div class="mt-[4vh] mb-[4vh] bg-white flex justify-center pt-2 py-2">
            <div class="flex flex-col w-full px-2 items-center lg:gap-5 md:gap-5 md:max-w-[1000px] lg:max-w-[1150px] lg:flex-row">
-               <h2 class="text-[1.7rem] italic text-[#918164] tracking-wider lg:text-[2.5rem] lg:flex-2/5"> Nuestras Membresías: </h2>
+               <h2 class="text-[1.7rem] italic text-[#918164] tracking-wider lg:text-[2.5rem] lg:flex-2/5">{{ $t('ini_membresias') }}</h2>
                <div class="flex gap-5 lg:flex-3/5 lg:gap-15 md:w-[100%]">
                    <div class="flex-1/4 flex items-center justify-center"><img class="object-contain w-20 lg:w-[210px]" src="../assets/media/amevec.png" alt="amevec" title="AMEVEC"></div>
                    <div class="flex-1/4 flex items-center justify-center"><img class="object-contain w-20 lg:w-[160px]" src="../assets/media/sume.png" alt="Sume" title="SUME"></div>
@@ -897,8 +897,8 @@ onBeforeUnmount(() => {
                    class="flex-1/2 relative flex bg-white rounded-xl w-full h-auto p-4 lg:p-[2vw] shadow-lg border-1 border-[#918164]">
                    <form class="flex flex-col w-full gap-5" action="">
                        <div class="grid grid-cols-2 gap-5">
-                           <input name="firstname" class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE]" placeholder="Nombre (s)" required>
-                           <input name="lastname" class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE]" placeholder="Apellidos" required>
+                           <input name="firstname" class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE]" :placeholder="$t('f_nombres')" required>
+                           <input name="lastname" class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE]" :placeholder="$t('f_apellidos')" required>
                        </div>
                        <input name="phone" class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE] rounded-borders"
                               :placeholder="$t('f_numero')" required>
@@ -909,7 +909,7 @@ onBeforeUnmount(() => {
                        <div>
                            <label class="text-[#757575] flex gap-2 cursor-pointer">
                                <input name="quiere_llamada" type="checkbox">
-                               ¿Quiero que me contacten por llamada?
+                               {{ $t('f_llamada') }}
                            </label>
                        </div>
                        <div class="flex justify-start">
