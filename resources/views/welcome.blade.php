@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="preload" href="/models/house_aventa.glb" as="fetch" crossorigin>
     <title>Aventa</title>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
