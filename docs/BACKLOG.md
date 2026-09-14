@@ -10,6 +10,56 @@ Fixed items stay on the list with the date, so there is a record.
 
 ---
 
+# P0 · BLOCKING · The source code is older than the live site
+
+## 0. Do not deploy anything built from this code
+
+**Confirmed 14 Sep 2026, the hard way.** A build from this source was deployed
+and reverted the live site to an older version.
+
+What broke, and why each one proves the point:
+
+| Symptom | Evidence in this repository |
+|---|---|
+| Menu bar turned from grey to gold | `navbar.vue` uses `bg-[#918164]`, the gold, five times. Our source's navbar *is* gold. The live one is grey. |
+| The Resources menu item disappeared | There is **no** Resources or Recursos route, page, menu item or translation key anywhere in this codebase. Searched all of `resources/js/src`. Zero matches. |
+| Photos loaded slower, some errored | Our source references the uncompressed originals and an older set of image filenames. |
+
+The live site therefore includes work that was never in the folder handed over.
+Someone built and uploaded a newer version whose source we do not have.
+
+**The source for the current live site exists only on the previous developer's
+machine, and in his GitHub repository.** `public_html` holds only compiled
+output. Vue source cannot be recovered from it.
+
+### What this blocks
+
+Every build from this code reverts the site. That applies to a one-word text
+change exactly as much as to a large one, because a build replaces all the
+compiled files, not just the part that changed.
+
+So: **no deploys from this repository until the divergence is resolved.**
+
+### How to resolve it, in order of preference
+
+1. **Get the previous developer's repository.** This is no longer a nice to
+   have. It is the only complete copy of the current site's source. Item 22 was
+   filed as low priority. It is now the highest priority item on this list.
+2. **Reconstruct the differences by hand.** Read the live compiled files, work
+   out what changed (nav colour, the Resources link, image handling), and
+   re-apply those changes to this source. Feasible if the list is short.
+   Laborious and error-prone if it is not.
+3. **Patch the live compiled files directly** for anything urgent. Surgical, and
+   overwritten by the next real deploy. A stopgap, not a way of working.
+
+### How this was missed
+
+The risk was recorded in `server-layout.md` on day one, under "Open question
+worth resolving": `public_html` had a modification date ten months later than
+`aventa`, and the note said to flag it before making changes. It was never
+closed out, and the deploy went ahead anyway. The check that would have caught
+it is comparing the live `manifest.json` against a freshly built one.
+
 # P0 · We could lose things
 
 ## 1. The site's photos are not backed up anywhere

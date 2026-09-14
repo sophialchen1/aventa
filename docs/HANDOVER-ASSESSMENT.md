@@ -40,6 +40,29 @@ conversion events for WhatsApp, phone and social clicks.
 
 ---
 
+# 0. The code handed over is not the code that is running
+
+**Confirmed 14 September 2026.**
+
+The project folder handed over is an older version of the site than the one
+live at aventawindows.com. Proven three ways:
+
+- This codebase contains **no Resources page, route, menu item or translation
+  key**. The live site has one in its navigation.
+- This codebase's navigation bar is gold, `#918164`, used five times in
+  `navbar.vue`. The live navigation bar is grey.
+- A build from this source, deployed, reverted both of those on the live site.
+
+So work was done on the site after the copy in `aventa/` was last updated, and
+the source for that work was never handed over. `public_html` contains only
+compiled output; Vue source cannot be recovered from it.
+
+The practical consequence is that **the running website cannot currently be
+modified at all.** Any change built from the only source Aventa possesses
+reverts the site to an earlier state. This is the most serious item in this
+document, and it follows directly from section 8: had version control been
+handed over, this could not have happened.
+
 # 1. Updating the site silently did nothing
 
 **The most serious finding.**
