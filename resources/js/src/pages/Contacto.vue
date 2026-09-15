@@ -39,20 +39,6 @@ const oficinas = [
             "/media/oficdmx-2.jpeg",
             "/media/oficdmx-3.jpeg"
         ]
-    },
-    {
-        id: 3,
-        name_o: "Mérida",
-        name_a: "MÉR",
-        direccion: "Av Jose Diaz Bolio 126, Col. México, México, 97125 Mérida, Yuc.",
-        telefono: "52 415 124 6467",
-        url_map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1862.3772633845274!2d-89.61506036146372!3d21.002474799178625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5676b2360a4b1f%3A0xe95c878980790079!2sAv%20Jose%20Diaz%20Bolio%20126%2C%20Col.%20M%C3%A9xico%2C%20M%C3%A9xico%2C%2097125%20M%C3%A9rida%2C%20Yuc.!5e0!3m2!1ses-419!2smx!4v1749654258915!5m2!1ses-419!2smx",
-        img: [
-            "/media/ofi-mer.jpg",
-            "/media/oficina-mer.jpg",
-            "/media/oficina-mer2.jpg",
-            "/media/ofi-mer.jpg"
-        ]
     }
 ]
 
