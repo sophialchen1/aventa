@@ -59,7 +59,6 @@
     "ini_agu_dp2": "El sistema de apertura amplia con vidrio de alto desempeño permite una integración completa con el paisaje, sin sacrificar privacidad ni eficiencia energética. Ideal para espacios donde diseño y funcionalidad deben convivir con la naturaleza.",
     "ini_agu_ep1": "Soluciones arquitectónicas a medida en madera sólida.",
     "ini_agu_ep2": "Cada puerta y ventana fue diseñada bajo especificaciones exactas para garantizar aislamiento, durabilidad y estética continua. Usamos herrajes de alta calidad y acabados que respetan el estilo rústico contemporáneo del proyecto.",
-
     "ini_ceb_sub": "Una apertura total hacia lo extraordinario",
     "ini_ceb_dt": "Aura es un proyecto residencial donde cada línea de diseño privilegia la conexión con el exterior. Las piezas que instalamos logran crear una atmósfera cálida, sin comprometer aislamiento ni elegancia.",
     "ini_ceb_dp1": "Las puertas corredizas en madera sólida conectan el comedor y la sala con una terraza rodeada de vegetación. La pieza fue diseñada para permitir vistas limpias y una integración fluida entre el interior y los espacios sociales exteriores, manteniendo confort térmico y acústico.",
@@ -68,35 +67,29 @@
     "ini_gru_dt": "En Los Grullos, cada puerta y ventana que diseñamos tenía una misión clara: enmarcar el paisaje sin interrumpirlo. Este proyecto se convirtió en el equilibrio perfecto entre interiorismo, funcionalidad y conexión con el exterior. Un espacio que fluye con naturalidad y luz.",
     "ini_gru_dp1": "La calidez de la madera sólida, enmarcando la luz natural y la vegetación fue el hilo conductor de esta obra maestra. Puertas y ventanas que, además de verse increíbles, aportan aislamiento y confort térmico sin romper con la estética del lugar.",
     "ini_gru_ep1": "Cada pieza fue pensada para sumarse al estilo arquitectónico del proyecto: líneas limpias, materiales premium y una relación visual constante con el exterior. El resultado fue una integración sutil, elegante y completamente funcional.",
-
     "ini_ritz_sub": "Lujo, naturaleza y confort",
     "ini_ritz_dt": "Un refugio frente al mar diseñado para brindar tranquilidad. Su arquitectura invita a disfrutar cada espacio en serenidad.",
     "ini_ritz_dp1": "Nuestras puertas y ventanas conectan el interior con el exterior de una forma natural manteniendo el silencio y la temperatura ideal, creando el ambiente perfecto para vivir momentos inolvidables.",
     "ini_ritz_ep1": "La madera no solo construye, conecta.",
     "ini_ritz_ep2": "Cada proyecto que tocamos lleva nuestro sello: funcionalidad silenciosa, diseño a medida y materiales nobles.",
     "ini_ritz_ep3": "Nuestras puertas y ventanas responden a cada espacio con precisión inigualable.",
-
     "ini_goe_sub": "Donde la armonía encuentra su hogar.",
     "ini_goe_dt": "Una residencia de estilo cálido y atemporal, diseñada para disfrutar la belleza en cada detalle.",
     "ini_goe_dp1": "Cada apertura de nuestras piezas potencia la estética del lugar sin sacrificar funcionalidad brindando silencio y confort, haciendo que el entorno dialogue suavemente con la arquitectura.",
     "ini_goe_ep1": "Soluciones arquitectónicas a medida en madera laminada (sólida).",
     "ini_goe_ep2": "Cada puerta y ventana fue diseñada bajo especificaciones exactas para garantizar aislamiento, durabilidad y estética superior. Usamos herrajes de alta calidad y acabados que respetan el estilo rústico contemporáneo del proyecto.",
-
     "ini_oas_sub": "El espacio ideal para vivir en Tulum.",
     "ini_oas_dt": "La arquitectura crea una sensación de refugio sin desconectarse del exterior.",
     "ini_oas_dp1": "Este proyecto se desarrolla a partir de una relación directa con su entorno. La implantación, los materiales y las proporciones definen espacios sobrios y bien controlados.",
     "ini_oas_dp2": "Las puertas y ventanas de AVENTA forman parte de esa lógica, resolviendo la transición entre interior y exterior con control térmico y acústico, sin interferir con el diseño.",
     "ini_oas_ep1": "Cada elemento se diseña a la medida, atendiendo a las condiciones del sitio y al uso real de los espacios.",
     "ini_oas_ep2": "Las puertas y ventanas responden al proyecto con precisión y durabilidad.",
-
     "ini_alba_sub": "Conexión sin fronteras.",
     "ini_alba_dt": "Inspirado en el primer destello del día, este proyecto redefine la conexión con el entorno a través de las piezas de madera, permitiendo que la atmósfera, la calidez y el silencio sean los protagonistas del día a día.",
     "ini_alba_dp1": "",
     "ini_alba_dp2": "",
     "ini_alba_ep1": "Cada elemento se diseña a la medida, atendiendo a las condiciones del sitio y al uso real de los espacios.",
     "ini_alba_ep2": "Las puertas y ventanas responden al proyecto con precisión y durabilidad.",
-
-
     "ini_et_nuevo": "Nuevo",
     "ini_p3": "¿Estás listo para empezar tu proyecto?",
     "ini_p4": "Contáctanos y hagamos que tu visión tome forma",
@@ -132,5 +125,9 @@
     "f_enviar": "Enviar",
     "found_p1": "Pagina no encontrada",
     "found_p2": "Lo sentimos, la página que estás buscando no existe. Verifica la URL o vuelve al inicio.",
-    "found_p3": "Volver al inicio"
+    "found_p3": "Volver al inicio",
+    "ini_hero_h1": "Puertas y Ventanas de Madera Laminada con Ingeniería Alemana",
+    "ini_hero_sub": "Precisión técnica, perfiles multicapa resistentes a la torsión y acabados sostenibles para proyectos residenciales y hoteleros de alto nivel.",
+    "ini_hero_cta1": "Nuestros Productos",
+    "ini_hero_cta2": "Diseña tu proyecto"
 }

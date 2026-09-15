@@ -468,14 +468,12 @@ onBeforeUnmount(() => {
             >
                 <div class="flex flex-col gap-0">
                     <tittle-custom
-                        titulo="Puertas y Ventanas de Madera Laminada con Ingeniería Alemana"
+                        :titulo="$t('ini_hero_h1')"
                     />
                     <h2
                         class="text-white italic tracking-wider text-[1.2rem] lg:text-[1.875rem]"
                     >
-                        Precisión técnica, perfiles multicapa resistentes a la
-                        torsión y acabados sostenibles para proyectos residenciales
-                        y hoteleros de alto nivel.
+                        {{ $t('ini_hero_sub') }}
                     </h2>
                 </div>
                 <div class="flex gap-2 items-center justify-center lg:gap-5">
@@ -483,12 +481,12 @@ onBeforeUnmount(() => {
                         class="font-bold w-fit cursor-pointer text-sm py-3 px-3 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5 lg:text-base"
                         @click="scrollToProductos"
                     >
-                        Nuestros Productos
+                        {{ $t('ini_hero_cta1') }}
                     </button>
                     <router-link
                         class="font-bold w-fit text-sm py-3 px-3 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5 lg:text-base"
                         to="/design-experience"
-                        >Diseña tu proyecto</router-link
+                        >{{ $t('ini_hero_cta2') }}</router-link
                     >
                 </div>
             </div>
