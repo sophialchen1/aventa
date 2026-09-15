@@ -138,13 +138,13 @@ function openRequest(){
                             <!-- Muestra fábrica solo si existe -->
                             <lista-ubicaciones
                                 v-if="s.fabricas?.length"
-                                title="NUESTRA FÁBRICA"
+                                :title="$t('ini_p16')"
                                 :items="s.fabricas"
                                 :tipo="val"
                                 v-model:selected="seleccionado"
                             />
                             <lista-ubicaciones
-                                title="SHOWROOM"
+                                :title="$t('loc_showroom')"
                                 :items="s.oficinas"
                                 :tipo="val"
                                 v-model:selected="seleccionado"

@@ -3,7 +3,7 @@ import {computed} from "vue";
 
 const props = defineProps<{
     title: string
-    items: Array<{ id: number|string; name_o: string; name_a: string }>
+    items: Array<{ id: number|string; name_o: string; name_a: string; i18n_name?: string }>
     tipo?: string // 'mad' para café, lo demás negro
 }>()
 
@@ -29,7 +29,7 @@ function pick(item: any) {
             <div v-for="j in items" :key="j.id" @click="pick(j)" class="w-full flex items-center gap-3 px-2 py-2 cursor-pointer" :class="[isMad ? 'hover:bg-gray-300 rounded-full lg:rounded-l-full lg:rounded-r-none' : 'hover:bg-white',isSelected(j) ? (isMad ? 'bg-gray-300 rounded-full lg:rounded-l-full lg:rounded-r-none' : 'bg-white') : '']">
                 <div class="w-2.5 h-2.5"
                      :class="isSelected(j) ? (isMad ? 'bg-[#657d88] rounded-full' : 'bg-black') : ''"></div>
-                <p class="">{{ j.name_o }}</p>
+                <p class="">{{ j.i18n_name ? $t(j.i18n_name) : j.name_o }}</p>
             </div>
         </div>
     </div>
