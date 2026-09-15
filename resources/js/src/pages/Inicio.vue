@@ -468,14 +468,12 @@ onBeforeUnmount(() => {
             >
                 <div class="flex flex-col gap-0">
                     <tittle-custom
-                        titulo="Puertas y Ventanas de Madera Laminada con Ingeniería Alemana"
+                        titulo="{{t('ini_hero_h1')}}"
                     />
                     <h2
                         class="text-white italic tracking-wider text-[1.2rem] lg:text-[1.875rem]"
                     >
-                        Precisión técnica, perfiles multicapa resistentes a la
-                        torsión y acabados sostenibles para proyectos residenciales
-                        y hoteleros de alto nivel.
+                        {{t("ini_hero_sub")}}
                     </h2>
                 </div>
                 <div class="flex gap-2 items-center justify-center lg:gap-5">

@@ -12,6 +12,8 @@
     "nav_p3": "Explore on your own",
     "nav_p4": "Go to the render tool",
 
+    "ini_hero_h1": "German-Engineered Laminated Wood Doors and Windows",
+    "ini_hero_sub": "Technical precision, warp-resistant multilayer profiles and sustainable finishes for high-end residential and hospitality projects.",
     "ini_sub": "The art of transforming your spaces",
     "ini_btn1": "New Products",
     "ini_btn2": "Configure your Design",
@@ -136,17 +138,14 @@
     "ini_p19": "Do you have any questions?",
     "ini_p20": "Tell us how we can help you.",
 
-
     "con_t1": "Contact Us",
     "con_p1": "Stay in touch with us",
-
 
     "f_name": "Name",
     "f_numero": "Telephone Number",
     "f_correo": "E-mail",
     "f_msg": "Message",
     "f_enviar": "Send",
-
 
     "found_p1": "Page not found",
     "found_p2": "Sorry, the page you're looking for doesn't exist. Please check the URL or return to the top.",
