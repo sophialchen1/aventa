@@ -358,7 +358,45 @@ pop-up. Then compress it (item 7).
 **First:** confirm with the team where the 3D house is supposed to appear. It is
 presumably a deliberate feature.
 
-## 6. The site fails Google's speed test on mobile
+## 6. Speed: measured results of the September 2026 fixes
+
+Lighthouse lab test, emulated Moto G Power on Slow 4G, aventawindows.com
+homepage:
+
+| Metric | 14 Sep, before | After video fix | After model removal |
+|---|---|---|---|
+| **Performance score** | 33 | 49 | **60** |
+| Largest Contentful Paint | 224.5 s | 65.9 s | **4.5 s** |
+| First Contentful Paint | 4.2 s | 4.6 s | **2.6 s** |
+| Total Blocking Time | 1,480 ms | 440 ms | 550 ms |
+| Speed Index | 8.7 s | 7.2 s | **7.0 s** |
+| Cumulative Layout Shift | 0 | 0 | 0 |
+
+Two changes, both one line, both with no visible effect on the site:
+
+1. `preload="none"` on the about-us video, item 0b
+2. Removing the 3D model loader from `MainLayout`, item 5
+
+**LCP fell by 98%.**
+
+### Still open
+
+Roughly 20 MB of homepage photographs, item 7, of which three files are
+19.4 MB. These load below the fold, which matches the reported symptom of the
+page appearing and then photographs filling in slowly.
+
+New items surfaced by the 15 Sep report, not yet investigated:
+
+| Lighthouse insight | Estimate |
+|---|---|
+| Use efficient cache lifetimes | 7,829 KiB |
+| Render-blocking requests | 1,110 ms |
+| Document request latency | flagged as Error |
+| Forced reflow | flagged |
+
+The first is a server configuration matter (cache headers), not code.
+
+### Original finding
 
 **Confirmed.**
 
