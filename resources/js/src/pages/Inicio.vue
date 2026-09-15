@@ -468,7 +468,7 @@ onBeforeUnmount(() => {
             >
                 <div class="flex flex-col gap-0">
                     <tittle-custom
-                        titulo="{{t('ini_hero_h1')}}"
+                        :titulo="t('ini_hero_h1')"
                     />
                     <h2
                         class="text-white italic tracking-wider text-[1.2rem] lg:text-[1.875rem]"
