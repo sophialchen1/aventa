@@ -5,21 +5,11 @@ import ContactBar from "../components/contactBar.vue";
 import Bottombar from "../components/bottombar.vue";
 import {onMounted, ref} from "vue";
 import FormWhatsapp from "../components/FormWhatsapp.vue";
-import VsModal from "../layouts/VsModal.vue";
-import { useGlbPreload } from '../composables/useGlbPreload.js';
 import IconCustom from "../components/IconCustom.vue";
 import {useRoute} from "vue-router";
 
-const {preload , status} = useGlbPreload('/models/house_aventa.glb');
-
 const openForm = ref(false);
-const opend = ref(false);
 const router = useRoute();
-
-function openModalD(){
-    opend.value = !opend.value;
-    document.body.style.overflow = opend.value ? 'hidden' : '';
-}
 
 function openFormW(){
     openForm.value = !openForm.value;
@@ -27,8 +17,6 @@ function openFormW(){
 }
 
 onMounted(() => {
-    if (status.value !== 'loaded') preload();
-
     const a = document.getElementById('aventa-wa-fab');
     if (!a) return;
 
@@ -73,7 +61,6 @@ onMounted(() => {
 
 
     <form-whatsapp @click="openFormW" :show="openForm"/>
-    <vs-modal @click="openModalD" :show="opend"/>
 
 
 

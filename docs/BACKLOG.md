@@ -312,7 +312,31 @@ password.
 Over 70% of leads come from paid Meta and Google. Everything here makes those
 ads perform worse.
 
-## 5. A 124 MB file downloads on every page, for a feature almost nobody uses
+## 5. A 124 MB file downloads on every page, for a feature nobody CAN use
+
+**Confirmed 15 Sep 2026, and worse than first described.** The feature is not
+"rarely used". It is **unreachable**.
+
+In `MainLayout.vue`, which wraps every page, the modal's visibility flag `opend`
+starts `false`. The only function that changes it, `openModalD`, is referenced
+in exactly one place: the modal's own close handler, which cannot fire unless
+the modal is already open. No button, link or event anywhere in the template
+calls it.
+
+In `Inicio.vue` the same applies: the only `@click="openModalD"` sits inside a
+block marked `v-if="false"`.
+
+So the 3D comparison cannot be opened by any visitor, by any route, and has not
+been openable for some time. Aventa's marketing lead independently confirmed the
+feature was retired about a year ago.
+
+Every visitor to every page has been downloading 124 MB to support it.
+
+**Fixed 15 Sep 2026** by removing the loader from `MainLayout.vue`. `VsModal`
+keeps its own loader, so if the feature is ever re-enabled it still works, it
+just no longer loads for people who cannot reach it.
+
+### Original description
 
 **Confirmed. This is the biggest single problem and the smallest fix.**
 
