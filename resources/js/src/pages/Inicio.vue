@@ -481,12 +481,12 @@ onBeforeUnmount(() => {
                         class="font-bold w-fit cursor-pointer text-sm py-3 px-3 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5 lg:text-base"
                         @click="scrollToProductos"
                     >
-                        Nuestros Productos
+                        {{t("ini_btn1")}}
                     </button>
                     <router-link
                         class="font-bold w-fit text-sm py-3 px-3 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5 lg:text-base"
                         to="/design-experience"
-                        >Diseña tu proyecto</router-link
+                        >{{t("ini_btn2")}}</router-link
                     >
                 </div>
             </div>
@@ -663,7 +663,7 @@ onBeforeUnmount(() => {
                                 <router-link
                                     class="flex items-center py-4 justify-center bg-[#ee7465] text-white text-xl w-full rounded-xl transition-normal duration-300 hover:translate-y-[-15px] hover:text-[1.35rem] lg:h-[62px] lg:py-0"
                                     to="/design-experience"
-                                    >Descubre cuál es ideal para ti</router-link
+                                    >{{ $t("ini_descubre") }}</router-link
                                 >
                             </div>
                         </div>
@@ -981,27 +981,26 @@ onBeforeUnmount(() => {
                     <p
                         class="text-base lg:text-lg text-gray-400 leading-none translate-y-2 lg:translate-y-0"
                     >
-                        Explora y conecta con nosotros:
+                        {{ $t("ini_social_title") }}
                     </p>
                     <h2
                         class="w-70 lg:w-75 lg:leading-12 text-3xl font-light text-[#657d88] tracking-wide lg:text-5xl lg:flex-2/5"
                     >
-                        Encuentra Tu Pieza Ideal
+                        {{ $t("ini_finder_title") }}
                     </h2>
                     <p class="mt-3 max-w-[460px]">
-                        Descubre una propuesta pensada para tu espacio, tu
-                        arquitectura y tu estilo de vida.
+                        {{ $t("ini_finder_body1") }}
                     </p>
                     <p class="mt-3 max-w-[460px]">
-                        Completa el recorrido y accede a recomendaciones creadas
-                        especialmente para tu proyecto.
+                        {{ $t("ini_finder_body2") }}
+                
                     </p>
 
                     <router-link
                         to="/design-experience"
                         class="flex cursor-pointer items-center py-4 justify-center mt-5 lg:w-60 bg-[#ee7465] text-white text-xl w-full rounded-xl transition-normal duration-300 hover:translate-y-[-15px] hover:text-[1.35rem] lg:h-[62px] lg:py-0"
                     >
-                        Iniciar
+                        {{ $t("ini_finder_cta") }}
                     </router-link>
                 </div>
                 <div class="flex-1/2 h-90 lg:py-5 lg:px-8">
@@ -1025,7 +1024,7 @@ onBeforeUnmount(() => {
                 <h2
                     class="text-[1.7rem] italic text-[#657d88] tracking-wider lg:text-[2.5rem] lg:flex-2/5"
                 >
-                    Elegidos por:
+                    {{ $t("ini_partners_title") }}
                 </h2>
                 <div class="flex gap-5 lg:flex-3/5 lg:gap-15 md:w-[100%]">
                     <div class="flex-1/4 flex items-center justify-center">
@@ -1094,7 +1093,7 @@ onBeforeUnmount(() => {
                         <p
                             class="text-base flex-1/2 whitespace-pre-line text-justify lg:text-left"
                         >
-                            {{ 'Somos una empresa mexicana especializada en la fabricación de puertas y ventanas de alta gama, donde combinamos la precisión de la ingeniería alemana con el talento y la experiencia de la manufactura mexicana. Cada una de nuestras piezas está diseñada para cumplir con los más altos estándares de desempeño, calidad y estética, llegando a proyectos residenciales y comerciales en toda la República Mexicana.' + '\n\n' + 'Nuestro compromiso con el medio ambiente comienza desde el origen. Operamos en una fábrica construida completamente con madera proveniente de fuentes sustentables, reflejando la confianza que depositamos en este material por su resistencia, durabilidad y desempeño estructural.' + '\n\n' + 'Además, nuestra planta es autosustentable, lo que significa que gran parte de la energía utilizada en nuestros procesos proviene de fuentes renovables y de lavalorización de los propios residuos de producción, minimizando el impacto ambiental y promoviendo una fabricación responsable.'}}
+                            {{ $t("ini_p7") + '\n\n' + $t("ini_p8") + '\n\n' + $t("ini_p8_1") }}
                         </p>
                         <div class="flex-1/2 flex flex-col gap-3 lg:gap-10">
                             <p class="text-xl lg:text-[1.3rem]">
@@ -1112,7 +1111,7 @@ onBeforeUnmount(() => {
                                         alt="icon-sus"
                                         title="Sostenibilidad"
                                     />
-                                    <p>Sostenibilidad</p>
+                                    <p>{{ $t("ini_p10") }}</p>
                                 </div>
                                 <div
                                     class="flex-1/4 flex flex-col justify-center items-center gap-5"
@@ -1123,7 +1122,7 @@ onBeforeUnmount(() => {
                                         alt="icon-lujo"
                                         title="Premium"
                                     />
-                                    <p>Premium</p>
+                                    <p>{{ $t("ini_p11") }}</p>
                                 </div>
                                 <div
                                     class="flex-1/4 flex flex-col justify-center items-center gap-5"
@@ -1134,7 +1133,7 @@ onBeforeUnmount(() => {
                                         alt="icon-seg"
                                         title="Seguridad"
                                     />
-                                    <p>Seguridad</p>
+                                    <p>{{ $t("ini_p12") }}</p>
                                 </div>
                                 <div
                                     class="flex-1/4 flex flex-col justify-center items-center gap-5"
@@ -1145,7 +1144,7 @@ onBeforeUnmount(() => {
                                         alt="icon-tran"
                                         title="Tranquilidad"
                                     />
-                                    <p>Tranquilidad</p>
+                                    <p>{{ $t("ini_p13") }}</p>
                                 </div>
                             </div>
                         </div>
@@ -1200,7 +1199,7 @@ onBeforeUnmount(() => {
                     <h2
                         class="text-center leading-none text-[1.7rem] font-light italic tracking-wider lg:text-left lg:text-[2.5rem]"
                     >
-                        Convierte tus sueños en realidad
+                        {{ $t("ini_sub5") }}
                     </h2>
                     <p class="text-base text-justify lg:text-left">
                         ¡Prueba nuestra asesoria creativa de IA y encuentra la pieza ideal para tu proyecto!

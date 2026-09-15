@@ -15,19 +15,21 @@
     "ini_hero_h1": "Puertas y Ventanas de Madera Laminada con Ingeniería Alemana",
     "ini_hero_sub": "Precisión técnica, perfiles multicapa resistentes a la torsión y acabados sostenibles para proyectos residenciales y hoteleros de alto nivel.",
     "ini_sub": "El arte de transformar tus espacios",
-    "ini_btn1": "Nuevos Productos",
-    "ini_btn2": "Configura tu Diseño",
+    "ini_btn1": "Nuestros Productos",
+    "ini_btn2": "Diseña tu Proyecto",
     
     "ini_confian": "Confían en Nosotros:",
     
     "ini_sub1": "Lo Mejor Para tus Espacios",
     "ini_accesorios": "Maderas",
     "ini_soluciones": "¡Conoce nuestras soluciones!",
-    "ini_p1": "Contamos con una amplia gama de puertas, ventanas y accesorios, pensados para resaltar y hacer único cada uno de tus espacios.",
+    "ini_p1": "Contamos con una amplia gama de puertas, ventanas y accesorios, diseñados para realzar y hacer único cada uno de tus espacios.",
     "ini_cocomprar": "¿ Cómo Comprar ?",
     "ini_puertas": "Nuestras Puertas",
     "ini_ventanas": "Nuestras Ventanas",
     "ini_maderas": "Nuestras Maderas",
+    "ini_descubre": "Descubre cuál es ideal para ti",
+    
     "ini_descubrir": "Descubrir",
     
     "ini_cer": "Certificados por:",
@@ -53,7 +55,7 @@
     "ini_puerta": "Puerta",
     
     "ini_sub3": "Descubre proyectos destacados",
-    "ini_p2": "Explora cada uno de nuestros trabajos",
+    "ini_p2": "Explora cada uno de nuestras obras",
     "ini_val_sub": "Privacidad que se respira. Belleza que tranquiliza. La Valise, puertas y ventanas con proyeccion al corazon de San Miguel.",
     "ini_val_dt": "En La Valise, cada entrada y cada apertura fue pensada para invitar al descanso.",
     "ini_val_dp1": "Puertas y ventanas de madera sólida que aíslan el ruido, conservan la temperatura y enmarcan lo mejor del entorno sin romper la armonía del diseño. Un equilibrio perfecto entre belleza y funcionalidad para quienes saben disfrutar del silencio.",
@@ -107,6 +109,13 @@
     "ini_alba_ep1": "Cada elemento se diseña a la medida, atendiendo a las condiciones del sitio y al uso real de los espacios.",
     "ini_alba_ep2": "Las puertas y ventanas responden al proyecto con precisión y durabilidad.",
 
+    "ini_social_title": "Explora y conecta con nosotros:",
+    "ini_finder_title": "Encuentra Tu Pieza Ideal",
+    "ini_finder_body1": "Descubre una propuesta pensada para tu espacio, tu arquitectura y tu estilo de vida",
+    "ini_finder_body2": "Completa el recorrido y accede a recomendaciones creadas especialmente para tu proyecto.",
+    "ini_finder_cta": "Iniciar",
+    "ini_partners_title": "Elegidos por:",
+
     "ini_et_nuevo": "Nuevo",
     "ini_p3": "¿Estás listo para empezar tu proyecto?",
     "ini_p4": "Contáctanos y hagamos que tu visión tome forma",
@@ -115,15 +124,16 @@
     "ini_btn3": "Quiero Cotizar",
     
     "ini_sub4": "Sobre Nosotros",
-    "ini_p7": "Aventa es la primera empresa mexicana en cumplir con los exigentes criterios del estándar Passivhaus, líder mundial en eficiencia energética y calidad interior. Fabricamos soluciones en madera sólida con aislamiento térmico y acústico de alto rendimiento, combinando precisión tecnológica con excelencia artesanal. Nuestra propuesta integra innovación, desempeño y diseño arquitectónico.",
-    "ini_p8": "Producidos en México con alto nivel de detalle, nuestros productos se adaptan a proyectos residenciales y hoteleros de lujo. Con opciones de doble y triple acristalamiento, redefinimos el uso de la madera en la arquitectura contemporánea.",
-    "ini_p9": "Beneficios",
-    "ini_p10": "Sustentabilidad",
-    "ini_p11": "Lujo",
+    "ini_p7": "Somos una empresa mexicana especializada en la fabricación de puertas y ventanas de alta gama,donde combinamos la precisión de la ingeniería alemana con el talento y la experiencia de la manufactura mexicana. Cada una de nuestras piezas está diseñada para cumplir con los más altos estándares de desempeño, calidad y estética, llegando a proyectos residenciales y comerciales en toda la República Mexicana.",
+    "ini_p8": "Nuestro compromiso con el medio ambiente comienza desde el origen. Operamos en una fábrica construida completamente con madera proveniente de fuentes sustentables, reflejando la confianza que depositamos en este material por su resistencia, durabilidad y desempeño estructural.",
+    "ini_p8_1": "Además, nuestra planta es autosustentable, lo que significa que gran parte de la energía utilizada en nuestros procesos proviene de fuentes renovables y de la valorización de los propios residuos de producción, minimizando el impacto ambiental y promoviendo una fabricación responsable.",
+    "ini_p9": "Beneficios:",
+    "ini_p10": "Sostentabilidad",
+    "ini_p11": "Premium",
     "ini_p12": "Seguridad",
     "ini_p13": "Tranquilidad",
     
-    "ini_sub5": "Convierte tus ideas en realidad",
+    "ini_sub5": "Convierte tus sueños en realidad",
     "ini_p14": "Personaliza y define tu proyecto en minutos con tecnología inteligente",
     "ini_p15": "Configura tu",
     
