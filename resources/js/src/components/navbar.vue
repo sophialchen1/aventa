@@ -502,7 +502,7 @@ onUnmounted(() => {
                     to="/"
                     @click="openMovil"
                 >
-                    <p>Inicio</p>
+                    <p>{{ $t('nav_inicio') }}</p>
                     <img
                         class="rotate-180 w-5 h-5"
                         src="../assets/media/icons/angulo-pequeno-izquierdo.png"
@@ -514,7 +514,7 @@ onUnmounted(() => {
                     class="flex justify-between p-3 font-bold"
                     :class="{ 'border-b-1': abrir_p }"
                 >
-                    <p>Puertas</p>
+                    <p>{{ $t('nav_puertas') }}</p>
                     <img
                         class="rotate-180 w-5 h-5 transform duration-300"
                         :class="{ 'rotate-270': abrir_p }"
@@ -555,7 +555,7 @@ onUnmounted(() => {
                     class="flex justify-between p-3 font-bold"
                     :class="{ 'border-b-1': abrir_v }"
                 >
-                    <p>Ventanas</p>
+                    <p>{{ $t('nav_ventanas') }}</p>
                     <img
                         class="rotate-180 w-5 h-5 transform duration-300"
                         :class="{ 'rotate-270': abrir_v }"
@@ -596,7 +596,7 @@ onUnmounted(() => {
                     class="flex justify-between p-3 font-bold"
                     :class="{ 'border-b-1': abrir_c }"
                 >
-                    <p>Cómo Comprar</p>
+                    <p>{{ $t('nav_cocomprar') }}</p>
                     <img
                         class="rotate-180 w-5 h-5 transform duration-300"
                         :class="{ 'rotate-270': abrir_c }"
@@ -662,7 +662,7 @@ onUnmounted(() => {
                     to="/recursos-profesionales"
                     @click="openMovil"
                 >
-                    <p>Recursos</p>
+                    <p>{{ $t('nav_recursos') }}</p>
                     <img
                         class="rotate-180 w-5 h-5"
                         src="../assets/media/icons/angulo-pequeno-izquierdo.png"
@@ -675,7 +675,7 @@ onUnmounted(() => {
                     to="/contacto"
                     @click="openMovil"
                 >
-                    <p>Contacto</p>
+                    <p>{{ $t('nav_contact') }}</p>
                     <img
                         class="rotate-180 w-5 h-5"
                         src="../assets/media/icons/angulo-pequeno-izquierdo.png"
