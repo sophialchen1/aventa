@@ -1097,7 +1097,7 @@ onBeforeUnmount(() => {
                         </p>
                         <div class="flex-1/2 flex flex-col gap-3 lg:gap-10">
                             <p class="text-xl lg:text-[1.3rem]">
-                                <b>{{ $t("ini_p9") }}:</b>
+                                <b>{{ $t("ini_p9") }}</b>
                             </p>
                             <div
                                 class="grid grid-cols-2 md:grid-cols-4 lg:flex"
@@ -1202,7 +1202,7 @@ onBeforeUnmount(() => {
                         {{ $t("ini_sub5") }}
                     </h2>
                     <p class="text-base text-justify lg:text-left">
-                        ¡Prueba nuestra asesoria creativa de IA y encuentra la pieza ideal para tu proyecto!
+                        {{ $t("ini_ai_body") }}
                     </p>
                 </div>
                 <div class="flex gap-3 lg:gap-10 lg:flex-1/2">
@@ -1222,7 +1222,7 @@ onBeforeUnmount(() => {
                                 href="https://web.whatsapp.com/send?phone=525534634662&text=Hola"
                                 target="_blank"
                             >
-                                Configurar mi puerta/ventana
+                                {{ $t("ini_ai_cta") }}
                             </a>
                         </div>
                     </div>
@@ -1316,18 +1316,17 @@ onBeforeUnmount(() => {
                     <h2
                         class="lg:w-[450px] lg:leading-12 text-3xl font-light text-[#657d88] lg:text-5xl lg:flex-2/5"
                     >
-                        Conoce a detalle nuestros productos
+                        {{ $t("ini_explore_title") }}
                     </h2>
                     <p class="mt-3 lg:mt-5 max-w-[460px] wrap-normal">
-                        Desde el diseño hasta la instalación, en AVENTA creamos productos que combinan belleza, funcionalidad y desempeño para transformar cualquier espacio.
-                        Accede a recursos, especificaciones y herramientas exclusivas.
+                        {{ $t("ini_explore_body") }}
                     </p>
 
                     <router-link
                         class="flex cursor-pointer items-center py-4 justify-center mt-5 lg:w-60 bg-[#ee7465] text-white text-xl w-full rounded-xl transition-normal duration-300 hover:translate-y-[-15px] hover:text-[1.35rem] lg:h-[62px] lg:py-0"
                         to="/recursos-profesionales"
                     >
-                        Explorar
+                        {{ $t("ini_explore_cta") }}
                     </router-link>
                 </div>
             </div>
@@ -1401,7 +1400,7 @@ onBeforeUnmount(() => {
                                 class="text-[#757575] flex gap-2 cursor-pointer"
                             >
                                 <input name="quiere_llamada" type="checkbox" />
-                                ¿Quiero que me contacten por llamada?
+                                {{ $t("ini_quick_callback") }}
                             </label>
                         </div>
                         <div class="flex justify-start">
