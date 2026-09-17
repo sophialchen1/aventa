@@ -7,8 +7,8 @@ import IconCustom from "@/src/components/IconCustom.vue";
 type ArchivedType = {
     id: number;
     icon: string;
-    titulo: string;
-    description: string;
+    tituloKey: string;
+    descriptionKey: string;
     archivo: string;
 }
 
@@ -16,96 +16,96 @@ const arrays: ArchivedType[] = [
     {
         id: 1,
         icon: "pencil-ruler",
-        titulo: "Certificaciones y Fichas Técnicas",
-        description: "Accede a nuestra documentación y a los detalles técnicos del producto.",
+        tituloKey: "res_card1_title",
+        descriptionKey: "res_card1_body",
         archivo: "Ficha-Tecnica-de-Producto-AVE·NTA-Windows_-Maxima-Eficiencia-y-Calidad.pdf"
     },
     {
         id: 2,
         icon: "bulb",
-        titulo: "Garantías",
-        description: "Conoce los plazos, términos y condiciones para respaldar su inversión a largo plazo.",
+        tituloKey: "res_card2_title",
+        descriptionKey: "res_card2_body",
         archivo: "Politica-De-Garantia-Aventa-es-en.docx.pdf"
     },
     {
         id: 3,
         icon: "book-open-cover",
-        titulo: "Mantenimiento",
-        description: "Perfiles de Madera y PVC",
+        tituloKey: "res_card3_title",
+        descriptionKey: "res_card3_body",
         archivo: "Mantenimiento-1.pdf"
     },
     {
         id: 4,
         icon: "building",
-        titulo: "Confianza y Desempeño",
-        description: "Descubre por qué AVENTA es la decisión correcta para cualquier proyecto.",
+        tituloKey: "res_card4_title",
+        descriptionKey: "res_card4_body",
         archivo: "Why AVENTA_.pdf"
     },
     {
         id: 5,
         icon: "dollar",
-        titulo: "Términos Generales de Compra",
-        description: "Consulta las condiciones comerciales, formas de pago y lineamientos aplicables a tu pedido.",
+        tituloKey: "res_card5_title",
+        descriptionKey: "res_card5_body",
         archivo: "Procesos-de-Compra.pdf"
     },
 ];
 
 type FaqType = {
     id: number;
-    pregunta: string;
-    respuesta: string;
+    preguntaKey: string;
+    respuestaKey: string;
 }
 
 const faqs: FaqType[] = [
     {
         id: 1,
-        pregunta: "¿Qué tipo de puertas y ventanas ofrecen?",
-        respuesta: "Ofrecemos soluciones en puertas y ventanas diseñadas para diferentes estilos de proyecto, necesidades técnicas y acabados."
+        preguntaKey: "faq1_q",
+        respuestaKey: "faq1_a"
     },
     {
         id: 2,
-        pregunta: "¿Cómo sé si este producto es para mi proyecto?",
-        respuesta: "Podemos orientarte según el tipo de proyecto, estilo, funcionalidad, dimensiones y requerimientos técnicos para ayudarte a elegir la mejor opción."
+        preguntaKey: "faq2_q",
+        respuestaKey: "faq2_a"
     },
     {
         id: 3,
-        pregunta: "¿Qué necesito para cotizar?",
-        respuesta: "Para cotizar, lo ideal es contar con medidas aproximadas, tipo de producto, ubicación del proyecto y cualquier referencia visual o especificación que tengas."
+        preguntaKey: "faq3_q",
+        respuestaKey: "faq3_a"
     },
     {
         id: 4,
-        pregunta: "¿Puedo personalizar mis puertas y ventanas?",
-        respuesta: "Sí, contamos con opciones de personalización según dimensiones, acabados, configuraciones y necesidades específicas del proyecto."
+        preguntaKey: "faq4_q",
+        respuestaKey: "faq4_a"
     },
     {
         id: 5,
-        pregunta: "¿En qué partes del país trabajan?",
-        respuesta: "Trabajamos en distintas zonas del país. Podemos revisarlo contigo según la ubicación de tu proyecto."
+        preguntaKey: "faq5_q",
+        respuestaKey: "faq5_a"
     },
     {
         id: 6,
-        pregunta: "¿Cuánto tiempo tarda un proyecto?",
-        respuesta: "El tiempo puede variar según el tipo de producto, nivel de personalización, volumen y condiciones del proyecto."
+        preguntaKey: "faq6_q",
+        respuestaKey: "faq6_a"
     },
     {
         id: 7,
-        pregunta: "¿Tienen garantía?",
-        respuesta: "Sí, nuestros productos cuentan con garantía. Los alcances pueden variar según el producto y condiciones del proyecto."
+        preguntaKey: "faq7_q",
+        respuestaKey: "faq7_a"
     },
     {
         id: 8,
-        pregunta: "¿Puedo ver el producto antes de comprar?",
-        respuesta: "Sí, en ciertos casos es posible conocer materiales, acabados o visitar espacios donde puedas ver más de cerca nuestros productos."
+        preguntaKey: "faq8_q",
+        respuestaKey: "faq8_a"
     },
     {
         id: 9,
-        pregunta: "¿Ustedes se encargan de la instalación?",
-        respuesta: "Sí, dependiendo del proyecto podemos apoyar con la instalación o coordinarla de acuerdo con el alcance definido."
+        preguntaKey: "faq9_q",
+        respuestaKey: "faq9_a"
     },
     {
         id: 10,
-        pregunta: "¿Qué pasa si no tengo medidas?",
-        respuesta: "Podemos ayudarte con una guía o coordinar una visita técnica para levantamiento."
+        preguntaKey: "faq10_q",
+        respuestaKey: "faq10_a"
     }
 ];
 
@@ -127,8 +127,8 @@ function toggleFaq(id: number) {
             />
 
             <div class="relative w-full flex flex-col justify-center text-white lg:max-w-[1150px]">
-                <tittle-custom titulo="RECURSOS PARA PROFESIONALES" />
-                <p class="text-center text-sm px-5 lg:text-xl lg:text-left lg:p-0">Aquí podrás encontrar toda la información necesaria para comenzar tu proyecto con nosotros.</p>
+                <tittle-custom :titulo="$t('res_h1')" />
+                <p class="text-center text-sm px-5 lg:text-xl lg:text-left lg:p-0">{{ $t('res_intro') }}</p>
             </div>
         </div>
 
@@ -137,36 +137,36 @@ function toggleFaq(id: number) {
                 <div v-for="i in arrays" :key="i.id" class="p-2 lg:min-h-72 gap-5 flex flex-col items-center border-b-1 border-b-[#657d88] lg:border-none">
                     <icon-custom :icon="i.icon" size="4xl" class="text-gray-400"/>
                     <div class="min-h-14 flex items-start">
-                        <p class="font-bold text-lg text-center">{{i.titulo}}</p>
+                        <p class="font-bold text-lg text-center">{{ $t(i.tituloKey) }}</p>
                     </div>
                     <div class="w-full lg:min-h-26 flex flex-col items-center justify-start">
-                        <p class="w-full text-center">{{i.description}}</p>
+                        <p class="w-full text-center">{{ $t(i.descriptionKey) }}</p>
                     </div>
 
                     <a class="mb-3 ring-1 w-[60%] min-w-28 px-2 py-1 lg:w-fit rounded-full flex justify-center ring-[#657d88] text-[#657d88]/80 transition duration-300 hover:bg-[#657d88] hover:text-white"
                        :href="'/media/docs/' + i.archivo" target="_blank">
-                    Ver</a>
+                    {{ $t('res_card_cta') }}</a>
                 </div>
             </div>
 
             <div class="w-full flex flex-col gap-5 min-h-96 px-5  py-5 lg:flex-row lg:px-0 lg:py-12 lg:max-w-[1150px]">
                 <div class="lg:w-2/5 flex flex-col gap-3 lg:gap-5">
-                    <p class="text-center lg:text-left text-2xl font-extralight italic tracking-wider">Explora y conecta con</p>
+                    <p class="text-center lg:text-left text-2xl font-extralight italic tracking-wider">{{ $t('res_explore_kicker') }}</p>
                     <h2 class="text-7xl text-center lg:text-8xl lg:text-left font-extralight italic tracking-wider text-[#657d88]">AVENTA</h2>
-                    <p class="text-center text-gray-700 lg:text-left lg:max-w-80">Elige entre planificar una visita a nuestros showrooms, probar nuestra herramienta con IA, o explorar la experiencia exclusiva «Behind The Craft».</p>
+                    <p class="text-center text-gray-700 lg:text-left lg:max-w-80">{{ $t('res_explore_body') }}</p>
 
                 </div>
                 <div class="lg:w-3/5 flex flex-col lg:flex-row gap-3">
                     <div class="lg:w-1/3 max-h-96 lg:min-h-96 rounded-md overflow-hidden relative group">
-                        <p class="bottom-2 left-4 z-2 absolute text-white font-bold duration-600 transition-all group-hover:scale-110">Planea tu Visita</p>
+                        <p class="bottom-2 left-4 z-2 absolute text-white font-bold duration-600 transition-all group-hover:scale-110">{{ $t('f_visit') }}</p>
                         <img class="relative w-full h-full object-cover transition-all duration-600 ease-in-out brightness-75 group-hover:scale-125 group-hover:brightness-85" :src="'/media/planea_visita_mujer.jpg'" alt="">
                     </div>
                     <div class="lg:w-1/3 max-h-96 lg:min-h-96 rounded-md overflow-hidden relative group">
-                        <p class="bottom-2 left-4 z-2 absolute text-white font-bold duration-600 transition-all group-hover:scale-110">Herramienta IA</p>
+                        <p class="bottom-2 left-4 z-2 absolute text-white font-bold duration-600 transition-all group-hover:scale-110">{{ $t('res_explore_cta2') }}</p>
                         <img class="relative w-full h-full object-cover transition-all duration-600 ease-in-out brightness-75 group-hover:scale-125 group-hover:brightness-85" :src="'/media/ia_aventa.jpg'" alt="">
                     </div>
                     <div class="lg:w-1/3 max-h-96 lg:min-h-96 rounded-md overflow-hidden relative group">
-                        <p class="bottom-2 left-4 z-2 absolute text-white font-bold duration-600 transition-all group-hover:scale-110">Behind the Craft</p>
+                        <p class="bottom-2 left-4 z-2 absolute text-white font-bold duration-600 transition-all group-hover:scale-110">{{ $t('res_explore_cta3') }}</p>
                         <img class="relative w-full h-full object-cover transition-all duration-600 ease-in-out brightness-75 group-hover:scale-125 group-hover:brightness-85" :src="'/media/behind_craft.jpg'" alt="">
                     </div>
                 </div>
@@ -175,9 +175,9 @@ function toggleFaq(id: number) {
             <div class="w-full py-5 lg:py-16 lg:max-w-[1150px] px-5">
                 <div class="flex flex-col gap-6">
                     <div class="text-center">
-                        <p class="text-2xl font-extralight italic tracking-wider">Resolvemos tus dudas</p>
+                        <p class="text-2xl font-extralight italic tracking-wider">{{ $t('faq_kicker') }}</p>
                         <h2 class="text-5xl lg:text-6xl font-extralight italic tracking-wider text-[#657d88]">
-                            Preguntas Frecuentes
+                            {{ $t('faq_title') }}
                         </h2>
                     </div>
 
@@ -193,7 +193,7 @@ function toggleFaq(id: number) {
                                 @click="toggleFaq(item.id)"
                             >
                     <span class="text-lg lg:text-xl font-medium text-gray-800">
-                        {{ item.pregunta }}
+                        {{ $t(item.preguntaKey) }}
                     </span>
 
                                 <span
@@ -217,7 +217,7 @@ function toggleFaq(id: number) {
                                     class="overflow-hidden"
                                 >
                                     <p class="pt-3 text-gray-600 lg:max-w-[90%]">
-                                        {{ item.respuesta }}
+                                        {{ $t(item.respuestaKey) }}
                                     </p>
                                 </div>
                             </transition>
@@ -226,7 +226,7 @@ function toggleFaq(id: number) {
                 </div>
 
                 <div class="flex mt-5 lg:mt-4 justify-center">
-                    <a href="/media/docs/FAQs.pdf" target="_blank" class="text-lg hover:underline">Ver el documento completo aquí</a>
+                    <a href="/media/docs/FAQs.pdf" target="_blank" class="text-lg hover:underline">{{ $t('res_doc_cta') }}</a>
                 </div>
             </div>
 
@@ -238,8 +238,8 @@ function toggleFaq(id: number) {
                 />
 
                 <div class="relative w-full flex flex-col justify-center items-center gap-2 text-white lg:max-w-[1150px]">
-                    <h2 class="text-3xl text-[#657d88]">ENLACE RÁPIDO</h2>
-                    <router-link :to="{path: '/', hash: '#contactanos'}" class="bg-white ring-1 ring-[#657d88] text-[#657d88] text-center text-xl w-fit rounded-lg min-w-[43%] px-4 p-3 tracking-wider font-extralight cursor-pointer transition duration-300 hover:bg-[#657d88] hover:text-white">Habla con Nosotros</router-link>
+                    <h2 class="text-3xl text-[#657d88]">{{ $t('res_quicklink_label') }}</h2>
+                    <router-link :to="{path: '/', hash: '#contactanos'}" class="bg-white ring-1 ring-[#657d88] text-[#657d88] text-center text-xl w-fit rounded-lg min-w-[43%] px-4 p-3 tracking-wider font-extralight cursor-pointer transition duration-300 hover:bg-[#657d88] hover:text-white">{{ $t('res_quicklink_cta') }}</router-link>
                 </div>
             </div>
 
@@ -247,8 +247,8 @@ function toggleFaq(id: number) {
 
             <div class="w-full py-5 lg:py-16 lg:max-w-[1150px] px-4 flex flex-col items-center gap-5">
                 <div>
-                    <h3 class="text-center text-4xl lg:text-5xl lg:text-left text-[#657d88] font-extralight">Descubre nuestras capacidades</h3>
-                    <p class=" lg:text-2xl text-center text-[#657d88] font-extralight">los parámetros clave de nuestras puertas y ventanas</p>
+                    <h3 class="text-center text-4xl lg:text-5xl lg:text-left text-[#657d88] font-extralight">{{ $t('res_specs_title') }}</h3>
+                    <p class=" lg:text-2xl text-center text-[#657d88] font-extralight">{{ $t('res_specs_sub') }}</p>
                 </div>
 
                 <div class="w-full grid lg:grid-cols-2 gap-10 lg:mt-5">
@@ -258,8 +258,8 @@ function toggleFaq(id: number) {
                         </div>
 
                         <div class="p-5 flex flex-col gap-5 lg:gap-8">
-                            <p class="text-lg text-gray-600 font-bold">TAMAÑOS MÁXIMOS Y MÍNIMOS</p>
-                            <p class="text-gray-800 text-sm">Explora las dimensiones permitidas para cada línea Ultimate GZ, asegurando un ajuste preciso y un rendimiento óptimo en cada proyecto.</p>
+                            <p class="text-lg text-gray-600 font-bold">{{ $t('res_specs1_title') }}</p>
+                            <p class="text-gray-800 text-sm">{{ $t('res_specs1_body') }}</p>
                         </div>
                     </div>
 
@@ -269,8 +269,8 @@ function toggleFaq(id: number) {
                         </div>
 
                         <div class="p-5 flex flex-col gap-5 lg:gap-8">
-                            <p class="text-lg text-gray-600 font-bold">CONFIGURACIONES DE VIDRIO</p>
-                            <p class="text-gray-800 text-sm">Conoce los tipos de vidrio, espesores y opciones disponibles, diseñados para cumplir con los requisitos de cada modelo.</p>
+                            <p class="text-lg text-gray-600 font-bold">{{ $t('res_specs2_title') }}</p>
+                            <p class="text-gray-800 text-sm">{{ $t('res_specs2_body') }}</p>
                         </div>
                     </div>
 
@@ -279,12 +279,12 @@ function toggleFaq(id: number) {
 
             <div class="w-full bg-[#E2E0DC] flex justify-center">
                 <div class="w-full py-5 lg:py-16 lg:max-w-[1150px] px-4 flex flex-col items-center gap-4 lg:gap-5">
-                    <h3 class="text-center font-extralight text-[#657d88] text-3xl ">Contacto directo con ventas</h3>
+                    <h3 class="text-center font-extralight text-[#657d88] text-3xl ">{{ $t('res_sales_title') }}</h3>
                     <p class="text-sm text-center lg:text-base">
-                        Avanza rápidamente en tu proyecto. Completa este formulario para especificar tus requerimientos y recibir una propuesta a medida. Obtén tu solución con base en los datos técnicos y los plazos de entrega.
+                        {{ $t('res_sales_body') }}
                     </p>
 
-                    <router-link to="/contacto" class="bg-[#657d88] text-center text-white min-w-44 p-3 rounded-xl mt-4 lg:m-0">Solicita Cotización</router-link>
+                    <router-link to="/contacto" class="bg-[#657d88] text-center text-white min-w-44 p-3 rounded-xl mt-4 lg:m-0">{{ $t('res_sales_cta') }}</router-link>
 
                 </div>
             </div>
