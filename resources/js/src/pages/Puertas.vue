@@ -26,8 +26,8 @@ function openFormW(){
 
             <div class="relative flex flex-col px-5 gap-8 justify-center w-full lg:max-w-[1150px]">
                 <div class="flex flex-col gap-0">
-                    <tittle-custom titulo="Puertas de madera laminada diseñadas a la medida: aislantes de ruido y temperatura."/>
-                    <h2 class="text-center text-white leading-none italic tracking-wider text-base lg:leading-7 lg:text-left lg:text-[1.8rem] lg:max-w-[900px]">Combinamos fabricación mexicana sostenible con precisión alemana de última generación. Nuestras soluciones ofrecen un alto desempeño termoacústico, diseñadas para adaptarse a las exigencias arquitectónicas de tu proyecto.
+                    <tittle-custom :titulo="$t('pue_hero_h1')"/>
+                    <h2 class="text-center text-white leading-none italic tracking-wider text-base lg:leading-7 lg:text-left lg:text-[1.8rem] lg:max-w-[900px]">{{ $t('pue_hero_sub') }}
                     </h2>
                 </div>
                 <div class="flex justify-center gap-2 lg:gap-5 lg:justify-start">
@@ -35,7 +35,7 @@ function openFormW(){
                         class="font-bold items-center w-fit py-2 px-1 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:flex-none lg:py-4 lg:px-5"
                         to="/design-experience">
                         <div class="flex gap-3 items-center text-sm lg:text-base">
-                            <p>Descubrir Diseños</p>
+                            <p>{{ $t('pue_hero_cta1') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -43,7 +43,7 @@ function openFormW(){
                     <button
                         class="font-bold items-center w-fit py-2 cursor-pointer px-1 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" @click="openFormW">
                         <div class="flex gap-1 items-center text-sm lg:text-base">
-                            <p>Cotizar Proyecto</p>
+                            <p>{{ $t('pue_hero_cta2') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -59,7 +59,7 @@ function openFormW(){
                 <h2
                     class="text-[1.55rem] text-center text-[#657d88] italic lg:text-left lg:text-[2.25rem]"
                 >
-                    Cada puerta es un portal a lo extraordinario
+                    {{ $t('pue_tagline') }}
                 </h2>
 
                 <div class="flex flex-col w-full h-max gap-6 lg:gap-10 lg:flex-row">
@@ -82,35 +82,27 @@ function openFormW(){
                             <h3
                                 class="text-xl text-[#657d88] italic font-bold tracking-wider mb-2 lg:text-[2rem]"
                             >
-                                Beneficios clave
+                                {{ $t('pue_benefits_title') }}
                             </h3>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    <b>Aislamiento superior.</b> Espacios más silenciosos, privados y eficientes.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_benefit1')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    <b>Diseño personalizado.</b> Selecciona el tipo de madera, acabado y sistema de apertura.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_benefit2')"></p>
                             </div>
 
                     <div class="flex gap-3">
                         <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                            Fabricadas con <b>perfiles de madera laminada</b> multicapa que evitan deformaciones por humedad o climatología.
-                        </p>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_benefit3')"></p>
                     </div>
 
                     <div class="flex gap-3">
                         <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                            Instalación milimétrica ejecutada por expertos, asegurando un <b>funcionamiento y cierre hermético superior.</b>
-                        </p>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_benefit4')"></p>
                     </div>
                 </div>
 
@@ -119,42 +111,32 @@ function openFormW(){
                     <h3
                         class="text-xl text-[#657d88] italic font-bold tracking-wider mb-2 lg:text-[2rem]"
                     >
-                        La diferencia está en los detalles
+                        {{ $t('pue_details_title') }}
                     </h3>
 
                     <div class="flex gap-3">
                         <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                            <b>Alta ingeniería alemana.</b>
-                        </p>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_detail1')"></p>
                     </div>
 
                     <div class="flex gap-3">
                         <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                            Sistema de <b>triple sello</b> perimetral.
-                        </p>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_detail2')"></p>
                     </div>
 
                     <div class="flex gap-3">
                         <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                            Fabricación <b>sostenible y amigable con el medio ambiente.</b>
-                        </p>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_detail3')"></p>
                     </div>
 
                     <div class="flex gap-3">
                         <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                            Protección <b>contra parásitos y mantenimiento mínimo.</b>
-                        </p>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_detail4')"></p>
                     </div>
 
                     <div class="flex gap-3">
                         <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                            Componentes <b>resistentes a la torsión</b> que garantizan un funcionamiento impecable.
-                        </p>
+                        <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('pue_detail5')"></p>
                     </div>
                 </div>
             </div>
@@ -294,11 +276,11 @@ function openFormW(){
             <div class="w-full lg:max-w-[1150px] p-5 lg:py-8">
                 <div class="bg-white rounded-xl p-3 lg:p-10 border-1 border-[#657d88] shadow-lg flex flex-col gap-5 lg:flex-row">
                     <div class="flex flex-col flex-1">
-                        <h2 class="text-lg text-center text-[#657d88] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">Cada proyecto comienza con una gran entrada</h2>
-                        <p class="text-[#757575] md:text-center lg:text-xl">Diseño, aislamiento y durabilidad que necesitas.</p>
+                        <h2 class="text-lg text-center text-[#657d88] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">{{ $t('pue_cta_title') }}</h2>
+                        <p class="text-[#757575] md:text-center lg:text-xl">{{ $t('pue_cta_body') }}</p>
                     </div>
                     <div class="flex-none flex flex-col gap-2 lg:gap-4 items-center lg:p-4 lg:flex-row">
-                        <button class="bg-[#ee7465] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">Solicitar Asesoría</button>
+                        <button class="bg-[#ee7465] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">{{ $t('pue_cta_button') }}</button>
                     </div>
                 </div>
             </div>
@@ -307,7 +289,7 @@ function openFormW(){
         <div v-if="openForm" class="fixed inset-0 z-20 bg-black/20 p-5 lg:p-15 flex items-center justify-center" @click.self="openFormW">
             <div class="bg-white w-120 h-full rounded-xl flex flex-col gap-5 p-3 shadow-xl">
                 <div class="w-full flex justify-end items-center">
-                    <h2 class="flex-1 text-[#757575] text-xl">Escribe y nos pondremos en contacto</h2>
+                    <h2 class="flex-1 text-[#757575] text-xl">{{ $t('f_write_modal') }}</h2>
                     <button @click="openFormW"
                             class="border rounded-lg py-1 px-2 text-[#cccccc] leading-none cursor-pointer transition-colors duration-300 hover:text-[#657d88] lg:text-[1.5rem]">X</button>
                 </div>
