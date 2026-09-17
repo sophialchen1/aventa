@@ -24,16 +24,16 @@ function openFormW(){
 
             <div class="relative flex flex-col gap-8 justify-center w-full px-5 lg:px-0 md:max-w-[800px] lg:max-w-[1150px]">
                 <div class="flex flex-col gap-0">
-                    <tittle-custom titulo="Ventanas de madera laminada diseñadas a la medida: aislantes de ruido y temperatura."/>
+                    <tittle-custom :titulo="$t('ven_hero_h1')"/>
                     <p class="text-white text-center leading-none lg:leading-7 italic tracking-wider lg:text-left lg:text-[1.8rem] lg:max-w-[900px]">
-                        Redefinimos el confort de tus espacios mediante ingeniería alemana y fabricación sostenible, logrando el equilibrio perfecto entre diseño atemporal y eficiencia termoacústica avanzada.
+                        {{ $t('ven_hero_sub') }}
                     </p>
                 </div>
                 <div class="flex justify-center gap-2 lg:gap-5 lg:justify-start">
                     <router-link
                         class="font-bold w-fit text-sm py-2 px-1 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" to="/design-experience">
                         <div class="flex gap-3 items-center">
-                            <p>Descubrir Diseños</p>
+                            <p>{{ $t('cta_designs') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -41,7 +41,7 @@ function openFormW(){
                     <button
                         class="font-bold w-fit bg-[#ee7465] cursor-pointer text-sm py-2 px-1 text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" @click="openFormW">
                         <div class="flex gap-3 items-center">
-                            <p>Cotizar Proyecto</p>
+                            <p>{{ $t('cta_quote') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -57,7 +57,7 @@ function openFormW(){
                 <h2
                     class="text-[1.55rem] text-center text-[#657d88] italic lg:text-left lg:text-[2.25rem]"
                 >
-                    El equilibrio perfecto entre estética y eficiencia.
+                    {{ $t('ven_tagline') }}
                 </h2>
 
                 <div class="flex flex-col w-full gap-6 lg:gap-10 lg:flex-row">
@@ -80,35 +80,27 @@ function openFormW(){
                             <h3
                                 class="text-xl text-[#657d88] italic font-bold tracking-wider mb-2 lg:text-[2rem]"
                             >
-                                Beneficios clave
+                                {{ $t('benefits_title') }}
                             </h3>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    <b>Silencio y confort.</b> Aislamiento acústico y térmico que transforma cada espacio en un refugio tranquilo y eficiente.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_benefit1')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    <b>Diseño a tu estilo.</b> Estilo, acabado y apertura personalizados para que tus ventanas reflejen tu visión arquitectónica.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_benefit2')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    <b>Eficiencia energética.</b> Control de temperatura que reduce el uso de aire acondicionado y calefacción.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_benefit3')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    <b>Calidad inigualable.</b> Madera sólida, herrajes europeos y cristales dobles o triples que elevan el estándar en funcionalidad y durabilidad.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_benefit4')"></p>
                             </div>
                         </div>
 
@@ -117,49 +109,37 @@ function openFormW(){
                             <h3
                                 class="text-xl text-[#657d88] italic font-bold tracking-wider mb-2 lg:text-[2rem]"
                             >
-                                Características destacadas
+                                {{ $t('ven_features_title') }}
                             </h3>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    <b>Aperturas disponibles:</b> corredizas, abatibles, proyectables y de guillotina.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_feature1')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    Elaboradas con <b>madera sustentable de alta gama.</b>
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_feature2')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    Sistema de <b>cierre hermético</b> que optimiza el aislamiento.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_feature3')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    <b>Opciones de cristal:</b> doble o triple acristalamiento, templado, con control solar o película anti asalto.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_feature4')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    Fabricación artesanal con <b>precisión industrial</b> para un ajuste impecable.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_feature5')"></p>
                             </div>
 
                             <div class="flex gap-3">
                                 <div class="w-[7px] h-[7px] bg-[#657d88] rounded-full mt-2 flex-none"></div>
-                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5">
-                                    Compatibles con shutters, postigos y mosquiteros sin afectar el diseño original.
-                                </p>
+                                <p class="text-[#757575] flex-1 text-sm lg:text-base m-0 leading-5" v-html="$t('ven_feature6')"></p>
                             </div>
                         </div>
                     </div>
@@ -249,11 +229,11 @@ function openFormW(){
             <div class="w-full lg:max-w-[1150px] py-8 px-5 lg:px-0">
                 <div class="bg-white rounded-xl p-5 lg:p-10 border-1 border-[#657d88] shadow-lg flex flex-col gap-5 lg:flex-row">
                     <div class="flex flex-col flex-1">
-                        <h2 class="text-xl text-center text-[#657d88] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">Cada proyecto comienza con una gran entrada</h2>
-                        <p class="text-justify text-[#757575] md:text-center lg:text-left lg:text-xl">Optimiza tu espacio con diseño, confort y tecnología.</p>
+                        <h2 class="text-xl text-center text-[#657d88] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">{{ $t('ven_cta_title') }}</h2>
+                        <p class="text-justify text-[#757575] md:text-center lg:text-left lg:text-xl">{{ $t('ven_cta_body') }}</p>
                     </div>
                     <div class="flex-none flex flex-col  gap-4 items-center lg:flex-row lg:p-4">
-                        <button class="bg-[#ee7465] text-white lg:text-lg px-4 py-2 rounded-full cursor-pointer transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">Solicitar Asesoría</button>
+                        <button class="bg-[#ee7465] text-white lg:text-lg px-4 py-2 rounded-full cursor-pointer transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">{{ $t('cta_consult') }}</button>
                     </div>
                 </div>
             </div>
@@ -262,7 +242,7 @@ function openFormW(){
         <div v-if="openForm" class="fixed inset-0 z-20 bg-black/20 p-5 lg:p-15 flex items-center justify-center" @click.self="openFormW">
             <div class="bg-white w-120 h-full rounded-xl flex flex-col gap-5 p-3 shadow-xl">
                 <div class="w-full flex justify-end items-center">
-                    <h2 class="flex-1 text-[#757575] text-xl">Escribe y nos pondremos en contacto</h2>
+                    <h2 class="flex-1 text-[#757575] text-xl">{{ $t('f_write_modal') }}</h2>
                     <button @click="openFormW"
                             class="border rounded-lg py-1 px-2 text-[#cccccc] leading-none cursor-pointer transition-colors duration-300 hover:text-[#657d88] lg:text-[1.5rem]">X</button>
                 </div>

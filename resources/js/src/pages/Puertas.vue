@@ -35,7 +35,7 @@ function openFormW(){
                         class="font-bold items-center w-fit py-2 px-1 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:flex-none lg:py-4 lg:px-5"
                         to="/design-experience">
                         <div class="flex gap-3 items-center text-sm lg:text-base">
-                            <p>{{ $t('pue_hero_cta1') }}</p>
+                            <p>{{ $t('cta_designs') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -43,7 +43,7 @@ function openFormW(){
                     <button
                         class="font-bold items-center w-fit py-2 cursor-pointer px-1 bg-[#ee7465] text-white rounded-lg transition-normal duration-300 hover:translate-y-[-8px] lg:py-4 lg:px-5" @click="openFormW">
                         <div class="flex gap-1 items-center text-sm lg:text-base">
-                            <p>{{ $t('pue_hero_cta2') }}</p>
+                            <p>{{ $t('cta_quote') }}</p>
                             <img class="w-[24px] h-[24px]" src="../assets/media/icons/angulo-pequeno-derecho.png"
                                  alt="icono_ir">
                         </div>
@@ -82,7 +82,7 @@ function openFormW(){
                             <h3
                                 class="text-xl text-[#657d88] italic font-bold tracking-wider mb-2 lg:text-[2rem]"
                             >
-                                {{ $t('pue_benefits_title') }}
+                                {{ $t('benefits_title') }}
                             </h3>
 
                             <div class="flex gap-3">
@@ -229,7 +229,7 @@ function openFormW(){
                         <p class="text-[#757575] text-center lg:text-left lg:text-xl">{{ $t('pue_cta_body') }}</p>
                     </div>
                     <div class="flex-none flex flex-col gap-2 lg:gap-4 items-center lg:p-4 lg:flex-row">
-                        <button class="bg-[#ee7465] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">{{ $t('pue_cta_button') }}</button>
+                        <button class="bg-[#ee7465] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">{{ $t('cta_consult') }}</button>
                     </div>
                 </div>
             </div>
