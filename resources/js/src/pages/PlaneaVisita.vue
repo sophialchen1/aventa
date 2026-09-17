@@ -4,15 +4,18 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import TittleCustom from "../components/TittleCustom.vue";
 import MainLayout from "../layouts/MainLayout.vue";
 import { telefonia } from "../data/paises.js";
+import { useI18n } from "vue-i18n";
 
-const detalles_v = [
-    "Ver tocar diferentes tipos de madera y acabados",
-    "Conocer nuestras opciones de diseño y aperturas",
-    "Resolver todas tus dudas con un asesor especializado",
-    "Recibir orientacion tecnica si eres arquitecto o desarrollador",
+const { t } = useI18n();
+
+const detalles_v = ["vis_list1", "vis_list2", "vis_list3", "vis_list4"];
+
+// value is what the form carries; label is what the visitor reads
+const motivo_v = [
+    { value: "CDMX", labelKey: "vis_loc_cdmx" },
+    { value: "SMA", labelKey: "vis_loc_sma" },
+    { value: "Mérida", labelKey: "vis_loc_mer" },
 ];
-
-const motivo_v = ["CDMX", "SMA", "Mérida"];
 
 // Teléfono con prefijo
 const select_code = ref("+52");
@@ -54,17 +57,17 @@ function parseLocalDateTime(s) {
 }
 
 function isAllowed(d) {
-    if (!(d instanceof Date) || isNaN(d)) return { ok: false, msg: "Selecciona una fecha y hora válida." };
+    if (!(d instanceof Date) || isNaN(d)) return { ok: false, msg: t("vis_err_date") };
 
     const day = d.getDay(); // 0 dom, 1 lun ... 6 sab
-    if (day === 0 || day === 6) return { ok: false, msg: "Solo de lunes a viernes." };
+    if (day === 0 || day === 6) return { ok: false, msg: t("vis_err_weekday") };
 
     const minutes = d.getHours() * 60 + d.getMinutes();
     const start = 9 * 60;   // 09:00
     const end = 18 * 60;    // 18:00
 
     if (minutes < start || minutes > end) {
-        return { ok: false, msg: "Horario: lunes a viernes, 9:00 a 18:00." };
+        return { ok: false, msg: t("vis_form_hours") };
     }
 
     return { ok: true, msg: "" };
@@ -156,7 +159,7 @@ const enviarFormulario = (e) => {
     // Default textarea si viene vacío
     const ta = textAreaRef.value;
     if (ta && !String(ta.value || "").trim()) {
-        ta.value = "No se proporcionó informacion sobre el proyecto";
+        ta.value = t("vis_no_project");
     }
 
     // Validación de horario
@@ -184,7 +187,7 @@ const enviarFormulario = (e) => {
             />
 
             <div class="relative w-full flex flex-col justify-center text-white lg:max-w-[1150px]">
-                <tittle-custom titulo="Planea Tu Visita a Nuestro Showroom o Fábrica" />
+                <tittle-custom :titulo="$t('vis_h1')" />
             </div>
         </div>
 
@@ -193,26 +196,24 @@ const enviarFormulario = (e) => {
                 <h2
                     class="flex-2/5 h-full w-full text-[1.7rem] text-center leading-none italic tracking-wider lg:text-left lg:text-[2.5rem]"
                 >
-                    ¿Prefieres una atención más personalizada?
+                    {{ $t('vis_kicker') }}
                 </h2>
                 <div class="flex-3/5 flex flex-col gap-5 text">
                     <p class="text-[#757575] lg:text-lg">
-                        Agenda una cita para visitar nuestro showroom y conoce de cerca la calidad, diseño y funcionalidad de
-                        nuestras puertas y ventanas.
+                        {{ $t('vis_body') }}
                     </p>
 
                     <div class="flex flex-col gap-1">
-                        <p class="text-[#757575] mb-2 lg:text-lg">Durante tu visita podrás:</p>
+                        <p class="text-[#757575] mb-2 lg:text-lg">{{ $t('vis_list_title') }}</p>
                         <div v-for="i in detalles_v" :key="i" class="flex gap-2 items-center">
                             <div class="w-2 h-2 bg-[#657d88] rounded-full"></div>
-                            <p class="text-[#657d88] lg:text-lg">{{ i }}</p>
+                            <p class="text-[#657d88] lg:text-lg">{{ $t(i) }}</p>
                         </div>
                     </div>
 
                     <p class="text-[#757575] lg:text-lg">
-                        Cuéntanos un poco sobre ti, tu proyecto y cuándo te gustaría venir. Estamos aquí para ayudarte a tomar la
-                        mejor decisión para tu espacio.<br /><br />
-                        Atendemos únicamente con cita previa para ofrecerte una mejor experiencia.
+                        {{ $t('vis_body2') }}<br /><br />
+                        {{ $t('vis_notice') }}
                     </p>
                 </div>
             </div>
@@ -224,35 +225,35 @@ const enviarFormulario = (e) => {
             <div class="flex flex-col w-full relative gap-2 px-5 lg:px-0 lg:flex-row lg:max-w-[1150px]">
                 <div class="flex-1/4 flex flex-col">
                     <p class="w-full text-[#657d88] italic font-semibold text-xl">
-                        Nuestro equipo de expertos está listo para ayudarte a definir los detalles de tu proyecto.
+                        {{ $t('vis_form_intro') }}
                     </p>
                 </div>
 
                 <div class="flex-3/4 lg:px-10">
                     <form name="planear_visita" class="flex-1" action="" @submit.prevent="enviarFormulario">
                         <div class="flex flex-col bg-white p-2 gap-5 lg:p-10 rounded-xl shadow-xl">
-                            <h3 class="font-bold text-[#657d88] lg:text-[1.5rem]">Planea tu visita</h3>
+                            <h3 class="font-bold text-[#657d88] lg:text-[1.5rem]">{{ $t('vis_form_title') }}</h3>
 
                             <div class="grid lg:grid-cols-2 lg:gap-3">
                                 <div>
-                                    <p>Nombre (s)*</p>
+                                    <p>{{ $t('form_firstname') }}</p>
                                     <input
                                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                        placeholder="Escribe tu nombre"
+                                        :placeholder="$t('ph_firstname')"
                                         required
                                     />
                                 </div>
                                 <div>
-                                    <p>Apellidos*</p>
+                                    <p>{{ $t('form_lastname') }}</p>
                                     <input
                                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                        placeholder="Escribe tus apellidos"
+                                        :placeholder="$t('ph_lastname')"
                                         required
                                     />
                                 </div>
 
                                 <div>
-                                    <p>Teléfono*</p>
+                                    <p>{{ $t('form_phone') }}</p>
                                     <div class="flex gap-1">
                                         <select
                                             v-model="select_code"
@@ -277,32 +278,32 @@ const enviarFormulario = (e) => {
                                 </div>
 
                                 <div>
-                                    <p>Correo electrónico*</p>
+                                    <p>{{ $t('form_email') }}</p>
                                     <input
                                         name="email"
                                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                        placeholder="correo@ejemplo.com"
+                                        :placeholder="$t('ph_email')"
                                         type="email"
                                         required
                                         inputmode="email"
                                         autocomplete="email"
                                         pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
-                                        title="Escribe un correo válido (debe incluir @ y un dominio, ej. nombre@dominio.com)"
+                                        :title="$t('ph_email_title')"
                                     />
                                 </div>
                             </div>
 
                             <div class="grid lg:grid-cols-2 lg:gap-2">
                                 <div>
-                                    <p>Qué ubicación quieres visitar</p>
+                                    <p>{{ $t('vis_form_location') }}</p>
                                     <select class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl">
-                                        <option disabled value="">Selecciona una opción</option>
-                                        <option v-for="op in motivo_v" :key="op" :value="op">{{ op }}</option>
+                                        <option disabled value="">{{ $t('form_select_placeholder') }}</option>
+                                        <option v-for="op in motivo_v" :key="op.value" :value="op.value">{{ $t(op.labelKey) }}</option>
                                     </select>
                                 </div>
 
                                 <div>
-                                    <p>¿Cuando te gustaría visitarnos?*</p>
+                                    <p>{{ $t('vis_form_when') }}</p>
                                     <input
                                         ref="visitaInputRef"
                                         v-model="visitaAt"
@@ -314,25 +315,25 @@ const enviarFormulario = (e) => {
                                         @blur="onVisitaBlur"
                                     />
                                     <p class="text-xs text-gray-400 mt-1">
-                                        Horario: lunes a viernes, 9:00 a 18:00.
+                                        {{ $t('vis_form_hours') }}
                                     </p>
                                 </div>
                             </div>
 
                             <div>
-                                <p>Cuéntanos sobre ti, tu proyecto</p>
+                                <p>{{ $t('vis_form_about') }}</p>
                                 <textarea
                                     ref="textAreaRef"
                                     name="datos_cotizacion"
                                     class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
-                                    placeholder="Describe brevemente tu proyecto"
+                                    :placeholder="$t('ph_project')"
                                 ></textarea>
                             </div>
 
                             <div>
                                 <label class="text-[#757575] flex gap-2 cursor-pointer">
                                     <input name="whatsapp_consent" type="checkbox" value="¿Podemos contactarte por WhatsApp?" />
-                                    ¿Podemos contactarte por WhatsApp?
+                                    {{ $t('vis_form_whatsapp') }}
                                 </label>
                             </div>
 
@@ -340,7 +341,7 @@ const enviarFormulario = (e) => {
                                 type="submit"
                                 class="bg-[#657d88] rounded-full cursor-pointer p-2 text-white transition-all duration-300 ease-in-out lg:text-[1rem] lg:py-3 lg:mt-4 hover:translate-y-[-8px] hover:shadow-xl hover:bg-[#657d88]/80"
                             >
-                                Enviar solicitud
+                                {{ $t('form_submit') }}
                             </button>
                         </div>
                     </form>
@@ -350,14 +351,14 @@ const enviarFormulario = (e) => {
 
         <div v-if="mostrarGracias" class="fixed inset-0 bg-black/10 z-50 flex items-center justify-center">
             <div class="bg-white p-6 rounded-xl text-center max-w-md mx-auto">
-                <h2 class="text-xl font-bold text-[#657d88] mb-4">¡Gracias por enviar tu formulario!</h2>
-                <p class="mb-6">En breve nos pondremos en contacto contigo.</p>
+                <h2 class="text-xl font-bold text-[#657d88] mb-4">{{ $t('vis_thanks_title') }}</h2>
+                <p class="mb-6">{{ $t('vis_thanks_body') }}</p>
                 <router-link
                     to="/"
                     @click="mostrarGracias = false"
                     class="bg-[#657d88] text-white px-4 py-2 rounded-xl hover:bg-[#657d88]/70"
                 >
-                    Volver al inicio
+                    {{ $t('vis_thanks_cta') }}
                 </router-link>
             </div>
         </div>
