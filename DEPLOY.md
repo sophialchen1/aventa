@@ -169,3 +169,39 @@ For 90% of changes (text, styling, components) you will never need this section.
 This upload step can be automated with a GitHub Action that builds on push and
 uploads over FTP. It requires storing FTP credentials as GitHub repository
 secrets. Worth doing once the manual process is familiar and the repo is stable.
+
+---
+
+## Previewing locally
+
+To see a change in a browser before it goes anywhere:
+
+```bash
+npm run preview
+```
+
+Then open **http://localhost:5173**. Edit a `.vue` or locale file, save, and the
+browser updates on its own. Ctrl+C in the terminal stops it.
+
+This is a preview only. It does not touch the live site and it does not build
+anything. When you are happy, run `npm run build` and deploy as described above.
+
+### Why there is a separate preview command
+
+`npm run dev` is the normal Laravel way, but it needs PHP running to serve the
+page shell. macOS no longer ships PHP. `npm run preview` skips Laravel and lets
+Vite serve the app from `index.html` at the project root, so it only needs Node.
+
+The files involved are `vite.preview.config.js` and `index.html`. Neither is
+used by `npm run build`, and `index.html` is never emitted into `public/build`.
+Verified: building with them present produces a byte-identical manifest.
+
+### What the preview does not cover
+
+- Google Tag Manager, Google Ads and the HubSpot scripts. Those live in
+  `resources/views/welcome.blade.php`, which only Laravel serves. Forms and
+  tracking will not fire in preview.
+- `<html lang>` and the per-page SEO tags, same reason.
+
+For copy, layout and language switching, which is what we are working on, the
+preview is accurate.
