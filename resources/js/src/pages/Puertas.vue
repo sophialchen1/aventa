@@ -145,26 +145,22 @@ function openFormW(){
 </div>
         <!--3-->
         <div class="flex justify-center">
-    <div class="w-full px-5 lg:px-0 lg:max-w-[1150px] flex flex-col py-8">
-        <h2 class="text-center text-xl lg:text-2xl text-black mb-3">
-            {{ $t('comp_header') }}
-        </h2>
-
+    <div class="w-full px-5 lg:px-0 lg:max-w-[1150px] flex flex-col py-8 md:py-0">
         <div class="w-full overflow-x-auto">
-            <table class="w-full min-w-[800px] border-collapse text-xs lg:text-sm text-black">
+            <table class="w-full min-w-[850px] border-collapse text-xs lg:text-sm text-black">
                 <thead>
                     <tr>
-                        <th class="w-[28%] px-4 py-2 text-center font-normal border-0"></th>
-                        <th class="w-[38%] px-4 py-2 text-center font-normal border-0">{{ $t('comp_col_aventa') }}</th>
-                        <th class="w-[34%] px-4 py-2 text-center font-normal border-0">{{ $t('comp_col_trad') }}</th>
+                        <th class="w-[29%] px-4 py-2 text-center font-normal border-0"></th>
+                        <th class="w-[40%] px-4 py-2 text-center text-sm font-normal border-0 lg:text-lg">{{ $t('comp_col_aventa') }}</th>
+                        <th class="w-[31%] px-4 py-2 text-center text-sm font-normal border-0 lg:text-lg">{{ $t('comp_col_trad') }}</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
                         <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_label') }}</td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_aventa') }}</td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_trad') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center" v-html="$t('comp_r1_aventa')"></td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r1_trad') }}</td>
                     </tr>
 
                     <tr>

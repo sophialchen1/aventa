@@ -174,16 +174,16 @@ function openFormW(){
                         <thead>
                             <tr>
                                 <th class="w-[29%] px-4 py-2 text-center font-normal border-0"></th>
-                                <th class="w-[40%] px-4 py-2 text-center font-normal border-0">{{ $t('comp_col_aventa') }}</th>
-                                <th class="w-[31%] px-4 py-2 text-center font-normal border-0">{{ $t('comp_col_trad') }}</th>
+                                <th class="w-[40%] px-4 py-2 text-center text-sm font-normal border-0 lg:text-lg">{{ $t('comp_col_aventa') }}</th>
+                                <th class="w-[31%] px-4 py-2 text-center text-sm font-normal border-0 lg:text-lg">{{ $t('comp_col_trad') }}</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
                                 <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_label') }}</td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_aventa') }}</td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_trad') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center" v-html="$t('comp_r1_aventa')"></td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r1_trad') }}</td>
                             </tr>
 
                             <tr>
