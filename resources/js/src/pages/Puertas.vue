@@ -147,7 +147,7 @@ function openFormW(){
         <div class="flex justify-center">
     <div class="w-full px-5 lg:px-0 lg:max-w-[1150px] flex flex-col py-8">
         <h2 class="text-center text-xl lg:text-2xl text-black mb-3">
-            Desempeño o estructura
+            {{ $t('comp_header') }}
         </h2>
 
         <div class="w-full overflow-x-auto">
@@ -155,93 +155,46 @@ function openFormW(){
                 <thead>
                     <tr>
                         <th class="w-[28%] px-4 py-2 text-center font-normal border-0"></th>
-                        <th class="w-[38%] px-4 py-2 text-center font-normal border-0">
-                            Aventa Wood
-                        </th>
-                        <th class="w-[34%] px-4 py-2 text-center font-normal border-0">
-                            Carpintería tradicional
-                        </th>
+                        <th class="w-[38%] px-4 py-2 text-center font-normal border-0">{{ $t('comp_col_aventa') }}</th>
+                        <th class="w-[34%] px-4 py-2 text-center font-normal border-0">{{ $t('comp_col_trad') }}</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                            Estabilidad
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                            Madera laminada: No se deforma ni se tuerce
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                            Se hincha o agrieta
-                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_label') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_aventa') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_trad') }}</td>
                     </tr>
 
                     <tr>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                            Aislamiento
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            <b>Triple sello:</b> Bloquea ruido, frío y calor.<br />
-                            Doble acristalamiento con cámara de aire:
-                            &#40;a elegir depende a las características del proyecto,
-                            aplicable si la pieza lo requiere&#41;.
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            Filtraciones de aire, ruido y temperatura.<br />
-                            Vidrio monolítico sencillo.
-                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r2_label') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center" v-html="$t('comp_r2_aventa')"></td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center" v-html="$t('comp_r2_trad')"></td>
                     </tr>
 
                     <tr>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                            Protección
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            Antiparásitos y tintas UV, acabado de poro abierto:
-                            no forma una capa plastificada.
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            Vulnerable al daño: Propensa a plagas y pudrición.
-                            Acabado plastificado.
-                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r3_label') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r3_aventa') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r3_trad') }}</td>
                     </tr>
 
                     <tr>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                            Seguridad
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            Herraje europeo con múltiples puntos de cierre en la periferia
-                            resistente a climas extremos.
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            Herrajes tradicionales propensos a intrusiones y oxidación.
-                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r4_label') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r4_aventa') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r4_trad') }}</td>
                     </tr>
 
                     <tr>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                            Mantenimiento
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            No necesita químicos o productos adicionales.
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            Requiere de barnices que encapsulan más la madera.
-                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r5_label') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r5_aventa') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r5_trad') }}</td>
                     </tr>
 
                     <tr>
-                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                            Materiales sustentables
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            Certificación FSC y fabricación sustentable.
-                        </td>
-                        <td class="border-[3px] border-black px-4 py-5 text-center">
-                            Origen y procedencia desconocido propiciando la tala prohibida de árboles.
-                        </td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r6_label') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r6_aventa') }}</td>
+                        <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r6_trad') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -277,7 +230,7 @@ function openFormW(){
                 <div class="bg-white rounded-xl p-3 lg:p-10 border-1 border-[#657d88] shadow-lg flex flex-col gap-5 lg:flex-row">
                     <div class="flex flex-col flex-1">
                         <h2 class="text-lg text-center text-[#657d88] tracking-wider italic font-bold lg:text-left lg:text-[1.8rem]">{{ $t('pue_cta_title') }}</h2>
-                        <p class="text-[#757575] md:text-center lg:text-xl">{{ $t('pue_cta_body') }}</p>
+                        <p class="text-[#757575] text-center lg:text-left lg:text-xl">{{ $t('pue_cta_body') }}</p>
                     </div>
                     <div class="flex-none flex flex-col gap-2 lg:gap-4 items-center lg:p-4 lg:flex-row">
                         <button class="bg-[#ee7465] text-white text-base cursor-pointer lg:text-lg px-4 py-2 rounded-full transition-normal duration-300 ease-in-out hover:shadow-xl" @click="openFormW">{{ $t('pue_cta_button') }}</button>

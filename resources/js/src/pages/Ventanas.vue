@@ -174,93 +174,46 @@ function openFormW(){
                         <thead>
                             <tr>
                                 <th class="w-[29%] px-4 py-2 text-center font-normal border-0"></th>
-                                <th class="w-[40%] px-4 py-2 text-center font-normal border-0">
-                                    Aventa Wood
-                                </th>
-                                <th class="w-[31%] px-4 py-2 text-center font-normal border-0">
-                                    Carpintería tradicional
-                                </th>
+                                <th class="w-[40%] px-4 py-2 text-center font-normal border-0">{{ $t('comp_col_aventa') }}</th>
+                                <th class="w-[31%] px-4 py-2 text-center font-normal border-0">{{ $t('comp_col_trad') }}</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                                    Estabilidad
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                                    Madera laminada: No se deforma ni se tuerce
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                                    Se hincha o agrieta
-                                </td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_label') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_aventa') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r1_trad') }}</td>
                             </tr>
 
                             <tr>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                                    Aislamiento
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    <b>Triple sello:</b> Bloquea ruido, frío y calor.<br />
-                                    Doble acristalamiento con cámara de aire:
-                                    &#40;a elegir depende a las características del proyecto,
-                                    aplicable si la pieza lo requiere&#41;.
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    Filtraciones de aire, ruido y temperatura.<br />
-                                    Vidrio monolítico sencillo.
-                                </td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r2_label') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center" v-html="$t('comp_r2_aventa')"></td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center" v-html="$t('comp_r2_trad')"></td>
                             </tr>
 
                             <tr>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                                    Protección
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    Antiparásitos y tintas UV, acabado de poro abierto:
-                                    no forma una capa plastificada.
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    Vulnerable al daño: Propensa a plagas y pudrición.
-                                    Acabado plastificado.
-                                </td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r3_label') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r3_aventa') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r3_trad') }}</td>
                             </tr>
 
                             <tr>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                                    Seguridad
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    Herraje europeo con múltiples puntos de cierre en la periferia
-                                    resistente a climas extremos.
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    Herrajes tradicionales propensos a intrusiones y oxidación.
-                                </td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r4_label') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r4_aventa') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r4_trad') }}</td>
                             </tr>
 
                             <tr>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                                    Mantenimiento
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    No necesita químicos o productos adicionales.
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    Requiere de barnices que encapsulan más la madera.
-                                </td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r5_label') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r5_aventa') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r5_trad') }}</td>
                             </tr>
 
                             <tr>
-                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">
-                                    Materiales sustentables
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    Certificación FSC y fabricación sustentable.
-                                </td>
-                                <td class="border-[3px] border-black px-4 py-5 text-center">
-                                    Origen y procedencia desconocido propiciando la tala prohibida de árboles.
-                                </td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center font-bold">{{ $t('comp_r6_label') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r6_aventa') }}</td>
+                                <td class="border-[3px] border-black px-4 py-5 text-center">{{ $t('comp_r6_trad') }}</td>
                             </tr>
                         </tbody>
                     </table>
