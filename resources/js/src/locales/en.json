@@ -161,12 +161,13 @@
 
     "ini_sub7": "We are here for you",
     "ini_p19": "Do you have any questions?",
-    "ini_p20": "Tell us how we can help you.",
+    "ini_p20": "Tell us how we can help.",
 
     "con_t1": "Contact Us",
     "con_p1": "Stay in touch with us",
 
     "f_name": "Name",
+    "f_lastname": "Last Name",
     "f_numero": "Telephone Number",
     "f_correo": "E-mail",
     "f_msg": "Message",

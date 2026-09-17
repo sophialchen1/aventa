@@ -1368,13 +1368,13 @@ onBeforeUnmount(() => {
                             <input
                                 name="firstname"
                                 class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE]"
-                                placeholder="Nombre (s)"
+                                :placeholder="$t('f_name')"
                                 required
                             />
                             <input
                                 name="lastname"
                                 class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE]"
-                                placeholder="Apellidos"
+                                :placeholder="$t('f_lastname')"
                                 required
                             />
                         </div>

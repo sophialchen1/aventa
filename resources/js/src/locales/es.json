@@ -167,6 +167,7 @@
     "con_p1": "Mantente en contacto con nosotros",
     
     "f_name": "Nombre",
+    "f_lastname": "Apellido",
     "f_numero": "Número Telefónico",
     "f_correo": "Correo Electrónico",
     "f_msg": "Mensaje",
