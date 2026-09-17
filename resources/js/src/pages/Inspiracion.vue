@@ -13,18 +13,14 @@ import SwiperSection from "@/src/layouts/SwiperSection.vue";
                  :src="'/media/banner_home/banner_8.jpeg'" alt="">
 
             <div class="relative w-full flex flex-col justify-center text-white lg:max-w-[1150px]">
-                <tittle-custom titulo="Ideas y Estilos para Inspirar Tu Proyecto con Aventa Windows"/>
+                <tittle-custom :titulo="$t('insp_h1')"/>
             </div>
         </div>
 
         <div class="flex justify-center">
             <div class="w-full lg:max-w-[1150px] flex flex-col gap-5 p-5 lg:px-0 lg:py-12 lg:flex-row">
-                <h2 class="flex-2/5 h-full w-full leading-none italic tracking-wider text-[1.7rem] text-center lg:text-left lg:text-[2.5rem]">Despierta tu Creatividad</h2>
-                <p class="flex-3/5 w-full text-[#757575] lg:text-xl text-justify ">En esta sección encontrarás ideas,
-                    combinaciones y recomendaciones para elegir
-                    el diseño ideal de tu puerta o ventana. Te mostramos diferentes configuraciones y
-                    aplicaciones reales que pueden ayudarte a visualizar lo que mejor se adapta a tu
-                    espacio.</p>
+                <h2 class="flex-2/5 h-full w-full leading-none italic tracking-wider text-[1.7rem] text-center lg:text-left lg:text-[2.5rem]">{{ $t('insp_kicker') }}</h2>
+                <p class="flex-3/5 w-full text-[#757575] lg:text-xl text-justify ">{{ $t('insp_body') }}</p>
             </div>
         </div>
 
@@ -33,15 +29,15 @@ import SwiperSection from "@/src/layouts/SwiperSection.vue";
         <div class="flex justify-center">
             <div class="w-full lg:max-w-[1150px] p-5 lg:px-0 lg:py-12 flex flex-col gap-5 lg:flex-row">
                 <h3 class="flex-1/2 w-full italic font-semibold text-xl text-center text-[#657d88] tracking-wider lg:text-left lg:text-[1.8rem]">
-                    ¿Buscas ideas para tu proyecto?
+                    {{ $t('insp_cta_title') }}
                 </h3>
                 <div class="flex-1/2 flex flex-col gap-5">
                     <p class="text-[#757575] text-justify lg:text-lg">
-                        Este documento te dará una visión integral de nuestras líneas de puertas y ventanas, con especificaciones, estilos y soluciones a tu medida.
+                        {{ $t('insp_cta_body') }}
                     </p>
                     <div class="flex justify-center lg:justify-start">
                         <a class="bg-[#ee7465] w-fit px-5 py-2 text-white rounded-xl hover:shadow-xl"
-                           :href="'/media/docs/Copy%20of%20DESIGN%20INSPIRATION%20COMP.pdf'" download>Descargar Guía</a>
+                           :href="'/media/docs/Copy%20of%20DESIGN%20INSPIRATION%20COMP.pdf'" download>{{ $t('insp_cta_button') }}</a>
                     </div>
                 </div>
             </div>
@@ -50,7 +46,7 @@ import SwiperSection from "@/src/layouts/SwiperSection.vue";
         <div class="flex justify-center">
             <div class="w-full flex flex-col gap-5 p-5 lg:px-0 lg:max-w-[1150px]">
                 <h2 class="w-full italic text-xl text-center lg:text-left lg:text-[2rem]">
-                    ¿Estás buscando ayuda para cotizar tu proyecto?
+                    {{ $t('insp_form_title') }}
                 </h2>
             </div>
         </div>
@@ -61,7 +57,7 @@ import SwiperSection from "@/src/layouts/SwiperSection.vue";
             <div class="flex flex-col w-full relative gap-2 px-5 lg:flex-row lg:max-w-[1150px]">
                 <div class="flex-1/4 flex flex-col">
                     <p class="w-full text-[#657d88] italic font-semibold text-xl text-center lg:text-left">
-                        Nuestro equipo de expertos está listo para apoyarte.
+                        {{ $t('con_form_intro') }}
                     </p>
                 </div>
                 <div class="flex-3/4 lg:px-10">

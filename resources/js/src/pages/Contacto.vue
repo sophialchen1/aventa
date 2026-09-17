@@ -61,8 +61,8 @@ function openFormW(){
             <img class="absolute w-full h-full object-cover brightness-75 opacity-90" :src="banner4" alt="">
 
             <div class="relative w-full flex flex-col justify-center text-white lg:max-w-[1150px]">
-                <tittle-custom titulo="Contáctanos para Recibir Asesoría Personalizada"/>
-                <h2 class="italic text-white leading-none text-center text-xl lg:text-left lg:text-[1.8rem] lg:max-w-[500px]">¿Tienes algo en mente? Escríbenos.</h2>
+                <tittle-custom :titulo="$t('con_h1')"/>
+                <h2 class="italic text-white leading-none text-center text-xl lg:text-left lg:text-[1.8rem] lg:max-w-[500px]">{{ $t('con_kicker') }}</h2>
             </div>
         </div>
 
@@ -75,7 +75,7 @@ function openFormW(){
             <div class="flex flex-col w-full relative gap-2 px-5 lg:flex-row lg:max-w-[1150px]">
                 <div class="flex-1/4 flex flex-col">
                     <p class="w-full text-[#657d88] italic font-semibold text-xl text-center lg:text-left">
-                        Nuestro equipo de expertos está listo para apoyarte.
+                        {{ $t('con_form_intro') }}
                     </p>
                 </div>
                 <div class="flex-3/4 lg:px-10">
@@ -90,7 +90,7 @@ function openFormW(){
         <div v-if="openForm" class="fixed inset-0 z-20 bg-black/20 p-5 lg:p-15 flex items-center justify-center" @click.self="openFormW">
             <div class="bg-white w-120 h-full rounded-xl flex flex-col gap-5 p-3 shadow-xl">
                 <div class="w-full flex justify-end items-center">
-                    <h2 class="flex-1 text-[#757575] text-xl">Escribe y nos pondremos en contacto</h2>
+                    <h2 class="flex-1 text-[#757575] text-xl">{{ $t('f_write_modal') }}</h2>
                     <button @click="openFormW"
                             class="border rounded-lg py-1 px-2 text-[#cccccc] leading-none cursor-pointer transition-colors duration-300 hover:text-[#918164] lg:text-[1.5rem]">X</button>
                 </div>
