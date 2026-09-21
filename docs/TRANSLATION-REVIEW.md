@@ -1,6 +1,6 @@
 # Still to review
 
-Open items from the English translation work. Updated 17 September 2026.
+Open items from the English translation work. Updated 21 September 2026.
 
 Two kinds of item are mixed here on purpose: things Ian's guide
 (`docs/reference/translation-guide-EN.md`) asks for, and things we found in the
@@ -99,7 +99,6 @@ Each of these is real, scoped work, not a cleanup.
 
 | What | File | Size |
 |---|---|---|
-| Mobile menu, 7 items | `components/navbar.vue` lines 505-678 | small |
 | Quote form | `layouts/formGrande.vue` | large, blocked, see above |
 | Aviso de Privacidad | `pages/AvisoPrivacidad.vue` | large, legal |
 | Condiciones de Venta | `pages/CondicionesVenta.vue` | large, legal |
@@ -107,8 +106,6 @@ Each of these is real, scoped work, not a cleanup.
 | Política de Garantía | `pages/PoliticaGarantia.vue` | large, legal |
 | Design Experience | `pages/DesignExperience.vue` | medium |
 | Mérida launch page | `pages/Merida.vue` | medium, see below |
-| Configurador | section 13 of the guide, not started | small |
-| SEO page titles and descriptions | `router/routes.js`, 11 pages | section 14, not started |
 
 The four legal pages are already written in English inside the Spanish page, in
 places. They need checking rather than translating.
@@ -132,14 +129,6 @@ Decide whether to retire the page and the booking option.
 
 ## Smaller things found in the code
 
-**The page language never changes.** `resources/views/welcome.blade.php` line 2
-is hardcoded `<html lang="es">`. It stays Spanish even in English. Bad for SEO
-and for screen readers.
-
-**The site always opens in Spanish.** There is no detection of the visitor's
-browser language. A US visitor lands on Spanish and has to find the toggle.
-One-line change in `router/i18n.js` when you want it.
-
 **Two locale keys are empty.** `ini_alba_dp1` and `ini_alba_dp2` are blank
 strings in both languages and render as nothing. Unfinished copy for the Albatros
 project.
@@ -159,7 +148,7 @@ For orientation. All of this is on GitHub and verified building.
 
 | Section | Page |
 |---|---|
-| 1 | Header, partial. Desktop nav keyed, mobile menu not |
+| 1 | Header, complete, desktop and mobile |
 | 2 | Footer, complete |
 | 3 | Homepage and the shared locations block, complete |
 | 4 | Puertas, complete |
@@ -168,10 +157,14 @@ For orientation. All of this is on GitHub and verified building.
 | 7 | Catálogo, complete |
 | 8 | Inspiración, complete except the PDF above |
 | 9 | Contacto, complete except the HubSpot form |
-| 10 | Quote form, blocked |
+| 10 | Quote form: labels and placeholders done, submitted values blocked on HubSpot |
 | 11 | Planea tu Visita, complete |
 | 12 | Recursos para Profesionales, complete |
-| 13 | Configurador, not started |
-| 14 | SEO metadata, not started |
+| 13 | Configurador, complete. Note: nothing on the site links to `/config-diseno` |
+| 14 | SEO metadata, complete, both languages |
 
-325 keys in each language file, perfect parity.
+416 keys in each language file, perfect parity.
+
+`npm run build` runs `scripts/check-locales.mjs` first. It compiles every
+message, refuses bare `@` or `|` characters, and fails on any key that exists in
+one language but not the other.

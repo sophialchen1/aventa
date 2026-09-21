@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { watch } from "vue";
 import { useHead } from "@vueuse/head";
+import { i18n } from "./i18n.js";
 import routes from "./routes.js";
 
 const router = createRouter({
@@ -44,21 +46,33 @@ router.afterEach((to, from) => {
     retry();
 });
 
-router.afterEach((to) => {
-    const m = to.meta || {};
+// Page titles and descriptions live in the locale files, like the rest of the
+// copy, and routes.js holds the key names. Re-applied when the visitor switches
+// language, so an English visitor does not get a Spanish tab or link preview.
+const { t, te, locale } = i18n.global;
 
-    useHead({
-        title: m.title || "Aventa Windows",
+function text(key, fallback = "") {
+    return key && te(key) ? t(key) : fallback;
+}
+
+function headInput(route) {
+    const m = route.meta || {};
+    const title = text(m.titleKey, "Aventa Windows");
+    const description = text(m.descKey, t("seo_default_desc"));
+    return {
+        htmlAttrs: { lang: locale.value },
+        title,
         meta: [
-            { name: "description", content: m.description || "Aventa Windows, puertas y ventanas personalizadas en madera de alta calidad." },
-            { property: "og:title", content: m.ogTitle || m.title || "Aventa Windows" },
-            { property: "og:description", content: m.ogDescription || m.description || "" },
+            { name: "description", content: description },
+            { property: "og:title", content: text(m.ogTitleKey, title) },
+            { property: "og:description", content: text(m.ogDescriptionKey, description) },
             { property: "og:type", content: m.ogType || "website" },
             { property: "og:url", content: m.ogUrl || m.canonical || "https://www.aventawindows.com" },
             { property: "og:image", content: m.ogImage || "https://www.aventawindows.com/default-og.jpg" },
+            { property: "og:locale", content: locale.value === "es" ? "es_MX" : "en_US" },
             { name: "twitter:card", content: m.twitterCard || "summary_large_image" },
-            { name: "twitter:title", content: m.twitterTitle || m.title || "Aventa Windows" },
-            { name: "twitter:description", content: m.twitterDescription || m.description || "" },
+            { name: "twitter:title", content: text(m.twitterTitleKey, title) },
+            { name: "twitter:description", content: text(m.twitterDescriptionKey, description) },
             { name: "twitter:image", content: m.twitterImage || m.ogImage || "https://www.aventawindows.com/default-og.jpg" },
             ...(m.twitterSite ? [{ name: "twitter:site", content: m.twitterSite }] : []),
         ],
@@ -66,7 +80,19 @@ router.afterEach((to) => {
         script: m.ldJson
             ? [{ type: "application/ld+json", children: JSON.stringify(m.ldJson) }]
             : [],
-    });
-});
+    };
+}
+
+// One head entry, patched in place. Calling useHead on every navigation would
+// stack a new entry each time.
+let headEntry = null;
+function applyHead(route) {
+    const input = headInput(route);
+    if (headEntry && typeof headEntry.patch === "function") headEntry.patch(input);
+    else headEntry = useHead(input);
+}
+
+router.afterEach((to) => applyHead(to));
+watch(locale, () => applyHead(router.currentRoute.value));
 
 export default router;

@@ -30,6 +30,18 @@ for (const [loc, msgs] of [['es', es], ['en', en]]) {
 }
 console.error = realError
 
+// A message can compile cleanly and still be wrong. A bare | is valid syntax:
+// vue-i18n reads it as a plural form and silently renders only the first half,
+// which is how "Title | Aventa Windows" became "Title". Catch those too.
+for (const [loc, msgs] of [['es', es], ['en', en]]) {
+    for (const [k, v] of Object.entries(msgs)) {
+        if (typeof v !== 'string') continue
+        const bare = v.replace(/\{'[@|{}]'\}/g, '')
+        if (bare.includes('|')) problems.push(`${loc}  ${k}\n    bare | (plural separator). Write {'|'} for a literal pipe.`)
+        if (bare.includes('@')) problems.push(`${loc}  ${k}\n    bare @ (linked message). Write {'@'} for a literal at sign.`)
+    }
+}
+
 const enKeys = Object.keys(en), esKeys = Object.keys(es)
 const onlyEn = enKeys.filter(k => !(k in es))
 const onlyEs = esKeys.filter(k => !(k in en))
