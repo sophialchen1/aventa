@@ -9,76 +9,76 @@ const { t } = useI18n();
 const ventanas = [
     {
         id: 0,
-        name: "Fija",
+        nameKey: "ini_fij",
         abierta: "/media/puertas_ventanas/ventana_fija.webp",
         cerrada: "/media/puertas_ventanas/ventana_fija.webp",
-        des: "No se abre, solo da luz y vista.",
+        desKey: "nav_des_fija",
         tip: "/ventanas",
     },
     {
         id: 1,
-        name: "Abatible",
+        nameKey: "ini_ab",
         abierta: "/media/puertas_ventanas/ventana_abatible.png",
         cerrada: "/media/puertas_ventanas/ventana_abatible.gif",
-        des: "Se abre hacia adentro o fuera ",
+        desKey: "nav_des_ab",
         tip: "/ventanas",
     },
     {
         id: 2,
-        name: t("ini_osc"),
+        nameKey: "ini_osc",
         abierta: "/media/puertas_ventanas/ventana_oscilobatible.png",
         cerrada: "/media/puertas_ventanas/ventana_oscilobatible.gif",
-        des: "Se abre lateral o superiormente.",
+        desKey: "nav_des_osc",
         tip: "/ventanas",
     },
     {
         id: 3,
-        name: "Corrediza",
+        nameKey: "ini_cor",
         abierta: "/media/puertas_ventanas/ventana_corrediza.png",
         cerrada: "/media/puertas_ventanas/ventana_corrediza.gif",
-        des: "Corre lateralmente, sin ocupar espacio.",
+        desKey: "nav_des_cor",
         tip: "/ventanas",
     },
     {
         id: 4,
-        name: "Plegable",
+        nameKey: "ini_ple",
         abierta: "/media/puertas_ventanas/ventana_plegable.png",
         cerrada: "/media/puertas_ventanas/ventana_plegable.gif",
-        des: "Se abre en secciones hacia un lado.",
+        desKey: "nav_des_ple",
         tip: "/ventanas",
     },
     {
         id: 5,
-        name: t("ini_pro"),
+        nameKey: "ini_pro",
         abierta: "/media/puertas_ventanas/ventana_proyectable.png",
         cerrada: "/media/puertas_ventanas/ventana_proyectable.gif",
-        des: "Se abre hacia afuera desde abajo.",
+        desKey: "nav_des_pro",
         tip: "/ventanas",
     },
 ];
 const puertas = [
     {
         id: 0,
-        name: "Practicable",
+        nameKey: "nav_pu_prac",
         abierta: "/media/puertas_ventanas/puerta_practicable.png",
         cerrada: "/media/puertas_ventanas/puerta_practicable.gif",
-        des: "Se abre como una puerta tradicional.",
+        desKey: "nav_des_prac",
         tip: "/puertas",
     },
     {
         id: 1,
-        name: "Plegable",
+        nameKey: "ini_ple",
         abierta: "/media/puertas_ventanas/puerta_plegable.png",
         cerrada: "/media/puertas_ventanas/puerta_plegable.gif",
-        des: "Las hojas se doblan hacia un lado para abrir.",
+        desKey: "nav_des_pple",
         tip: "/puertas",
     },
     {
         id: 2,
-        name: "Corrediza elevable",
+        nameKey: "nav_pu_corel",
         abierta: "/media/puertas_ventanas/puerta_corredizaelevable.png",
         cerrada: "/media/puertas_ventanas/puerta_corredizaelevable.gif",
-        des: "Corre suave y sella herméticamente.",
+        desKey: "nav_des_corel",
         tip: "/puertas",
     },
 ];
@@ -86,17 +86,17 @@ const puertas = [
 const c_comprar = [
     {
         img: "/media/como_comprar/ver-catalogo.png",
-        btn: "Ver Catálogo",
+        btnKey: "f_catalog",
         link: "/catalogo",
     },
     /*{
         img: "/media/como_comprar/inspiracion-diseno.png",
-        btn: "Inspiración de Diseño",
+        btnKey: "f_insp",
         link: "/inspiracion",
     },*/
     {
         img: "/media/como_comprar/planea-visita.png",
-        btn: "Planea tu Visita",
+        btnKey: "f_visit",
         link: "/planea-visita",
     },
 ];
@@ -374,24 +374,24 @@ onUnmounted(() => {
                             <div class="flex-1/4">
                                 <img
                                     :class="{
-                                        'rotate-270': i.name === 'Abatible',
+                                        'rotate-270': i.nameKey === 'ini_ab',
                                     }"
                                     :src="
                                         img_select === i.id
                                             ? i.cerrada
                                             : i.abierta
                                     "
-                                    :alt="i.name + '.gif'"
+                                    :alt="$t(i.nameKey) + '.gif'"
                                 />
                             </div>
                             <div class="flex-3/4 flex flex-col w-full">
                                 <p
                                     class="lg:text-lg group-hover:text-[#657d88]"
                                 >
-                                    {{ i.name }}
+                                    {{ $t(i.nameKey) }}
                                 </p>
                                 <div v-if="img_select === i.id">
-                                    <p class="text-sm">{{ i.des }}</p>
+                                    <p class="text-sm">{{ $t(i.desKey) }}</p>
                                 </div>
                             </div>
                         </router-link>
@@ -444,11 +444,10 @@ onUnmounted(() => {
                     <div class="w-full max-w-[1500px] grid grid-cols-5 gap-x-5">
                         <div class="w-full col-span-3">
                             <h3 class="italic tracking-wider lg:text-[2rem]">
-                                Convierte tu visión en realidad
+                                {{ $t('nav_modal_title') }}
                             </h3>
                             <p class="text-[#757575] lg:text-xl">
-                                Explora diseños, agenda tu consulta y vive la
-                                experiencia Aventa Windows.
+                                {{ $t('nav_modal_body') }}
                             </p>
                         </div>
 
@@ -471,7 +470,7 @@ onUnmounted(() => {
                             <button
                                 class="w-fit text-[#757575] text-start italic cursor-pointer lg:text-[1.2rem] lg:mt-2 bg-gradient-to-r from-[#757575] to-[#757575] bg-no-repeat bg-[length:0%_2px] bg-left-bottom group-hover:bg-[length:100%_2px] transition-all duration-300 ease-in-out group-hover:font-bold"
                             >
-                                {{ i.btn }}
+                                {{ $t(i.btnKey) }}
                             </button>
                         </router-link>
                     </div>
@@ -502,7 +501,7 @@ onUnmounted(() => {
                     to="/"
                     @click="openMovil"
                 >
-                    <p>Inicio</p>
+                    <p>{{ $t('nav_inicio') }}</p>
                     <img
                         class="rotate-180 w-5 h-5"
                         src="../assets/media/icons/angulo-pequeno-izquierdo.png"
@@ -514,7 +513,7 @@ onUnmounted(() => {
                     class="flex justify-between p-3 font-bold"
                     :class="{ 'border-b-1': abrir_p }"
                 >
-                    <p>Puertas</p>
+                    <p>{{ $t('nav_puertas') }}</p>
                     <img
                         class="rotate-180 w-5 h-5 transform duration-300"
                         :class="{ 'rotate-270': abrir_p }"
@@ -542,9 +541,9 @@ onUnmounted(() => {
                         >
                             <img class="w-15" :src="i.cerrada" alt="" />
                             <div>
-                                <p>{{ i.name }}</p>
+                                <p>{{ $t(i.nameKey) }}</p>
                                 <p class="text-sm text-[grey] italic">
-                                    {{ i.des }}
+                                    {{ $t(i.desKey) }}
                                 </p>
                             </div>
                         </router-link>
@@ -555,7 +554,7 @@ onUnmounted(() => {
                     class="flex justify-between p-3 font-bold"
                     :class="{ 'border-b-1': abrir_v }"
                 >
-                    <p>Ventanas</p>
+                    <p>{{ $t('nav_ventanas') }}</p>
                     <img
                         class="rotate-180 w-5 h-5 transform duration-300"
                         :class="{ 'rotate-270': abrir_v }"
@@ -583,9 +582,9 @@ onUnmounted(() => {
                         >
                             <img class="w-15" :src="i.cerrada" alt="" />
                             <div>
-                                <p>{{ i.name }}</p>
+                                <p>{{ $t(i.nameKey) }}</p>
                                 <p class="text-sm text-[grey] italic">
-                                    {{ i.des }}
+                                    {{ $t(i.desKey) }}
                                 </p>
                             </div>
                         </router-link>
@@ -596,7 +595,7 @@ onUnmounted(() => {
                     class="flex justify-between p-3 font-bold"
                     :class="{ 'border-b-1': abrir_c }"
                 >
-                    <p>Cómo Comprar</p>
+                    <p>{{ $t('nav_cocomprar') }}</p>
                     <img
                         class="rotate-180 w-5 h-5 transform duration-300"
                         :class="{ 'rotate-270': abrir_c }"
@@ -635,7 +634,7 @@ onUnmounted(() => {
                                 />
                             </div>
                             <div>
-                                <p>{{ i.btn }}</p>
+                                <p>{{ $t(i.btnKey) }}</p>
                             </div>
                         </router-link>
                         <a
@@ -651,7 +650,7 @@ onUnmounted(() => {
                                 />
                             </div>
                             <div>
-                                <p>Proceso de Compra</p>
+                                <p>{{ $t('nav_proceso') }}</p>
                             </div>
                         </a>
                     </div>
@@ -662,7 +661,7 @@ onUnmounted(() => {
                     to="/recursos-profesionales"
                     @click="openMovil"
                 >
-                    <p>Recursos</p>
+                    <p>{{ $t('nav_recursos') }}</p>
                     <img
                         class="rotate-180 w-5 h-5"
                         src="../assets/media/icons/angulo-pequeno-izquierdo.png"
@@ -675,7 +674,7 @@ onUnmounted(() => {
                     to="/contacto"
                     @click="openMovil"
                 >
-                    <p>Contacto</p>
+                    <p>{{ $t('nav_contact') }}</p>
                     <img
                         class="rotate-180 w-5 h-5"
                         src="../assets/media/icons/angulo-pequeno-izquierdo.png"
@@ -687,7 +686,7 @@ onUnmounted(() => {
                         @click="openRequest"
                         class="bg-[#ee7465] w-full py-3 rounded-xl text-white"
                     >
-                        Solicitar Cotización
+                        {{ $t('nav_cotiza') }}
                     </button>
                 </div>
                 <div class="flex-1 flex flex-col h-full w-full items-baseline">
@@ -698,7 +697,7 @@ onUnmounted(() => {
                         <a href="https://web.whatsapp.com/send?phone=525534634662&text=Hola" target="_blank"
                             class="text-base text-black font-bold border-b-2 border-[#657d88]"
                         >
-                            ¿No sabes por dónde empezar?
+                            {{ $t('nav_p1') }}
                         </a>
                         <div class="flex gap-2">
                             <img
@@ -707,14 +706,13 @@ onUnmounted(() => {
                                 alt=""
                             />
                             <p class="text-sm text-black">
-                                Haz el cuestionario y encuentra tu ventana
-                                perfecta
+                                {{ $t('nav_p2') }}
                             </p>
                         </div>
                         <a href="https://web.whatsapp.com/send?phone=525534634662&text=Hola" target="_blank"
                             class="text-base text-black font-bold border-b-2 border-[#657d88]"
                         >
-                            Explora por tu cuenta
+                            {{ $t('nav_p3') }}
                         </a>
                         <div class="flex gap-2">
                             <img
@@ -723,7 +721,7 @@ onUnmounted(() => {
                                 alt=""
                             />
                             <p class="text-sm text-black">
-                                Dirígete a la herramienta de renders
+                                {{ $t('nav_p4') }}
                             </p>
                         </div>
                     </div>
