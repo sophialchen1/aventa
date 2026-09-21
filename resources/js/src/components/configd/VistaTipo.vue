@@ -29,15 +29,15 @@ onMounted(() => {
                 <div class="p-0.5 border-1 rounded-full border-[#918164] w-fit h-fit group-hover:border-2">
                     <img class="h-5 w-5" src="../../assets/media/icons/angulo-pequeno-izquierdo.png" alt="volver">
                 </div>
-                <p class="text-xl italic tracking-wide text-[#918164] group-hover:font-semibold">Volver</p>
+                <p class="text-xl italic tracking-wide text-[#918164] group-hover:font-semibold">{{ $t('cfg_back') }}</p>
             </a>
-            <h1 class="italic w-full text-center tracking-wider lg:text-[2rem] text-[#918164] font-semibold"> Configura tu {{ tipo.charAt(0).toUpperCase() + tipo.slice(1) }} </h1>
+            <h1 class="italic w-full text-center tracking-wider lg:text-[2rem] text-[#918164] font-semibold">{{ tipo === 'puerta' ? $t('cfg_door_title') : $t('cfg_window_title') }}</h1>
 
 
             <div class="grid grid-cols-3 gap-x-25 gap-y-10">
                 <div v-for="i in arreglo" :key="i.id" @mouseenter="hover_img = i.id" @mouseleave="hover_img = null" @click="$emit('vistaTipo', {value: tipo, item: i})" class="bg-white rounded-xl p-4 flex flex-col justify-center items-center cursor-pointer shadow-md">
                     <img class="w-full h-[320px] object-contain" :src="hover_img === i.id ? u_media + tipo + 's_abiertas/' + i.name_img : u_media + tipo + 's/' + i.name_img"  alt="">
-                    <p class="border-2 text-[#918164] w-[60%] rounded-2xl text-center pt-2 pb-2"> {{i.name}} </p>
+                    <p class="border-2 text-[#918164] w-[60%] rounded-2xl text-center pt-2 pb-2">{{ $t(i.nameKey) }}</p>
                 </div>
             </div>
 

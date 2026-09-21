@@ -25,22 +25,22 @@ const it_selected = ref(null);
 const puertas = [
     {
         id: 1,
-        name: "Practicable",
+        nameKey: "nav_pu_prac",
         name_img: "puerta_solida.png",
     },
     {
         id: 2,
-        name: "Plegable",
+        nameKey: "ini_ple",
         name_img: "puerta_vidrio.png",
     },
     {
         id: 3,
-        name: "Corrediza elevable",
+        nameKey: "nav_pu_corel",
         name_img: "puerta_combinada.png",
     },
     {
         id: 4,
-        name: "Pivotante",
+        nameKey: "cfg_pivot",
         name_img: "puerta_combinada.png",
     }
 ];
@@ -48,37 +48,37 @@ const puertas = [
 const ventanas = [
     {
         id: 1,
-        name: "fija",
+        nameKey: "ini_fij",
         name_img: "ventana_fija.png",
     },
     {
         id: 2,
-        name: t('ini_ab'),
+        nameKey: "ini_ab",
         name_img: "ventana_fija.png",
     },
     {
         id: 3,
-        name: t('ini_osc'),
+        nameKey: "ini_osc",
         name_img: "ventana_fija.png",
     },
     {
         id: 4,
-        name: "Corrediza",
+        nameKey: "ini_cor",
         name_img: "ventana_fija.png",
     },
     {
         id: 5,
-        name: "Plegable",
+        nameKey: "ini_ple",
         name_img: "ventana_fija.png",
     },
     {
         id: 6,
-        name: t('ini_pro'),
+        nameKey: "ini_pro",
         name_img: "ventana_fija.png",
     },
     {
         id: 7,
-        name: t('ini_gui'),
+        nameKey: "ini_gui",
         name_img: "ventana_fija.png",
     }
 ]

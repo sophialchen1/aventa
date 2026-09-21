@@ -77,7 +77,7 @@ onMounted(() => {
             <div class="p-0.5 border rounded-full border-[#918164] group-hover:border-2">
                 <img class="h-5 w-5" src="../../assets/media/icons/angulo-pequeno-izquierdo.png" alt="volver">
             </div>
-            <p class="text-xl italic tracking-wide text-[#918164] group-hover:font-semibold">Volver</p>
+            <p class="text-xl italic tracking-wide text-[#918164] group-hover:font-semibold">{{ $t('cfg_back') }}</p>
         </a>
 
         <div class="flex gap-10">
@@ -100,8 +100,8 @@ onMounted(() => {
             </div>
 
             <div class="flex-1/2 flex flex-col gap-3">
-                <h2 class="text-[#918164] italic font-semibold tracking-wider lg:text-[2rem]">Selecciona tu color</h2>
-                <p class="text-[#757575] lg:text-[1.4rem]">Colores sólidos</p>
+                <h2 class="text-[#918164] italic font-semibold tracking-wider lg:text-[2rem]">{{ $t('cfg_color_title') }}</h2>
+                <p class="text-[#757575] lg:text-[1.4rem]">{{ $t('cfg_color_solid') }}</p>
                 <div class="flex gap-2">
                     <div @click="seleccionarColor('madera')" class="bg-[#988062] w-10 h-10 rounded-full cursor-pointer">
                     </div>
@@ -109,21 +109,20 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <h2 class="text-[#918164] italic font-semibold tracking-wider lg:text-[2rem]">Resumen</h2>
+                <h2 class="text-[#918164] italic font-semibold tracking-wider lg:text-[2rem]">{{ $t('cfg_summary') }}</h2>
                 <div class="border-2 rounded-xl py-1 px-5 border-[#918164]">
                     <div class="border-b-2 py-1 border-[#918164] flex items-center">
                         <img class="rotate-180 w-10 h-10" src="../../assets/media/icons/angulo-pequeno-izquierdo.png">
-                        <p class="text-[#757575]">{{ tipo.charAt(0).toUpperCase() + tipo.slice(1) }} {{
-                            props.item[0].name }}</p>
+                        <p class="text-[#757575]">{{ tipo === 'puerta' ? $t('cfg_type_door') : $t('cfg_type_window') }} {{ $t(props.item[0].nameKey) }}</p>
                     </div>
                     <div class="flex items-center py-1">
                         <img class="rotate-180 w-10 h-10" src="../../assets/media/icons/angulo-pequeno-izquierdo.png">
-                        <p class="text-[#757575]">Color {{ c_selected }}</p>
+                        <p class="text-[#757575]">{{ $t('cfg_color_label') }} {{ $t(c_selected === 'madera' ? 'cfg_color_wood' : 'cfg_color_black') }}</p>
                     </div>
                 </div>
 
                 <div class="flex items-baseline justify-between">
-                    <router-link to="">obtener cot</router-link>
+                    <router-link to="/contacto">{{ $t('cfg_quote') }}</router-link>
                 </div>
             </div>
         </div>
