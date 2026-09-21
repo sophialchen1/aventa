@@ -14,7 +14,6 @@ const detalles_v = ["vis_list1", "vis_list2", "vis_list3", "vis_list4"];
 const motivo_v = [
     { value: "CDMX", labelKey: "vis_loc_cdmx" },
     { value: "SMA", labelKey: "vis_loc_sma" },
-    { value: "Mérida", labelKey: "vis_loc_mer" },
 ];
 
 // Teléfono con prefijo

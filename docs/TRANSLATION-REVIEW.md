@@ -116,10 +116,9 @@ places. They need checking rather than translating.
 
 The showroom is closed. It is off the locations map on the homepage and Contacto.
 
-Three references remain, all left deliberately:
+Two references remain, both left deliberately:
 
 - `/merida`, the launch page, is still live and reachable
-- The Planea tu Visita form still offers Mérida as a place to book a visit
 - `data/paises.js` lists Mérida among Mexican cities, which is a geography list,
   not an Aventa location, and should stay
 
