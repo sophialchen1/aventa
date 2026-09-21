@@ -284,30 +284,30 @@ const enviarFormulario = (e) => {
     >
         <div class="flex flex-col bg-white p-2 gap-5 lg:p-10 rounded-xl">
             <h3 class="font-bold text-[#657d88] lg:text-[1.5rem]">
-                Solicita tu cotización
+                {{ $t('form_title') }}
             </h3>
             <div class="grid lg:grid-cols-2 lg:gap-3">
                 <div>
-                    <p>Nombre (s)*</p>
+                    <p>{{ $t('form_firstname') }}</p>
                     <input
                         v-model="namePerson"
                         name="firstname"
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        placeholder="Escribe tu nombre"
+                        :placeholder="$t('ph_firstname')"
                         required
                     />
                 </div>
                 <div>
-                    <p>Apellido*</p>
+                    <p>{{ $t('form_lastname') }}</p>
                     <input
                         name="lastname"
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        placeholder="Escribe tus apellidos"
+                        :placeholder="$t('ph_lastname')"
                         required
                     />
                 </div>
                 <div>
-                    <p>Teléfono*</p>
+                    <p>{{ $t('form_phone') }}</p>
                     <div class="flex gap-1">
                         <!-- Select para la lada -->
                         <select
@@ -339,10 +339,10 @@ const enviarFormulario = (e) => {
                     </div>
                 </div>
                 <div>
-                    <p>Correo electrónico*</p>
+                    <p>{{ $t('form_email') }}</p>
                     <input
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        placeholder="correo@ejemplo.com"
+                        :placeholder="$t('ph_email')"
                         pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
                         type="email"
                         inputmode="email"
@@ -359,12 +359,12 @@ const enviarFormulario = (e) => {
                         type="checkbox"
                         value="¿Podemos contactarte por WhatsApp?"
                     />
-                    Contáctame por WhatsApp
+                    {{ $t('form_whatsapp') }}
                 </label>
             </div>
             <div class="grid lg:grid-cols-3 lg:gap-3">
                 <div>
-                    <p>Pais*</p>
+                    <p>{{ $t('form_country') }}</p>
                     <select
                         name="country"
                         v-model="select_pais"
@@ -377,37 +377,37 @@ const enviarFormulario = (e) => {
                     </select>
                 </div>
                 <div>
-                    <p>Estado*</p>
+                    <p>{{ $t('form_state') }}</p>
                     <select
                         name="state"
                         v-model="select_estado"
                         class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
                         required
                     >
-                        <option disabled>Selecciona una Opcion</option>
+                        <option disabled>{{ $t('form_select_placeholder') }}</option>
                         <option v-for="i in estadosDis" :key="i" :value="i">
                             {{ i }}
                         </option>
                     </select>
                 </div>
                 <div>
-                    <p>Ciudad*</p>
+                    <p>{{ $t('form_city') }}</p>
                     <input
                         name="city"
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        placeholder="Ciudad"
+                        :placeholder="$t('ph_city')"
                         required
                     />
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-2">
                 <div>
-                    <p>Tipo de proyecto*</p>
+                    <p>{{ $t('form_projecttype') }}</p>
                     <select
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
                         required
                     >
-                        <option disabled value="">Selecciona una opción</option>
+                        <option disabled value="">{{ $t('form_select_placeholder') }}</option>
                         <option v-for="op in t_proyecto" :key="op" :value="op">
                             {{ op }}
                         </option>
@@ -415,10 +415,10 @@ const enviarFormulario = (e) => {
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <p class="font-bold">Datos del proyecto*</p>
+                    <p class="font-bold">{{ $t('form_projectdata') }}</p>
                     <div class="grid grid-cols-4 gap-2">
                         <div>
-                            <p>Producto</p>
+                            <p>{{ $t('form_product') }}</p>
                             <select
                                 v-model="nuevo.tipo"
                                 class="border border-[#cccccc]bg-[#F9F9F9] p-2 w-full rounded-xl"
@@ -429,19 +429,19 @@ const enviarFormulario = (e) => {
                             </select>
                         </div>
                         <div>
-                            <p>Cantidad</p>
+                            <p>{{ $t('form_quantity') }}</p>
                             <input
                                 v-model.number="nuevo.cantidad"
                                 type="number"
                                 name="cantidad"
                                 min="1"
-                                placeholder="Cantidad"
+                                :placeholder="$t('ph_quantity')"
                                 class="border border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
                                 required
                             />
                         </div>
                         <div>
-                            <p>Ancho</p>
+                            <p>{{ $t('form_width') }}</p>
                             <input
                                 v-model.number="nuevo.ancho"
                                 type="number"
@@ -451,7 +451,7 @@ const enviarFormulario = (e) => {
                             />
                         </div>
                         <div>
-                            <p>Alto</p>
+                            <p>{{ $t('form_height') }}</p>
                             <input
                                 v-model.number="nuevo.alto"
                                 type="number"
@@ -463,14 +463,14 @@ const enviarFormulario = (e) => {
                     </div>
                     <div class="grid grid-cols-5 gap-2">
                         <div class="col-span-2">
-                            <p>Apertura</p>
+                            <p>{{ $t('form_opening') }}</p>
                             <select
                                 v-model="nuevo.apertura"
                                 class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
                                 required
                             >
                                 <option disabled value="">
-                                    Selecciona una opción
+                                    {{ $t('form_select_placeholder') }}
                                 </option>
                                 <option
                                     v-for="aper in nuevo.tipo === 'Ventana'
@@ -484,14 +484,14 @@ const enviarFormulario = (e) => {
                             </select>
                         </div>
                         <div class="col-span-2">
-                            <p>Madera</p>
+                            <p>{{ $t('form_wood') }}</p>
                             <select
                                 v-model="nuevo.madera"
                                 class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
                                 required
                             >
                                 <option disabled value="">
-                                    Selecciona una opción
+                                    {{ $t('form_select_placeholder') }}
                                 </option>
                                 <option
                                     v-for="mad in madera"
@@ -508,7 +508,7 @@ const enviarFormulario = (e) => {
                                 @click="agregarProducto"
                                 class="bg-[#657d88] cursor-pointer w-full h-10 flex items-center justify-center text-white px-4 rounded-xl hover:bg-[#64563c]"
                             >
-                                Agregar
+                                {{ $t('form_additem') }}
                             </div>
                         </div>
                     </div>
@@ -615,16 +615,16 @@ const enviarFormulario = (e) => {
                     </div>
                 </div>
                 <div>
-                    <p>Detalles del proyecto*</p>
+                    <p>{{ $t('form_details') }}</p>
                     <textarea
                         ref="textAreaRef"
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
-                        placeholder="Describe brevemente tu proyecto"
+                        :placeholder="$t('ph_project')"
                         required
                     ></textarea>
                 </div>
                 <div>
-                    <p>Subir archivo</p>
+                    <p>{{ $t('form_upload') }}</p>
                     <input
                         type="file"
                         multiple
@@ -666,8 +666,8 @@ const enviarFormulario = (e) => {
             >
                 {{
                     archivos.length > 0 && archivoSubiendo
-                        ? "Subiendo archivo..."
-                        : "Enviar solicitud"
+                        ? $t("form_uploading")
+                        : $t("form_submit")
                 }}
             </button>
         </div>
@@ -679,15 +679,15 @@ const enviarFormulario = (e) => {
     >
         <div class="bg-white p-6 rounded-xl text-center max-w-md mx-auto">
             <h2 class="text-xl font-bold text-[#657d88] mb-4">
-                ¡Gracias por enviar tu formulario!
+                {{ $t('form_thanks_title') }}
             </h2>
-            <p class="mb-6">En breve nos pondremos en contacto contigo.</p>
+            <p class="mb-6">{{ $t('form_thanks_body') }}</p>
             <router-link
                 to="/"
                 @click="mostrarGracias = false"
                 class="bg-[#657d88] text-white px-4 py-2 rounded-xl hover:bg-[#64563c]"
             >
-                Volver al inicio
+                {{ $t('form_thanks_cta') }}
             </router-link>
         </div>
     </div>
