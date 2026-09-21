@@ -89,6 +89,12 @@ Pages: `Inicio`, `Ventanas`, `Puertas`, `Catalogo`, `Contacto`, `Inspiracion`,
 7. **Verify before claiming done.** Run `npm run build` to confirm the change
    compiles. A change that breaks the build would take the live site down.
 
+8. **Never put a bare `@` or `|` in a locale string.** vue-i18n reads `@` as a
+   linked message and `|` as a plural separator. A message it cannot parse
+   throws at render time and blanks the whole page. Write `{'@'}` and `{'|'}`
+   instead. `npm run build` now runs `scripts/check-locales.mjs` first, which
+   compiles every message and refuses to build if one is broken.
+
 ## Working with Sophia
 
 Sophia is technical in mindset (RevOps and tech background) but is not a

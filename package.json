@@ -2,9 +2,10 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
+        "build": "node scripts/check-locales.mjs && vite build",
         "dev": "vite",
-        "preview": "vite --config vite.preview.config.js"
+        "preview": "vite --config vite.preview.config.js",
+        "check-locales": "node scripts/check-locales.mjs"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.1.10",
