@@ -205,3 +205,28 @@ Verified: building with them present produces a byte-identical manifest.
 
 For copy, layout and language switching, which is what we are working on, the
 preview is accurate.
+
+---
+
+## Files that live at the web root
+
+The build zip only contains `build/`. These sit next to it, at the top of
+`public_html/`, and have to be uploaded on their own when they change:
+
+```
+favicon.ico              browser tab
+favicon.svg              modern browsers, sharp at any size
+apple-touch-icon.png     iPhone and iPad home screen
+icon-192.png             Android
+icon-512.png             Android
+icon-512-maskable.png    Android, cropped to the phone's icon shape
+site.webmanifest         tells Android which icons to use
+```
+
+`resources/views/welcome.blade.php` is the other one. Laravel reads it on every
+page load, so a change there needs uploading to `aventa/resources/views/`. It is
+not part of the build.
+
+Favicons are cached hard. After uploading, test in a private window. If the old
+one still shows, try `aventawindows.com/favicon.ico` directly to confirm the new
+file is really there.
