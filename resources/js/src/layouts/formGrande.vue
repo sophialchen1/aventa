@@ -455,6 +455,12 @@ const enviarFormulario = (e) => {
                     </select>
                 </div>
 
+                <!-- The fields below are a draft row, not part of the submission:
+                     agregarProducto() reads them, validates them with
+                     productoValido() and then clears them. They carry no
+                     required attribute on purpose. They used to, and because
+                     the row is cleared after every Agregar, the browser then
+                     blocked Send on fields the visitor had already filled. -->
                 <div class="flex flex-col gap-2">
                     <p class="font-bold">{{ $t('form_projectdata') }}</p>
                     <div class="grid grid-cols-4 gap-2">
@@ -463,7 +469,6 @@ const enviarFormulario = (e) => {
                             <select
                                 v-model="nuevo.tipo"
                                 class="border border-[#cccccc]bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                required
                             >
                                 <option>Ventana</option>
                                 <option>Puerta</option>
@@ -478,7 +483,6 @@ const enviarFormulario = (e) => {
                                 min="1"
                                 :placeholder="$t('ph_quantity')"
                                 class="border border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                required
                             />
                         </div>
                         <div>
@@ -488,7 +492,6 @@ const enviarFormulario = (e) => {
                                 type="number"
                                 placeholder="cm"
                                 class="border border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                required
                             />
                         </div>
                         <div>
@@ -498,7 +501,6 @@ const enviarFormulario = (e) => {
                                 type="number"
                                 placeholder="cm"
                                 class="border border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                required
                             />
                         </div>
                     </div>
@@ -508,7 +510,6 @@ const enviarFormulario = (e) => {
                             <select
                                 v-model="nuevo.apertura"
                                 class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                required
                             >
                                 <option disabled value="">
                                     {{ $t('form_select_placeholder') }}
@@ -529,7 +530,6 @@ const enviarFormulario = (e) => {
                             <select
                                 v-model="nuevo.madera"
                                 class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                required
                             >
                                 <option disabled value="">
                                     {{ $t('form_select_placeholder') }}
