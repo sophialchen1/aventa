@@ -10,11 +10,6 @@ const routes = [
         }
     },
     {
-        path: "/config-diseno",
-        name: "configd",
-        component: () => import("../components/ConfigDiseños.vue"),
-    },
-    {
         path: "/ventanas",
         name: "ventanas",
         component: () => import("../pages/Ventanas.vue"),
@@ -144,7 +139,11 @@ const routes = [
       path: "/design-experience",
       name: "Design Experience",
       component: () => import("../pages/DesignExperience.vue"),
-      meta: {}
+      meta: {
+          titleKey: "seo_design_title",
+          descKey: "seo_design_desc",
+          canonical: "https://www.aventawindows.com/design-experience"
+      }
     },
     {
         path: "/inspiracion",
@@ -171,9 +170,8 @@ const routes = [
         name: "NotFound",
         component: () => import("../layouts/NotFound.vue"),
         meta: {
-            titleKey: "seo_design_title",
-            descKey: "seo_design_desc",
-            canonical: "https://www.aventawindows.com/design-experience"
+            titleKey: "seo_notfound_title",
+            noindex: true
         }
     },
 ];

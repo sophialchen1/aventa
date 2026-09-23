@@ -857,12 +857,7 @@ onBeforeUnmount(() => {
                                     </div>
                                     <router-link
                                         class="bg-[#ee7465] w-fit text-white p-3 rounded-xl transition-normal duration-300 ease-in-out hover:shadow-xl"
-                                        :to="{
-                                            name: 'configd',
-                                            query: {
-                                                tipo: itemSeleccionado.key,
-                                            },
-                                        }"
+                                        to="/design-experience"
                                     >
                                         {{ $t("ini_div") }}
                                         {{ itemSeleccionado.tipo }}</router-link

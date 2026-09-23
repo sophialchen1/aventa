@@ -1,6 +1,6 @@
 # Still to review
 
-Open items from the English translation work. Updated 21 September 2026.
+Open items from the English translation work. Updated 23 September 2026.
 
 Two kinds of item are mixed here on purpose: things Ian's guide
 (`docs/reference/translation-guide-EN.md`) asks for, and things we found in the
@@ -85,6 +85,15 @@ The guide asked to unify it. Puertas had "Desempeño o estructura", Ventanas had
 nothing. Sophia chose the Ventanas format, so neither page has one now and the
 `comp_header` key was removed.
 
+### Inspiración is retired but still reachable
+
+**Decision made 23 September.**
+
+Both footer links are gone, so nothing on the site points to `/inspiracion`. The
+route and the page still work, so old links and bookmarks do not 404. Nothing
+further planned. Revisit if the Download Guide PDF is promoted anywhere, since
+those people are being sent to a retired page.
+
 ### The footer "Nosotros" link goes nowhere
 **On the guide, section 2.**
 
@@ -159,7 +168,7 @@ For orientation. All of this is on GitHub and verified building.
 | 10 | Quote form: labels and placeholders done, submitted values blocked on HubSpot |
 | 11 | Planea tu Visita, complete |
 | 12 | Recursos para Profesionales, complete |
-| 13 | Configurador, complete. Note: nothing on the site links to `/config-diseno` |
+| 13 | Configurador, retired. The page and its route are deleted |
 | 14 | SEO metadata, complete, both languages |
 
 416 keys in each language file, perfect parity.

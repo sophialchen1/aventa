@@ -75,8 +75,11 @@ function headInput(route) {
             { name: "twitter:description", content: text(m.twitterDescriptionKey, description) },
             { name: "twitter:image", content: m.twitterImage || m.ogImage || "https://www.aventawindows.com/default-og.jpg" },
             ...(m.twitterSite ? [{ name: "twitter:site", content: m.twitterSite }] : []),
+            ...(m.noindex ? [{ name: "robots", content: "noindex" }] : []),
         ],
-        link: [{ rel: "canonical", href: m.canonical || "https://www.aventawindows.com" }],
+        // a page with no canonical of its own gets none, rather than pointing
+        // at some other page
+        link: m.canonical ? [{ rel: "canonical", href: m.canonical }] : [],
         script: m.ldJson
             ? [{ type: "application/ld+json", children: JSON.stringify(m.ldJson) }]
             : [],
