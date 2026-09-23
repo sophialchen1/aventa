@@ -128,8 +128,7 @@ function toggleFaq(id: number) {
 
             <div class="relative w-full flex flex-col justify-center text-white lg:max-w-[1150px]">
                 <tittle-custom :titulo="$t('res_h1')" />
-                <!-- Subheading off for now. Delete the v-if to bring it back. -->
-                <p v-if="false" class="text-center text-sm px-5 lg:text-xl lg:text-left lg:p-0">{{ $t('res_intro') }}</p>
+                <p class="text-center text-sm px-5 lg:text-xl lg:text-left lg:p-0">{{ $t('res_intro') }}</p>
             </div>
         </div>
 

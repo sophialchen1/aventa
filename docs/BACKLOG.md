@@ -10,6 +10,61 @@ Fixed items stay on the list with the date, so there is a record.
 
 ---
 
+# PINNED · Blog previews on the Recursos page
+
+Raised 23 Sep 2026. Not started. Decided: posts stay in HubSpot, the Recursos
+page shows a few of them.
+
+## What we know
+
+The HubSpot portal has **two blogs, split by language**, so the page can show
+the right one automatically:
+
+```
+Recursos    es    https://info.aventawindows.com/es/recursos     id 128073230186
+Resources   en    https://info.aventawindows.com/en/resources    id 128073230194
+```
+
+There are **no blog tags in the portal at all**. Tag-based selection would mean
+Ian creating a tag and tagging every post he wants featured.
+
+Content today is a mix, which matches the decision to keep Recursos B2B and B2C
+for now. Four recent Spanish posts are specifier material: PVC vs aluminium vs
+laminated wood, certifying a LEED project, calculating U value, what laminated
+wood is. Older posts on biophilia and wood care are B2C.
+
+Two things to fix in HubSpot, unrelated to the website:
+
+- The four technical posts are **Spanish only**. An English visitor would see
+  only the older B2C ones.
+- A draft called **"Prueba"** is sitting in the blog.
+
+## The open question
+
+Whether a browser on aventawindows.com is allowed to read the HubSpot RSS feed.
+Test from the console on the live site:
+
+```js
+fetch('https://info.aventawindows.com/es/recursos/rss.xml')
+  .then(r => r.text())
+  .then(t => console.log('WORKS', t.slice(0, 200)))
+  .catch(e => console.log('BLOCKED', e.message))
+```
+
+- **WORKS** — build it straight from RSS. No key, no backend, no deploy per post.
+- **BLOCKED** — CORS. Needs a small Laravel endpoint to fetch server side, which
+  also means the HubSpot token stays off the front end.
+
+Claude cannot run this test: the environment's network policy denies that host.
+
+## Recommendation
+
+Show the **three most recent posts from the blog matching the visitor's
+language**. No tagging, no maintenance, works from the first deploy. Add a
+`destacado` tag later only if someone wants to override the order.
+
+---
+
 # P0 · RESOLVED 14 Sep 2026 · The source is now correct
 
 ## 0a. RESOLVED. The real source is now in this repository
