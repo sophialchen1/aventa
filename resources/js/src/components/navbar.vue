@@ -409,7 +409,7 @@ onUnmounted(() => {
                             class="flex gap-5 items-center w-full hover:underline"
                         >
                             <IconCustom
-                                icon="palette"
+                                icon="blueprint"
                                 size="4xl"
                                 class="w-10 shrink-0 justify-center"
                             />
@@ -712,7 +712,7 @@ onUnmounted(() => {
                             class="flex gap-2 hover:underline"
                         >
                             <IconCustom
-                                icon="palette"
+                                icon="blueprint"
                                 size="xl"
                                 class="w-5 shrink-0 justify-center"
                             />
