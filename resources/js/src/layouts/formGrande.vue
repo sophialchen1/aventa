@@ -1,13 +1,30 @@
 <script setup>
 import { computed, reactive, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { paises, telefonia } from "../data/paises.js";
+
+const { locale } = useI18n();
 
 const select_pais = ref("México");
 const select_estado = ref("");
 
+// The submitted value is always p.pais; only the label follows the language.
+function nombrePais(p) {
+    return locale.value === "en" ? p.pais_en : p.pais;
+}
+
 const estadosDis = computed(() => {
     const encontrado = paises.find((p) => p.pais === select_pais.value);
     return encontrado ? encontrado.estados : [];
+});
+
+// Otro has no state list, so the visitor types it instead
+const estadoLibre = computed(() => estadosDis.value.length === 0);
+
+// Without this, switching country keeps the state picked for the previous one
+// and submits it, e.g. Jalisco with Canada.
+watch(select_pais, () => {
+    select_estado.value = "";
 });
 
 const t_proyecto = ["Nuevo", "Remodelación"];
@@ -371,20 +388,29 @@ const enviarFormulario = (e) => {
                         class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
                         required
                     >
-                        <option v-for="i in paises" :key="i" :value="i.pais">
-                            {{ i.pais }}
+                        <option v-for="i in paises" :key="i.pais" :value="i.pais">
+                            {{ nombrePais(i) }}
                         </option>
                     </select>
                 </div>
                 <div>
                     <p>{{ $t('form_state') }}</p>
+                    <input
+                        v-if="estadoLibre"
+                        name="state"
+                        v-model="select_estado"
+                        class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
+                        :placeholder="$t('ph_state')"
+                        required
+                    />
                     <select
+                        v-else
                         name="state"
                         v-model="select_estado"
                         class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
                         required
                     >
-                        <option disabled>{{ $t('form_select_placeholder') }}</option>
+                        <option disabled value="">{{ $t('form_select_placeholder') }}</option>
                         <option v-for="i in estadosDis" :key="i" :value="i">
                             {{ i }}
                         </option>

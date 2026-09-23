@@ -1,6 +1,9 @@
+// pais is the value submitted to HubSpot and must not change.
+// pais_en is display only, shown when the visitor is reading English.
 export const paises = [
     {
         pais: "Argentina",
+        pais_en: "Argentina",
         estados: [
             "Buenos Aires",
             "Córdoba",
@@ -26,10 +29,11 @@ export const paises = [
             "Santa Cruz",
             "Tierra del Fuego",
             "Ciudad Autónoma de Buenos Aires"
-        ]
+        ],
     },
     {
         pais: "Bolivia",
+        pais_en: "Bolivia",
         estados: [
             "La Paz",
             "Santa Cruz",
@@ -40,10 +44,11 @@ export const paises = [
             "Tarija",
             "Beni",
             "Pando"
-        ]
+        ],
     },
     {
         pais: "Brasil",
+        pais_en: "Brazil",
         estados: [
             "Acre",
             "Alagoas",
@@ -72,10 +77,30 @@ export const paises = [
             "Sergipe",
             "Tocantins",
             "Distrito Federal"
-        ]
+        ],
+    },
+    {
+        pais: "Canadá",
+        pais_en: "Canada",
+        estados: [
+            "Alberta",
+            "British Columbia",
+            "Manitoba",
+            "New Brunswick",
+            "Newfoundland and Labrador",
+            "Northwest Territories",
+            "Nova Scotia",
+            "Nunavut",
+            "Ontario",
+            "Prince Edward Island",
+            "Quebec",
+            "Saskatchewan",
+            "Yukon"
+        ],
     },
     {
         pais: "Chile",
+        pais_en: "Chile",
         estados: [
             "Arica y Parinacota",
             "Tarapacá",
@@ -93,10 +118,11 @@ export const paises = [
             "Los Lagos",
             "Aysén",
             "Magallanes"
-        ]
+        ],
     },
     {
         pais: "Colombia",
+        pais_en: "Colombia",
         estados: [
             "Antioquia",
             "Atlántico",
@@ -131,10 +157,11 @@ export const paises = [
             "Amazonas",
             "Arauca",
             "Bogotá D.C."
-        ]
+        ],
     },
     {
         pais: "Costa Rica",
+        pais_en: "Costa Rica",
         estados: [
             "San José",
             "Alajuela",
@@ -143,10 +170,11 @@ export const paises = [
             "Guanacaste",
             "Puntarenas",
             "Limón"
-        ]
+        ],
     },
     {
         pais: "Cuba",
+        pais_en: "Cuba",
         estados: [
             "Pinar del Río",
             "Artemisa",
@@ -164,10 +192,11 @@ export const paises = [
             "Santiago de Cuba",
             "Guantánamo",
             "Isla de la Juventud"
-        ]
+        ],
     },
     {
         pais: "Ecuador",
+        pais_en: "Ecuador",
         estados: [
             "Azuay",
             "Bolívar",
@@ -193,10 +222,11 @@ export const paises = [
             "Sucumbíos",
             "Tungurahua",
             "Zamora Chinchipe"
-        ]
+        ],
     },
     {
         pais: "El Salvador",
+        pais_en: "El Salvador",
         estados: [
             "Ahuachapán",
             "Santa Ana",
@@ -212,10 +242,68 @@ export const paises = [
             "San Miguel",
             "Morazán",
             "La Unión"
-        ]
+        ],
+    },
+    {
+        pais: "Estados Unidos",
+        pais_en: "United States",
+        estados: [
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "District of Columbia",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming"
+        ],
     },
     {
         pais: "Guatemala",
+        pais_en: "Guatemala",
         estados: [
             "Alta Verapaz",
             "Baja Verapaz",
@@ -239,10 +327,11 @@ export const paises = [
             "Suchitepéquez",
             "Totonicapán",
             "Zacapa"
-        ]
+        ],
     },
     {
         pais: "Honduras",
+        pais_en: "Honduras",
         estados: [
             "Atlántida",
             "Choluteca",
@@ -262,10 +351,11 @@ export const paises = [
             "Santa Bárbara",
             "Valle",
             "Yoro"
-        ]
+        ],
     },
     {
         pais: "México",
+        pais_en: "Mexico",
         estados: [
             "Aguascalientes",
             "Baja California",
@@ -299,10 +389,11 @@ export const paises = [
             "Veracruz",
             "Yucatán",
             "Zacatecas"
-        ]
+        ],
     },
     {
         pais: "Nicaragua",
+        pais_en: "Nicaragua",
         estados: [
             "Boaco",
             "Carazo",
@@ -321,10 +412,11 @@ export const paises = [
             "Río San Juan",
             "RAAN",
             "RAAS"
-        ]
+        ],
     },
     {
         pais: "Panamá",
+        pais_en: "Panama",
         estados: [
             "Bocas del Toro",
             "Coclé",
@@ -339,10 +431,11 @@ export const paises = [
             "Guna Yala",
             "Ngäbe-Buglé",
             "Emberá-Wounaan"
-        ]
+        ],
     },
     {
         pais: "Paraguay",
+        pais_en: "Paraguay",
         estados: [
             "Alto Paraguay",
             "Alto Paraná",
@@ -362,10 +455,11 @@ export const paises = [
             "Presidente Hayes",
             "San Pedro",
             "Asunción"
-        ]
+        ],
     },
     {
         pais: "Perú",
+        pais_en: "Peru",
         estados: [
             "Amazonas",
             "Áncash",
@@ -393,10 +487,11 @@ export const paises = [
             "Tumbes",
             "Ucayali",
             "Lima Metropolitana"
-        ]
+        ],
     },
     {
         pais: "República Dominicana",
+        pais_en: "Dominican Republic",
         estados: [
             "Azua",
             "Bahoruco",
@@ -429,10 +524,11 @@ export const paises = [
             "Santiago",
             "Santiago Rodríguez",
             "Valverde"
-        ]
+        ],
     },
     {
         pais: "Uruguay",
+        pais_en: "Uruguay",
         estados: [
             "Artigas",
             "Canelones",
@@ -453,10 +549,11 @@ export const paises = [
             "Soriano",
             "Tacuarembó",
             "Treinta y Tres"
-        ]
+        ],
     },
     {
         pais: "Venezuela",
+        pais_en: "Venezuela",
         estados: [
             "Amazonas",
             "Anzoátegui",
@@ -483,40 +580,46 @@ export const paises = [
             "Zulia",
             "Distrito Capital",
             "Dependencias Federales"
-        ]
-    }
+        ],
+    },
+    {
+        pais: "Otro",
+        pais_en: "Other",
+        estados: [],
+    },
 ];
 
 export const telefonia = [
     { sigla: "ARG", codigo: "+54", digitos: "10" },
-    { sigla: "BZ", codigo: "+501", digitos: "7" },
     { sigla: "BO", codigo: "+591", digitos: "8" },
     { sigla: "BR", codigo: "+55", digitos: "10–11" },
+    { sigla: "BZ", codigo: "+501", digitos: "7" },
     { sigla: "CA", codigo: "+1", digitos: "10" },
     { sigla: "CL", codigo: "+56", digitos: "9" },
     { sigla: "CO", codigo: "+57", digitos: "10" },
     { sigla: "CR", codigo: "+506", digitos: "8" },
     { sigla: "CU", codigo: "+53", digitos: "8" },
     { sigla: "DM", codigo: "+1 767", digitos: "10" },
-    { sigla: "EC", codigo: "+593", digitos: "9" },
-    { sigla: "SV", codigo: "+503", digitos: "8" },
     { sigla: "DO", codigo: "+1 809", digitos: "10" },
+    { sigla: "EC", codigo: "+593", digitos: "9" },
     { sigla: "GT", codigo: "+502", digitos: "8" },
-    { sigla: "HT", codigo: "+509", digitos: "8" },
     { sigla: "HN", codigo: "+504", digitos: "8" },
+    { sigla: "HT", codigo: "+509", digitos: "8" },
     { sigla: "JM", codigo: "+1 876", digitos: "10" },
+    { sigla: "KN", codigo: "+1 869", digitos: "10" },
+    { sigla: "LC", codigo: "+1 758", digitos: "10" },
     { sigla: "MX", codigo: "+52", digitos: "10" },
     { sigla: "NI", codigo: "+505", digitos: "8" },
     { sigla: "PA", codigo: "+507", digitos: "8" },
-    { sigla: "PY", codigo: "+595", digitos: "9" },
     { sigla: "PE", codigo: "+51", digitos: "9" },
     { sigla: "PR", codigo: "+1 787", digitos: "10" },
     { sigla: "PR", codigo: "+1 939", digitos: "10" },
-    { sigla: "KN", codigo: "+1 869", digitos: "10" },
-    { sigla: "LC", codigo: "+1 758", digitos: "10" },
-    { sigla: "VC", codigo: "+1 784", digitos: "10" },
+    { sigla: "PY", codigo: "+595", digitos: "9" },
     { sigla: "SR", codigo: "+597", digitos: "7" },
+    { sigla: "SV", codigo: "+503", digitos: "8" },
     { sigla: "TT", codigo: "+1 868", digitos: "10" },
+    { sigla: "US", codigo: "+1", digitos: "10" },
     { sigla: "UY", codigo: "+598", digitos: "8" },
-    { sigla: "VE", codigo: "+58", digitos: "10" }
-]
+    { sigla: "VC", codigo: "+1 784", digitos: "10" },
+    { sigla: "VE", codigo: "+58", digitos: "10" },
+];
