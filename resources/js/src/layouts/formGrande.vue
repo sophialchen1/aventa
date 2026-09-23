@@ -13,6 +13,16 @@ function nombrePais(p) {
     return locale.value === "en" ? p.pais_en : p.pais;
 }
 
+// Sorted by the name the visitor actually reads, so United States sits under U
+// in English and Estados Unidos under E in Spanish. Otro stays last.
+const paisesOrdenados = computed(() => {
+    const collator = new Intl.Collator(locale.value === "en" ? "en" : "es");
+    return [...paises]
+        .filter((p) => p.pais !== "Otro")
+        .sort((a, b) => collator.compare(nombrePais(a), nombrePais(b)))
+        .concat(paises.filter((p) => p.pais === "Otro"));
+});
+
 const estadosDis = computed(() => {
     const encontrado = paises.find((p) => p.pais === select_pais.value);
     return encontrado ? encontrado.estados : [];
@@ -388,7 +398,7 @@ const enviarFormulario = (e) => {
                         class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
                         required
                     >
-                        <option v-for="i in paises" :key="i.pais" :value="i.pais">
+                        <option v-for="i in paisesOrdenados" :key="i.pais" :value="i.pais">
                             {{ nombrePais(i) }}
                         </option>
                     </select>
