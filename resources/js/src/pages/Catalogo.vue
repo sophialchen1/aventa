@@ -5,6 +5,7 @@ import { useI18n } from "vue-i18n";
 import TittleCustom from "@/src/components/TittleCustom.vue";
 import MainLayout from "@/src/layouts/MainLayout.vue";
 import SwiperSection from "@/src/layouts/SwiperSection.vue";
+import { track } from "../lib/track.js";
 
 const { locale } = useI18n();
 
@@ -47,7 +48,8 @@ const downloadCat = computed(() => {
                     <p class="text-[#757575] text-justify lg:text-left lg:text-lg">{{ $t('cat_cta_body') }}</p>
                     <div class="flex justify-center lg:justify-start">
                         <a class="bg-[#ee7465] w-fit px-5 py-2 text-white rounded-xl hover:shadow-xl" :href="downloadCat"
-                           download>{{ $t('cat_cta_button') }}</a>
+                           download
+                           @click="track('catalog_download', { link_location: 'catalogo_cta', file_name: downloadCat })">{{ $t('cat_cta_button') }}</a>
                     </div>
                 </div>
             </div>

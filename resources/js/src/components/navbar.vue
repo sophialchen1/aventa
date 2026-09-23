@@ -3,6 +3,8 @@ import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import FormGrande from "../layouts/formGrande.vue";
+import IconCustom from "./IconCustom.vue";
+import { track } from "../lib/track.js";
 
 const { t } = useI18n();
 
@@ -403,13 +405,13 @@ onUnmounted(() => {
                         <div class="bg-[#657d88] h-[2px] w-full"></div>
                         <router-link
                             to="/design-experience"
-                            @click="handleModal('cerrar')"
+                            @click="handleModal('cerrar'); track('design_assistant_click', { link_location: 'menu_productos' })"
                             class="flex gap-5 items-center w-full hover:underline"
                         >
-                            <img
-                                class="w-10 h-10"
-                                src="../assets/media/icons/puerta_abierta_default.png"
-                                alt=""
+                            <IconCustom
+                                icon="palette"
+                                size="4xl"
+                                class="w-10 shrink-0 justify-center"
                             />
                             <p class="lg:text-lg">{{ $t("nav_p2") }}</p>
                         </router-link>
@@ -420,12 +422,13 @@ onUnmounted(() => {
                             href="https://web.whatsapp.com/send?phone=525534634662&text=Hola"
                             target="_blank"
                             rel="noopener noreferrer"
+                            @click="track('whatsapp_click', { link_location: 'menu_productos' })"
                             class="flex gap-5 items-center w-full hover:underline"
                         >
-                            <img
-                                class="w-10 h-10"
-                                src="../assets/media/icons/3d_default.png"
-                                alt=""
+                            <IconCustom
+                                icon="comment-dots"
+                                size="4xl"
+                                class="w-10 shrink-0 justify-center"
                             />
                             <p class="lg:text-lg">{{ $t("nav_p4") }}</p>
                         </a>
@@ -645,6 +648,7 @@ onUnmounted(() => {
                         <a
                             href="/media/docs/Proceso de compra.pdf"
                             download
+                            @click="track('doc_download', { link_location: 'menu_como_comprar', file_name: 'Proceso de compra.pdf' })"
                             class="flex bg-gray-200 items-center py-2 px-5 gap-5 rounded-xl shadow-md"
                         >
                             <div class="overflow-hidden rounded-xl w-15 h-15">
@@ -704,13 +708,13 @@ onUnmounted(() => {
                         </p>
                         <router-link
                             to="/design-experience"
-                            @click="openMovil"
+                            @click="openMovil(); track('design_assistant_click', { link_location: 'menu_productos' })"
                             class="flex gap-2 hover:underline"
                         >
-                            <img
-                                class="w-5 h-5"
-                                src="../assets/media/icons/puerta_abierta_default.png"
-                                alt=""
+                            <IconCustom
+                                icon="palette"
+                                size="xl"
+                                class="w-5 shrink-0 justify-center"
                             />
                             <p class="text-sm text-black">
                                 {{ $t('nav_p2') }}
@@ -723,12 +727,13 @@ onUnmounted(() => {
                             href="https://web.whatsapp.com/send?phone=525534634662&text=Hola"
                             target="_blank"
                             rel="noopener noreferrer"
+                            @click="track('whatsapp_click', { link_location: 'menu_productos' })"
                             class="flex gap-2 hover:underline"
                         >
-                            <img
-                                class="w-5 h-5"
-                                src="../assets/media/icons/3d_default.png"
-                                alt=""
+                            <IconCustom
+                                icon="comment-dots"
+                                size="xl"
+                                class="w-5 shrink-0 justify-center"
                             />
                             <p class="text-sm text-black">
                                 {{ $t('nav_p4') }}

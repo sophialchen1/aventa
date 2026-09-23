@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, computed } from "vue";
+import { track } from "../lib/track.js";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination, Scrollbar, A11y, Zoom } from "swiper/modules";
 import { useI18n } from "vue-i18n";
@@ -1216,6 +1217,7 @@ onBeforeUnmount(() => {
                                 class="bg-[#ee7465] w-fit text-white text-sm p-3 lg:text-base lg:p-3 rounded-xl transition-normal duration-300 ease-in-out hover:-translate-y-[10px] hover:shadow-xl"
                                 href="https://web.whatsapp.com/send?phone=525534634662&text=Hola"
                                 target="_blank"
+                                @click="track('whatsapp_click', { link_location: 'inicio_asistente' })"
                             >
                                 {{ $t("ini_ai_cta") }}
                             </a>

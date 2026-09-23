@@ -2,6 +2,7 @@
 import { computed, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { paises, telefonia } from "../data/paises.js";
+import { track } from "../lib/track.js";
 
 const { locale } = useI18n();
 
@@ -297,6 +298,10 @@ const enviarFormulario = (e) => {
         form.reportValidity();
         return;
     }
+
+    // Fired here, not on click: at this point validation has passed and the
+    // visitor is about to see the thank-you state, so it counts one real lead.
+    track("quote_submit", { link_location: "formulario_cotizacion" });
 
     mostrarGracias.value = true;
 };
