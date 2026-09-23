@@ -399,31 +399,36 @@ onUnmounted(() => {
                     <div
                         class="flex-3/10 flex flex-col gap-5 justify-center items-center bg-gray-200 p-10"
                     >
-                        <a href="https://web.whatsapp.com/send?phone=525534634662&text=Hola" target="_blank" class="font-bold lg:text-[1.4rem]">
-                            {{ $t("nav_p1") }}
-                        </a>
+                        <p class="font-bold lg:text-[1.4rem]">{{ $t("nav_p1") }}</p>
                         <div class="bg-[#657d88] h-[2px] w-full"></div>
-                        <div class="flex gap-5 items-center w-full">
+                        <router-link
+                            to="/design-experience"
+                            @click="handleModal('cerrar')"
+                            class="flex gap-5 items-center w-full hover:underline"
+                        >
                             <img
                                 class="w-10 h-10"
                                 src="../assets/media/icons/puerta_abierta_default.png"
                                 alt=""
                             />
                             <p class="lg:text-lg">{{ $t("nav_p2") }}</p>
-                        </div>
+                        </router-link>
                         <div class="h-[20px]"></div>
-                        <a href="https://web.whatsapp.com/send?phone=525534634662&text=Hola" target="_blank" class="font-bold lg:text-[1.4rem]">
-                            {{ $t("nav_p3") }}
-                        </a>
+                        <p class="font-bold lg:text-[1.4rem]">{{ $t("nav_p3") }}</p>
                         <div class="bg-[#657d88] h-[2px] w-full"></div>
-                        <div class="flex gap-5 items-center w-full">
+                        <a
+                            href="https://web.whatsapp.com/send?phone=525534634662&text=Hola"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex gap-5 items-center w-full hover:underline"
+                        >
                             <img
                                 class="w-10 h-10"
                                 src="../assets/media/icons/3d_default.png"
                                 alt=""
                             />
                             <p class="lg:text-lg">{{ $t("nav_p4") }}</p>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </transition>
@@ -694,12 +699,14 @@ onUnmounted(() => {
                     <div
                         class="flex-1/2 flex flex-col gap-2 w-full px-4 py-1 bg-gray-200 md:py-3"
                     >
-                        <a href="https://web.whatsapp.com/send?phone=525534634662&text=Hola" target="_blank"
-                            class="text-base text-black font-bold border-b-2 border-[#657d88]"
-                        >
+                        <p class="text-base text-black font-bold border-b-2 border-[#657d88]">
                             {{ $t('nav_p1') }}
-                        </a>
-                        <div class="flex gap-2">
+                        </p>
+                        <router-link
+                            to="/design-experience"
+                            @click="openMovil"
+                            class="flex gap-2 hover:underline"
+                        >
                             <img
                                 class="w-5 h-5"
                                 src="../assets/media/icons/puerta_abierta_default.png"
@@ -708,13 +715,16 @@ onUnmounted(() => {
                             <p class="text-sm text-black">
                                 {{ $t('nav_p2') }}
                             </p>
-                        </div>
-                        <a href="https://web.whatsapp.com/send?phone=525534634662&text=Hola" target="_blank"
-                            class="text-base text-black font-bold border-b-2 border-[#657d88]"
-                        >
+                        </router-link>
+                        <p class="text-base text-black font-bold border-b-2 border-[#657d88]">
                             {{ $t('nav_p3') }}
-                        </a>
-                        <div class="flex gap-2">
+                        </p>
+                        <a
+                            href="https://web.whatsapp.com/send?phone=525534634662&text=Hola"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex gap-2 hover:underline"
+                        >
                             <img
                                 class="w-5 h-5"
                                 src="../assets/media/icons/3d_default.png"
@@ -723,7 +733,7 @@ onUnmounted(() => {
                             <p class="text-sm text-black">
                                 {{ $t('nav_p4') }}
                             </p>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
