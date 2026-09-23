@@ -46,6 +46,14 @@ Every event also carries:
 All WhatsApp links share one event name and differ by `link_location`, so the
 total is one number and the breakdown by placement is one dimension.
 
+## Two WhatsApp numbers, on purpose
+
+The site has two WhatsApp numbers and they are not a mistake. 55 3463 4662 is
+the ThreeKit bot, 415 124 6467 is a real line. They must stay separate, so the
+social icons in the top bar and the footer are deliberately left on their own
+Google Ads conversion (`whatsapp_sec`) and out of `whatsapp_click`. Do not merge
+them to make the numbers tidier.
+
 ## What Ian builds in GTM
 
 1. **Variables.** Data Layer Variable for each of `link_location`, `file_name`,
