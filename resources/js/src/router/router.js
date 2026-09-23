@@ -55,6 +55,10 @@ function text(key, fallback = "") {
     return key && te(key) ? t(key) : fallback;
 }
 
+function ldJson(m) {
+    return typeof m.ldJson === "function" ? m.ldJson(t) : m.ldJson;
+}
+
 function headInput(route) {
     const m = route.meta || {};
     const title = text(m.titleKey, "Aventa Windows");
@@ -80,8 +84,10 @@ function headInput(route) {
         // a page with no canonical of its own gets none, rather than pointing
         // at some other page
         link: m.canonical ? [{ rel: "canonical", href: m.canonical }] : [],
-        script: m.ldJson
-            ? [{ type: "application/ld+json", children: JSON.stringify(m.ldJson) }]
+        // ldJson may be a plain object, or a function taking t so the structured
+        // data can be built from the same locale keys the page renders
+        script: ldJson(m)
+            ? [{ type: "application/ld+json", children: JSON.stringify(ldJson(m)) }]
             : [],
     };
 }

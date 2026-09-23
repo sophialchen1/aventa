@@ -162,7 +162,22 @@ const routes = [
         meta: {
             titleKey: "seo_recursos_title",
             descKey: "seo_recursos_desc",
-            canonical: "https://www.aventawindows.com/recursos-profesionales"
+            canonical: "https://www.aventawindows.com/recursos-profesionales",
+            // Built from the same faq keys the page renders, so the markup and
+            // the visible questions cannot drift apart. Google requires them to
+            // match.
+            ldJson: (t) => ({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: Array.from({ length: 10 }, (_, i) => ({
+                    "@type": "Question",
+                    name: t(`faq${i + 1}_q`),
+                    acceptedAnswer: {
+                        "@type": "Answer",
+                        text: t(`faq${i + 1}_a`),
+                    },
+                })),
+            })
         }
     },
     {
