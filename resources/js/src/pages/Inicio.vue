@@ -732,7 +732,7 @@ onBeforeUnmount(() => {
         </div>
 
         <!-- 5 -->
-        <div class="pt-[4vh] pb-[4vh] hidden justify-center bg-[#f7f7f7]">
+        <div v-if="false" class="pt-[4vh] pb-[4vh] flex justify-center bg-[#f7f7f7]">
             <div class="flex flex-col w-full max-w-[1150px] gap-10">
                 <h2 class="font-light italic tracking-wider lg:text-[2.5rem]">
                     {{ $t("ini_sub2") }}
