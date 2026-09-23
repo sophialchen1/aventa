@@ -30,11 +30,8 @@ function openFormW(){
                         <img class="w-[110px] h-auto " src="../assets/media/aventaLogoblanco.png">
                     </router-link>
                     <div class="flex w-full gap-2 lg:flex-col lg:justify-center lg:items-center">
-                        <router-link
-                            class=" flex-1/2 text-center border border-white/20 rounded-xl py-3 bg-white/10 text-[#ee7465]/60 hover:bg-white/20 hover:text-[#ee7465] hover:shadow-lg transition-all duration-300 lg:w-50"
-                            to="/inspiracion">{{ $t("f_insp") }}</router-link>
                         <button
-                            class="flex-1/2 text-center border border-white/20 rounded-xl cursor-pointer py-3 bg-white/10 text-[#ee7465]/60 hover:bg-white/20 hover:text-[#ee7465] hover:shadow-lg transition-all duration-300 lg:w-50" @click="openFormW">{{ $t("f_write") }}</button>
+                            class="w-full text-center border border-white/20 rounded-xl cursor-pointer py-3 bg-white/10 text-[#ee7465]/60 hover:bg-white/20 hover:text-[#ee7465] hover:shadow-lg transition-all duration-300 lg:w-50" @click="openFormW">{{ $t("f_write") }}</button>
                     </div>
                 </div>
                 <div class="my-3 h-[1px] bg-[rgba(255,255,255,0.3)] flex-none lg:w-[1px] lg:h-full lg:m-0"></div>
@@ -59,7 +56,6 @@ function openFormW(){
                         <ul class="text-[rgba(255,255,255,0.3)] underline grid grid-cols-2 gap-0.5  lg:flex lg:flex-col lg:gap-1.5 lg:no-underline">
                             <li class="hover:underline hover:text-white"><router-link to="/catalogo">{{ $t("f_catalog") }}</router-link>
                             </li>
-                            <li class="hover:underline hover:text-white"><router-link to="/inspiracion">{{ $t("f_insp") }}</router-link></li>
                             <li class="hover:underline hover:text-white"><router-link to="/planea-visita">{{ $t("f_visit") }}</router-link></li>
                         </ul>
                     </div>
