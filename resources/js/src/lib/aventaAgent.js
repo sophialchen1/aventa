@@ -57,10 +57,11 @@ const ICON_CLOSE =
 const css = `
 .${ns}{position:fixed;z-index:${Z_INDEX};left:max(1.25rem,env(safe-area-inset-left,0px));bottom:max(1.25rem,env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-start;gap:.75rem;pointer-events:none;box-sizing:border-box}
 .${ns}--hidden{display:none}
-.${ns}__panel{position:relative;pointer-events:auto;box-sizing:border-box;width:min(400px,calc(100vw - 2.5rem));height:min(620px,calc(100dvh - 5.5rem));max-height:calc(100svh - 2.5rem);border-radius:20px;overflow:hidden;background:rgba(247,242,234,.58);backdrop-filter:blur(22px) saturate(1.35);-webkit-backdrop-filter:blur(22px) saturate(1.35);border:1px solid rgba(255,255,255,.48);box-shadow:0 18px 48px rgba(42,34,28,.18),0 2px 8px rgba(42,34,28,.08),inset 0 1px 0 rgba(255,255,255,.55)}
+.${ns}__panel{display:flex;flex-direction:column;pointer-events:auto;box-sizing:border-box;width:min(400px,calc(100vw - 2.5rem));height:min(620px,calc(100dvh - 5.5rem));max-height:calc(100svh - 2.5rem);border-radius:20px;overflow:hidden;background:rgba(247,242,234,.58);backdrop-filter:blur(22px) saturate(1.35);-webkit-backdrop-filter:blur(22px) saturate(1.35);border:1px solid rgba(255,255,255,.48);box-shadow:0 18px 48px rgba(42,34,28,.18),0 2px 8px rgba(42,34,28,.08),inset 0 1px 0 rgba(255,255,255,.55)}
 .${ns}__panel--hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);pointer-events:none;visibility:hidden}
-.${ns}__iframe{width:100%;height:100%;border:0;display:block;background:transparent}
-.${ns}__close{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(42,34,28,.12);background:rgba(247,242,234,.92);color:#2a221c;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.${ns}__bar{flex:0 0 34px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px}
+.${ns}__iframe{flex:1 1 auto;width:100%;min-height:0;border:0;display:block;background:transparent}
+.${ns}__close{width:28px;height:28px;flex:0 0 28px;border-radius:50%;border:1px solid rgba(42,34,28,.12);background:rgba(247,242,234,.92);color:#2a221c;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
 .${ns}__close:hover{background:#fff}
 .${ns}__fab{pointer-events:auto;width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(42,34,28,.88);color:#f7f2ea;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 10px 28px rgba(42,34,28,.28),inset 0 1px 0 rgba(255,255,255,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 180ms ease,background-color 180ms ease}
 .${ns}__fab:hover{transform:translateY(-2px);background:rgba(42,34,28,.96)}
@@ -164,19 +165,25 @@ export function mountAventaAgent(router) {
     panel.className = `${ns}__panel`;
     root.appendChild(panel);
 
+    const bar = document.createElement("div");
+    bar.className = `${ns}__bar`;
+    panel.appendChild(bar);
+
     iframe = document.createElement("iframe");
     iframe.className = `${ns}__iframe`;
     iframe.title = "Aventa advisor";
     iframe.allow = "camera; microphone; clipboard-write";
     panel.appendChild(iframe);
 
+    // Their header carries its own control on the right. Ours lives in a strip
+    // above their UI so the two never sit on top of each other.
     const close = document.createElement("button");
     close.type = "button";
     close.className = `${ns}__close`;
     close.setAttribute("aria-label", "Cerrar");
     close.innerHTML = ICON_CLOSE;
     close.addEventListener("click", () => setOpen(false));
-    panel.appendChild(close);
+    bar.appendChild(close);
 
     fab = document.createElement("button");
     fab.type = "button";
