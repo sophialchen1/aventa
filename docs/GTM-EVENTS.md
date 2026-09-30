@@ -33,6 +33,7 @@ Every event also carries:
 | `quote_submit` | `link_location` | quote form, once it validates and the thank-you shows |
 | `catalog_download` | `link_location`, `file_name` | catalogue page CTA |
 | `doc_download` | `link_location`, `file_name` | How to Buy menu, purchase process PDF |
+| `advisor_open` | `link_location` | the AI advisor panel opens |
 
 `link_location` values in use today:
 
@@ -42,6 +43,8 @@ Every event also carries:
 - `catalogo_cta` — catalogue page download button
 - `menu_como_comprar` — How to Buy menu
 - `formulario_cotizacion` — the quote form
+- `auto_inicio` — the advisor opening itself on the desktop homepage, as
+  opposed to `boton_flotante`, the visitor opening it
 
 All WhatsApp links share one event name and differ by `link_location`, so the
 total is one number and the breakdown by placement is one dimension.

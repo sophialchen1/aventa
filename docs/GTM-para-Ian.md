@@ -44,6 +44,7 @@ Y estos son los eventos:
 | `quote_submit` | `link_location` | formulario de cotización, cuando ya validó y se muestra el agradecimiento |
 | `catalog_download` | `link_location`, `file_name` | botón de descarga del catálogo |
 | `doc_download` | `link_location`, `file_name` | menú Cómo Comprar, PDF del proceso de compra |
+| `advisor_open` | `link_location` | se abre el panel del asesor con IA |
 
 `link_location` dice en qué parte de la página vive el enlace. Valores actuales:
 
@@ -53,6 +54,8 @@ Y estos son los eventos:
 - `catalogo_cta` — botón de descarga en la página de catálogo
 - `menu_como_comprar` — menú Cómo Comprar
 - `formulario_cotizacion` — el formulario de cotización
+- `auto_inicio` — el asesor abriéndose solo en la home de escritorio, a
+  diferencia de `boton_flotante`, que es el visitante abriéndolo
 
 Entre `page_path` y `link_location` queda claro no solo qué se hizo clic sino
 desde dónde: WhatsApp desde el menú y WhatsApp desde la sección del asistente en

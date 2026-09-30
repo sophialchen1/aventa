@@ -104,6 +104,15 @@ onMounted(() => {
     #aventa-wa-fab { width: 52px; height: 52px; }
     #aventa-wa-fab svg { width: 30px; height: 30px; }
 }
+/* On a phone the AI advisor takes the bottom right corner, so lift WhatsApp
+   above it instead of letting them overlap. The breakpoint has to match the
+   one in src/lib/aventaAgent.js. On wider screens the advisor sits bottom
+   left and nothing moves. */
+@media (max-width: 640px), (max-height: 520px) {
+    #aventa-wa-fab {
+        bottom: calc(max(1rem, env(safe-area-inset-bottom, 0px)) + 52px + 12px);
+    }
+}
 @media (prefers-reduced-motion: reduce) {
     #aventa-wa-fab, #aventa-wa-fab:hover, #aventa-wa-fab:focus-visible, #aventa-wa-fab:active {
         transition: none; transform: none;
