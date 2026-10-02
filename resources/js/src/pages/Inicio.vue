@@ -561,24 +561,24 @@ onBeforeUnmount(() => {
                                 <p
                                     class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden"
                                 >
-                                    Nuestras Puertas
+                                    {{ $t("ini_puertas") }}
                                 </p>
                                 <img
                                     src="../assets/media/nuestras_puertas_aventa.jpg"
                                     class="absolute top-0 left-0 w-full h-full lg:scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
                                     alt="puertas"
-                                    title="Nuestras Puertas"
+                                    :title='$t("ini_puertas")'
                                 />
                             </div>
                             <div class="hidden lg:flex lg:flex-col">
                                 <p class="text-[1.3rem]">
                                     {{ $t("ini_puertas") }}
                                 </p>
-                                <router-link
+                                <p
                                     class="w-fit text-[#757575] text-start cursor-pointer lg:text-lg bg-gradient-to-r from-[#757575] to-[#757575] bg-no-repeat bg-[length:0%_2px] bg-left-bottom group-hover:bg-[length:100%_2px] transition-all duration-300 ease-in-out"
-                                    to=""
-                                    >{{ $t("ini_descubrir") }}</router-link
                                 >
+                                    {{ $t("ini_descubrir") }}
+                                </p>
                             </div>
                         </router-link>
 
@@ -595,25 +595,25 @@ onBeforeUnmount(() => {
                                 <p
                                     class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden"
                                 >
-                                    Nuestras Ventanas
+                                    {{ $t("ini_ventanas") }}
                                 </p>
 
                                 <img
                                     src="../assets/media/nuestras_ventanas_aventa.jpg"
                                     class="absolute top-0 left-0 w-full h-full scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
                                     alt="ventanas"
-                                    title="Nuestras Ventanas"
+                                    :title='$t("ini_ventanas")'
                                 />
                             </div>
                             <div class="hidden lg:flex lg:flex-col">
                                 <p class="text-[1.3rem]">
                                     {{ $t("ini_ventanas") }}
                                 </p>
-                                <router-link
+                                <p
                                     class="w-fit text-[#757575] text-start cursor-pointer lg:text-lg bg-gradient-to-r from-[#757575] to-[#757575] bg-no-repeat bg-[length:0%_2px] bg-left-bottom group-hover:bg-[length:100%_2px] transition-all duration-300 ease-in-out"
-                                    to=""
-                                    >{{ $t("ini_descubrir") }}</router-link
                                 >
+                                    {{ $t("ini_descubrir") }}
+                                </p>
                             </div>
                         </router-link>
 
@@ -634,14 +634,14 @@ onBeforeUnmount(() => {
                                         <p
                                             class="absolute bottom-2 left-2 z-10 bg-white/80 py-2 px-4 rounded-xl lg:hidden"
                                         >
-                                            Nuestras Maderas
+                                            {{ $t("ini_maderas") }}
                                         </p>
 
                                         <img
                                             src="../assets/media/maderas.jpg"
                                             class="absolute top-0 left-0 w-full h-full scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
                                             alt="maderas"
-                                            title="Nuestras Maderas"
+                                            :title='$t("ini_maderas")'
                                         />
                                     </div>
                                 </div>
