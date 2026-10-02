@@ -32,7 +32,6 @@ Every event also carries:
 | `design_assistant_click` | `link_location` | product menu, "Explore our design assistant" |
 | `quote_submit` | `link_location` | quote form, once it validates and the thank-you shows |
 | `catalog_download` | `link_location`, `file_name` | catalogue page CTA |
-| `doc_download` | `link_location`, `file_name` | How to Buy menu, purchase process PDF |
 | `advisor_open` | `link_location` | the AI advisor panel opens |
 
 `link_location` values in use today:
@@ -41,7 +40,6 @@ Every event also carries:
 - `boton_flotante` — the green WhatsApp button that follows the page
 - `inicio_asistente` — homepage, the assistant section CTA
 - `catalogo_cta` — catalogue page download button
-- `menu_como_comprar` — How to Buy menu
 - `formulario_cotizacion` — the quote form
 - `auto_inicio` — the advisor opening itself on the desktop homepage, as
   opposed to `boton_flotante`, the visitor opening it

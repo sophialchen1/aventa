@@ -21,7 +21,6 @@
 //   design_assistant_click link_location
 //   quote_submit           link_location
 //   catalog_download       link_location, file_name
-//   doc_download           link_location, file_name
 //
 // link_location is where the link sits, not which page it is on. The page is
 // added automatically below.

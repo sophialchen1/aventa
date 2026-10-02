@@ -645,23 +645,6 @@ onUnmounted(() => {
                                 <p>{{ $t(i.btnKey) }}</p>
                             </div>
                         </router-link>
-                        <a
-                            href="/media/docs/Proceso de compra.pdf"
-                            download
-                            @click="track('doc_download', { link_location: 'menu_como_comprar', file_name: 'Proceso de compra.pdf' })"
-                            class="flex bg-gray-200 items-center py-2 px-5 gap-5 rounded-xl shadow-md"
-                        >
-                            <div class="overflow-hidden rounded-xl w-15 h-15">
-                                <img
-                                    class="w-full h-full object-cover"
-                                    :src="'/media/como_comprar/proceso-compra.png'"
-                                    alt=""
-                                />
-                            </div>
-                            <div>
-                                <p>{{ $t('nav_proceso') }}</p>
-                            </div>
-                        </a>
                     </div>
                 </transition>
 

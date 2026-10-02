@@ -43,7 +43,6 @@ Y estos son los eventos:
 | `design_assistant_click` | `link_location` | menú de productos, "Explora nuestro asistente de diseño" |
 | `quote_submit` | `link_location` | formulario de cotización, cuando ya validó y se muestra el agradecimiento |
 | `catalog_download` | `link_location`, `file_name` | botón de descarga del catálogo |
-| `doc_download` | `link_location`, `file_name` | menú Cómo Comprar, PDF del proceso de compra |
 | `advisor_open` | `link_location` | se abre el panel del asesor con IA |
 
 `link_location` dice en qué parte de la página vive el enlace. Valores actuales:
@@ -52,7 +51,6 @@ Y estos son los eventos:
 - `boton_flotante` — el botón verde de WhatsApp que sigue a la página
 - `inicio_asistente` — home, el CTA de la sección del asistente
 - `catalogo_cta` — botón de descarga en la página de catálogo
-- `menu_como_comprar` — menú Cómo Comprar
 - `formulario_cotizacion` — el formulario de cotización
 - `auto_inicio` — el asesor abriéndose solo en la home de escritorio, a
   diferencia de `boton_flotante`, que es el visitante abriéndolo
