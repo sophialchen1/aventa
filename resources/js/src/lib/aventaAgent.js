@@ -35,7 +35,6 @@ const Z_INDEX = 2147483000;
 // started on, whichever page that is: an ad that lands on /ventanas gets the
 // same greeting the homepage does. Once the visitor navigates anywhere else
 // they are browsing, not arriving, and the greeting is spent for the session.
-// Desktop only, see DESKTOP below.
 const AUTO_OPEN_AFTER_MS = 8000;
 // Scrolled more than one screen, rather than a fixed number of pixels, so the
 // trigger means the same thing on a phone as on a monitor.
@@ -43,11 +42,6 @@ const AUTO_OPEN_AFTER_SCREENS = 1.25;
 
 // The page the visit started on, read before the router has done anything.
 const LANDING_PATH = typeof window !== "undefined" ? window.location.pathname : "";
-
-// Matches the CSS breakpoint further down. Below it the panel is full screen,
-// so the advisor never opens itself there: the visitor taps the bubble or
-// nothing happens.
-const DESKTOP = "(min-width: 641px) and (min-height: 521px)";
 
 // The page at this route embeds the same agent full width. Showing a floating
 // copy of it on top would be the agent twice.
@@ -151,7 +145,6 @@ function autoOpen() {
 function armAutoOpen() {
     cancelAutoOpen();
     if (seen()) return;
-    if (!window.matchMedia(DESKTOP).matches) return;
     window.addEventListener("scroll", onScroll, { passive: true });
     autoOpenTimer = setTimeout(() => {
         cancelAutoOpen();
