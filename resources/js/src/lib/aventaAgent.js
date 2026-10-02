@@ -58,6 +58,11 @@ const SEEN_KEY = "aventa-agent-seen";
 // a new greeting; coming back after lunch does not.
 const SEEN_FOR_MS = 24 * 60 * 60 * 1000;
 
+// Whether the panel was open when the page last unloaded. Read back only on a
+// reload, so refreshing leaves the advisor exactly as the visitor had it while
+// a new tab still starts closed.
+const OPEN_KEY = "aventa-agent-open";
+
 const ns = "aventa-agent";
 
 const ICON_CHAT =
@@ -97,9 +102,10 @@ function seen() {
     }
 }
 
-// A refresh is someone asking for the page again, so it greets them again even
-// inside the window. A hard refresh reports the same way. Everything else, a
-// new tab above all, is a fresh page load that the record still covers.
+// Tells a refresh apart from any other way of arriving at the page, which is
+// what decides whether the remembered panel state is restored. It cannot tell
+// a hard refresh from a normal one: Navigation Timing reports both as "reload"
+// and nothing exposes whether the cache was bypassed.
 function isReload() {
     try {
         const nav = performance.getEntriesByType("navigation")[0];
@@ -108,6 +114,22 @@ function isReload() {
         return performance.navigation && performance.navigation.type === 1;
     } catch (e) {
         return false;
+    }
+}
+
+function storedOpen() {
+    try {
+        return localStorage.getItem(OPEN_KEY) === "1";
+    } catch (e) {
+        return false;
+    }
+}
+
+function storeOpen(open) {
+    try {
+        localStorage.setItem(OPEN_KEY, open ? "1" : "0");
+    } catch (e) {
+        /* nothing to do: a refresh just loses the state */
     }
 }
 
@@ -136,10 +158,13 @@ function render() {
     fab.style.display = isOpen ? "none" : "flex";
 }
 
-function setOpen(next) {
+// restore: true means this is a refresh putting the panel back the way it was,
+// not a fresh greeting, so it must not push the 24 hour window forward.
+function setOpen(next, { restore = false } = {}) {
     isOpen = !!next;
     if (isOpen && !iframe.src) iframe.src = agentSrc();
-    if (isOpen) markSeen();
+    if (isOpen && !restore) markSeen();
+    storeOpen(isOpen);
     render();
 }
 
@@ -156,8 +181,7 @@ function onScroll() {
 }
 
 function autoOpen() {
-    if (isOpen) return;
-    if (seen() && !isReload()) return;
+    if (isOpen || seen()) return;
     setOpen(true);
     track("advisor_open", { link_location: "auto_inicio" });
 }
@@ -167,7 +191,7 @@ function autoOpen() {
 // reads as an offer.
 function armAutoOpen() {
     cancelAutoOpen();
-    if (seen() && !isReload()) return;
+    if (seen()) return;
     window.addEventListener("scroll", onScroll, { passive: true });
     autoOpenTimer = setTimeout(() => {
         cancelAutoOpen();
@@ -208,7 +232,20 @@ export function mountAventaAgent(router) {
     root.appendChild(fab);
 
     document.body.appendChild(root);
-    render();
+
+    // ?advisor=reset forgets the visitor, so the greeting can be tested on the
+    // live site without opening DevTools.
+    if (new URLSearchParams(location.search).get("advisor") === "reset") {
+        try {
+            localStorage.removeItem(SEEN_KEY);
+            localStorage.removeItem(OPEN_KEY);
+        } catch (e) {
+            /* nothing to forget */
+        }
+    }
+
+    if (isReload() && storedOpen()) setOpen(true, { restore: true });
+    else render();
 
     window.addEventListener("message", (event) => {
         // The original listened to every origin. Only the vendor has anything
