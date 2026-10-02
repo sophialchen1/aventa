@@ -47,9 +47,16 @@ const LANDING_PATH = typeof window !== "undefined" ? window.location.pathname : 
 // copy of it on top would be the agent twice.
 const HIDDEN_PATHS = ["/design-experience"];
 
-// One auto-open per browser session. Closing it counts: someone who dismissed
-// the advisor on the homepage should not meet it again on the next page.
+// When the advisor last greeted this visitor, as a timestamp in localStorage.
+// localStorage rather than sessionStorage because sessionStorage belongs to one
+// tab: a second tab would count as a fresh visit and greet them again. Closing
+// the panel counts as having been greeted, so someone who dismissed it on the
+// landing page does not meet it again on the next page.
 const SEEN_KEY = "aventa-agent-seen";
+
+// How long that record holds. Coming back the next day is a new visit and gets
+// a new greeting; coming back after lunch does not.
+const SEEN_FOR_MS = 24 * 60 * 60 * 1000;
 
 const ns = "aventa-agent";
 
@@ -80,7 +87,8 @@ let leftLanding = false;
 
 function seen() {
     try {
-        return sessionStorage.getItem(SEEN_KEY) === "1";
+        const at = Number(localStorage.getItem(SEEN_KEY));
+        return !!at && Date.now() - at < SEEN_FOR_MS;
     } catch (e) {
         // Private mode and blocked storage both throw. Treat it as seen, so a
         // visitor whose browser will not remember the dismissal is greeted at
@@ -89,9 +97,23 @@ function seen() {
     }
 }
 
+// A refresh is someone asking for the page again, so it greets them again even
+// inside the window. A hard refresh reports the same way. Everything else, a
+// new tab above all, is a fresh page load that the record still covers.
+function isReload() {
+    try {
+        const nav = performance.getEntriesByType("navigation")[0];
+        if (nav) return nav.type === "reload";
+        // Removed from the spec but still the only answer in older browsers.
+        return performance.navigation && performance.navigation.type === 1;
+    } catch (e) {
+        return false;
+    }
+}
+
 function markSeen() {
     try {
-        sessionStorage.setItem(SEEN_KEY, "1");
+        localStorage.setItem(SEEN_KEY, String(Date.now()));
     } catch (e) {
         /* nothing to do: the session just loses the memory */
     }
@@ -134,7 +156,8 @@ function onScroll() {
 }
 
 function autoOpen() {
-    if (seen() || isOpen) return;
+    if (isOpen) return;
+    if (seen() && !isReload()) return;
     setOpen(true);
     track("advisor_open", { link_location: "auto_inicio" });
 }
@@ -144,7 +167,7 @@ function autoOpen() {
 // reads as an offer.
 function armAutoOpen() {
     cancelAutoOpen();
-    if (seen()) return;
+    if (seen() && !isReload()) return;
     window.addEventListener("scroll", onScroll, { passive: true });
     autoOpenTimer = setTimeout(() => {
         cancelAutoOpen();
