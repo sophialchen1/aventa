@@ -32,7 +32,7 @@ const Z_INDEX = 2147483000;
 // Where the advisor may open itself, and when. It greets arrivals, not people
 // already moving through the site, so it only ever opens by itself on the page
 // the visit started on. Clicking Home after reading a product page is not an
-// arrival and gets no greeting.
+// arrival and gets no greeting. Desktop only, see DESKTOP below.
 const AUTO_OPEN_PATHS = ["/"];
 const AUTO_OPEN_AFTER_MS = 8000;
 // Scrolled more than one screen, rather than a fixed number of pixels, so the
@@ -41,6 +41,11 @@ const AUTO_OPEN_AFTER_SCREENS = 1.25;
 
 // The page the visit started on, read before the router has done anything.
 const LANDING_PATH = typeof window !== "undefined" ? window.location.pathname : "";
+
+// Matches the CSS breakpoint further down. Below it the panel is full screen,
+// so the advisor never opens itself there: the visitor taps the bubble or
+// nothing happens.
+const DESKTOP = "(min-width: 641px) and (min-height: 521px)";
 
 // The page at this route embeds the same agent full width. Showing a floating
 // copy of it on top would be the agent twice.
@@ -150,6 +155,7 @@ function autoOpen() {
 function armAutoOpen() {
     cancelAutoOpen();
     if (seen()) return;
+    if (!window.matchMedia(DESKTOP).matches) return;
     window.addEventListener("scroll", onScroll, { passive: true });
     autoOpenTimer = setTimeout(() => {
         cancelAutoOpen();
