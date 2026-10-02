@@ -24,6 +24,7 @@
 //    refresh control and a visitor on a phone, where the panel is full height,
 //    had no way out at all. They added the minimize, so ours came back out.
 
+import { i18n } from "../router/i18n.js";
 import { track } from "./track.js";
 
 const AGENT_URL = "https://aventa-v2.3kit.com/agent";
@@ -144,9 +145,13 @@ function markSeen() {
 function agentSrc() {
     const params = new URLSearchParams();
     params.set("embed", "1");
-    // Set once, when the panel first opens. Re-pointing the iframe on a later
-    // language switch would restart the conversation mid-sentence.
-    params.set("lang", (document.documentElement.lang || "es").slice(0, 2).toLowerCase() === "en" ? "en" : "es");
+    // From i18n, not from <html lang>. Vue sets that attribute once the router
+    // has applied the page head, which is after this module mounts, so a panel
+    // restored open on a reload would read the Blade file's hardcoded lang="es"
+    // and serve a Spanish agent to an English visitor. Switching language
+    // reloads the page, so that was every switch. i18n is right from the first
+    // line, since it reads the stored preference before the app mounts.
+    params.set("lang", i18n.global.locale.value === "en" ? "en" : "es");
     params.set("parent_page", location.href);
     params.set("parent_host", location.hostname.replace(/^www\./i, ""));
     params.set("parent_search", location.search || "");
