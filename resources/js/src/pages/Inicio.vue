@@ -724,7 +724,7 @@ onBeforeUnmount(() => {
                             <h3
                                 class="text-base text-[#657d88] text-center tracking-wider italic"
                             >
-                                Próximamente
+                                {{ $t("ini_proximamente") }}
                             </h3>
                         </div>
                     </div>
