@@ -29,11 +29,12 @@ const AGENT_URL = "https://aventa-v2.3kit.com/agent";
 const AGENT_ORIGIN = "https://aventa-v2.3kit.com";
 const Z_INDEX = 2147483000;
 
-// Where the advisor may open itself, and when. It greets arrivals, not people
-// already moving through the site, so it only ever opens by itself on the page
-// the visit started on. Clicking Home after reading a product page is not an
-// arrival and gets no greeting. Desktop only, see DESKTOP below.
-const AUTO_OPEN_PATHS = ["/"];
+// When the advisor may open itself. It greets arrivals, not people already
+// moving through the site, so it opens by itself only on the page the visit
+// started on, whichever page that is: an ad that lands on /ventanas gets the
+// same greeting the homepage does. Once the visitor navigates anywhere else
+// they are browsing, not arriving, and the greeting is spent for the session.
+// Desktop only, see DESKTOP below.
 const AUTO_OPEN_AFTER_MS = 8000;
 // Scrolled more than one screen, rather than a fixed number of pixels, so the
 // trigger means the same thing on a phone as on a monitor.
@@ -235,8 +236,10 @@ export function mountAventaAgent(router) {
             setOpen(false);
             return;
         }
+        // Note this never closes a panel that is already open: someone who was
+        // greeted on /ventanas and then clicks Home keeps the conversation.
         if (to.path !== LANDING_PATH) leftLanding = true;
-        if (!leftLanding && AUTO_OPEN_PATHS.includes(to.path)) armAutoOpen();
+        if (!leftLanding) armAutoOpen();
         else cancelAutoOpen();
     };
 
