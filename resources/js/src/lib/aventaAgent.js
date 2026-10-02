@@ -29,18 +29,22 @@ const AGENT_URL = "https://aventa-v2.3kit.com/agent";
 const AGENT_ORIGIN = "https://aventa-v2.3kit.com";
 const Z_INDEX = 2147483000;
 
-// Where the advisor may open itself, and when.
+// Where the advisor may open itself, and when. It greets arrivals, not people
+// already moving through the site, so it only ever opens by itself on the page
+// the visit started on. Clicking Home after reading a product page is not an
+// arrival and gets no greeting.
 const AUTO_OPEN_PATHS = ["/"];
 const AUTO_OPEN_AFTER_MS = 8000;
-const AUTO_OPEN_AFTER_SCROLL_PX = 300;
+// Scrolled more than one screen, rather than a fixed number of pixels, so the
+// trigger means the same thing on a phone as on a monitor.
+const AUTO_OPEN_AFTER_SCREENS = 1.25;
+
+// The page the visit started on, read before the router has done anything.
+const LANDING_PATH = typeof window !== "undefined" ? window.location.pathname : "";
 
 // The page at this route embeds the same agent full width. Showing a floating
 // copy of it on top would be the agent twice.
 const HIDDEN_PATHS = ["/design-experience"];
-
-// Matches the CSS breakpoint below. Anything narrower or shorter is treated as
-// a phone: the panel is full screen there, which is no way to greet someone.
-const DESKTOP = "(min-width: 641px) and (min-height: 521px)";
 
 // One auto-open per browser session. Closing it counts: someone who dismissed
 // the advisor on the homepage should not meet it again on the next page.
@@ -74,6 +78,10 @@ const css = `
 `;
 
 let root, panel, iframe, fab, isOpen = false, autoOpenTimer = null;
+
+// Set as soon as the visitor navigates anywhere else. From then on the session
+// has no landing page left to greet.
+let leftLanding = false;
 
 function seen() {
     try {
@@ -125,7 +133,7 @@ function cancelAutoOpen() {
 }
 
 function onScroll() {
-    if (window.scrollY < AUTO_OPEN_AFTER_SCROLL_PX) return;
+    if (window.scrollY < AUTO_OPEN_AFTER_SCREENS * window.innerHeight) return;
     cancelAutoOpen();
     autoOpen();
 }
@@ -142,7 +150,6 @@ function autoOpen() {
 function armAutoOpen() {
     cancelAutoOpen();
     if (seen()) return;
-    if (!window.matchMedia(DESKTOP).matches) return;
     window.addEventListener("scroll", onScroll, { passive: true });
     autoOpenTimer = setTimeout(() => {
         cancelAutoOpen();
@@ -222,7 +229,8 @@ export function mountAventaAgent(router) {
             setOpen(false);
             return;
         }
-        if (AUTO_OPEN_PATHS.includes(to.path)) armAutoOpen();
+        if (to.path !== LANDING_PATH) leftLanding = true;
+        if (!leftLanding && AUTO_OPEN_PATHS.includes(to.path)) armAutoOpen();
         else cancelAutoOpen();
     };
 
