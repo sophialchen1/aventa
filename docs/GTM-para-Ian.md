@@ -52,8 +52,9 @@ Y estos son los eventos:
 - `inicio_asistente` — home, el CTA de la sección del asistente
 - `catalogo_cta` — botón de descarga en la página de catálogo
 - `formulario_cotizacion` — el formulario de cotización
-- `auto_inicio` — el asesor abriéndose solo en la home de escritorio, a
+- `auto_inicio` — el asesor abriéndose solo para saludar a quien llega, a
   diferencia de `boton_flotante`, que es el visitante abriéndolo
+- `agente` — el propio agente pidiendo mostrarse
 
 Entre `page_path` y `link_location` queda claro no solo qué se hizo clic sino
 desde dónde: WhatsApp desde el menú y WhatsApp desde la sección del asistente en

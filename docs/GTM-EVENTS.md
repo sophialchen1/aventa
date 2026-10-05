@@ -41,8 +41,9 @@ Every event also carries:
 - `inicio_asistente` — homepage, the assistant section CTA
 - `catalogo_cta` — catalogue page download button
 - `formulario_cotizacion` — the quote form
-- `auto_inicio` — the advisor opening itself on the desktop homepage, as
-  opposed to `boton_flotante`, the visitor opening it
+- `auto_inicio` — the advisor opening itself to greet an arrival, as opposed
+  to `boton_flotante`, the visitor opening it
+- `agente` — the agent itself asking to be shown
 
 All WhatsApp links share one event name and differ by `link_location`, so the
 total is one number and the breakdown by placement is one dimension.

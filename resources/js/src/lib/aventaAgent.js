@@ -257,7 +257,15 @@ export function mountAventaAgent(router) {
         // to say to us here.
         if (event.origin !== AGENT_ORIGIN) return;
         const data = event.data;
-        if (data && typeof data === "object" && data.type === "AVENTA_WIDGET_MINIMIZE") setOpen(false);
+        if (!data || typeof data !== "object") return;
+        if (data.type === "AVENTA_WIDGET_MINIMIZE") setOpen(false);
+        // The agent asking to be shown, added by the vendor in October 2026. It
+        // overrides the once a day rule on purpose: this is the agent itself
+        // deciding it has something to say, not us interrupting.
+        if (data.type === "AVENTA_WIDGET_OPEN" && !isOpen) {
+            setOpen(true);
+            track("advisor_open", { link_location: "agente" });
+        }
     });
 
     document.addEventListener("keydown", (e) => {
