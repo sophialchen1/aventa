@@ -293,5 +293,11 @@ export function mountAventaAgent(router) {
     router.afterEach(apply);
     router.isReady().then(() => apply(router.currentRoute.value));
 
-    window.AventaAgent = { open: () => setOpen(true), close: () => setOpen(false) };
+    // Same shape the vendor's own launcher exposes, minimize included, so
+    // anything they tell us to run in the console works here unchanged.
+    window.AventaAgent = {
+        open: () => setOpen(true),
+        close: () => setOpen(false),
+        minimize: () => setOpen(false),
+    };
 }
