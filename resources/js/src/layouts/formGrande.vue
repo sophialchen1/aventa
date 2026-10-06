@@ -391,9 +391,9 @@ const enviarFormulario = (e) => {
             <div>
                 <label class="text-[#757575] flex gap-2 cursor-pointer">
                     <input
-                        name="whatssap_consent"
+                        name="whatsapp_consent"
                         type="checkbox"
-                        value="¿Podemos contactarte por WhatsApp?"
+                        value="true"
                     />
                     {{ $t('form_whatsapp') }}
                 </label>
@@ -449,6 +449,7 @@ const enviarFormulario = (e) => {
                 <div>
                     <p>{{ $t('form_projecttype') }}</p>
                     <select
+                        name="tipo_de_proyecto"
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
                         required
                     >
