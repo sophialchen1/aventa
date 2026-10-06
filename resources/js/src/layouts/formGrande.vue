@@ -6,6 +6,10 @@ import { track } from "../lib/track.js";
 
 const { locale } = useI18n();
 
+// Bound to the first-name input. subirUnArchivo() reads it to name the
+// uploaded file, so without this declaration every upload threw.
+const namePerson = ref("");
+
 const select_pais = ref("México");
 const select_estado = ref("");
 
