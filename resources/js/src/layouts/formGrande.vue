@@ -1,48 +1,33 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import { paises, telefonia } from "../data/paises.js";
+import { telefonia } from "../data/paises.js";
 import { track } from "../lib/track.js";
 
-const { locale } = useI18n();
+const { t } = useI18n();
 
-// Bound to the first-name input. subirUnArchivo() reads it to name the
-// uploaded file, so without this declaration every upload threw.
+// One full-name field for the visitor. HubSpot still gets firstname and
+// lastname, split at the first space, so greetings like "Hola {firstname}"
+// keep working. subirUnArchivo() also reads it to name the uploaded file.
 const namePerson = ref("");
+const nombreLimpio = computed(() => namePerson.value.trim().replace(/\s+/g, " "));
+const firstname = computed(() => nombreLimpio.value.split(" ")[0] || "");
+const lastname = computed(() => nombreLimpio.value.split(" ").slice(1).join(" "));
 
-const select_pais = ref("México");
-const select_estado = ref("");
+// Phone is only asked for, and only required, when the visitor opts into
+// WhatsApp. Unchecking removes the field, so nothing stale is submitted.
+const quiereWhatsapp = ref(false);
 
-// The submitted value is always p.pais; only the label follows the language.
-function nombrePais(p) {
-    return locale.value === "en" ? p.pais_en : p.pais;
-}
+// The submitted values match the options of the HubSpot "producto" property
+// (Ventana, Puerta, Ambos). The fourth is new there; see the commit message.
+const intereses = [
+    { value: "Ventana", key: "form_interest_windows" },
+    { value: "Puerta", key: "form_interest_doors" },
+    { value: "Ambos", key: "form_interest_both" },
+    { value: "Necesito ayuda para elegir", key: "form_interest_help" },
+];
 
-// Sorted by the name the visitor actually reads, so United States sits under U
-// in English and Estados Unidos under E in Spanish. Otro stays last.
-const paisesOrdenados = computed(() => {
-    const collator = new Intl.Collator(locale.value === "en" ? "en" : "es");
-    return [...paises]
-        .filter((p) => p.pais !== "Otro")
-        .sort((a, b) => collator.compare(nombrePais(a), nombrePais(b)))
-        .concat(paises.filter((p) => p.pais === "Otro"));
-});
-
-const estadosDis = computed(() => {
-    const encontrado = paises.find((p) => p.pais === select_pais.value);
-    return encontrado ? encontrado.estados : [];
-});
-
-// Otro has no state list, so the visitor types it instead
-const estadoLibre = computed(() => estadosDis.value.length === 0);
-
-// Without this, switching country keeps the state picked for the previous one
-// and submits it, e.g. Jalisco with Canada.
-watch(select_pais, () => {
-    select_estado.value = "";
-});
-
-const t_proyecto = ["Nuevo", "Remodelación"];
+const mostrarEspecificaciones = ref(false);
 
 const select_code = ref("+52");
 const telefonoCompleto = ref("+52");
@@ -143,21 +128,20 @@ const onFilesSelected = async (event) => {
     } catch (err) {
         urlsArchivos.value = [];
         nombresArchivos.value = [];
-        alert("Error al subir archivos: " + (err?.message || err));
+        alert(t("form_upload_error") + " " + (err?.message || err));
     } finally {
         archivoSubiendo.value = false;
     }
 };
 
 const mostrarGracias = ref(false);
-const textAreaRef = ref(null);
 
 const enviarFormulario = (e) => {
     e.preventDefault();
 
     // ⛔ no permitir enviar si aún está subiendo archivos
     if (archivoSubiendo.value) {
-        alert("Espera a que terminen de subirse los archivos.");
+        alert(t("form_wait_upload"));
         return;
     }
 
@@ -169,11 +153,6 @@ const enviarFormulario = (e) => {
     if (!Array.isArray(urlsArchivos.value) || urlsArchivos.value.length === 0) {
         urlsArchivos.value = [];
         nombresArchivos.value = [];
-    }
-
-    if (!textAreaRef.value?.value?.trim()) {
-        textAreaRef.value.value =
-            "No se proporcionó informacion sobre el proyecto";
     }
 
     if (!form.checkValidity()) {
@@ -200,30 +179,44 @@ const enviarFormulario = (e) => {
             <h3 class="font-bold text-[#657d88] lg:text-[1.5rem]">
                 {{ $t('form_title') }}
             </h3>
-            <div class="grid lg:grid-cols-2 lg:gap-3">
-                <div>
-                    <p>{{ $t('form_firstname') }}</p>
+            <div>
+                <p>{{ $t('form_fullname') }}</p>
+                <input
+                    v-model="namePerson"
+                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
+                    :placeholder="$t('ph_fullname')"
+                    autocomplete="name"
+                    required
+                />
+                <input type="hidden" name="firstname" :value="firstname" />
+                <input type="hidden" name="lastname" :value="lastname" />
+            </div>
+            <div>
+                <p>{{ $t('form_email') }}</p>
+                <input
+                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
+                    :placeholder="$t('ph_email')"
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                    type="email"
+                    inputmode="email"
+                    autocomplete="email"
+                    :title="$t('ph_email_title')"
+                    required
+                />
+            </div>
+            <div class="flex flex-col gap-3">
+                <label class="text-[#757575] flex gap-2 cursor-pointer">
                     <input
-                        v-model="namePerson"
-                        name="firstname"
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        :placeholder="$t('ph_firstname')"
-                        required
+                        v-model="quiereWhatsapp"
+                        name="whatsapp_consent"
+                        type="checkbox"
+                        value="true"
                     />
-                </div>
-                <div>
-                    <p>{{ $t('form_lastname') }}</p>
-                    <input
-                        name="lastname"
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        :placeholder="$t('ph_lastname')"
-                        required
-                    />
-                </div>
-                <div>
+                    {{ $t('form_whatsapp') }}
+                </label>
+                <div v-if="quiereWhatsapp">
                     <p>{{ $t('form_phone') }}</p>
                     <div class="flex gap-1">
-                        <!-- Select para la lada -->
                         <select
                             v-model="select_code"
                             @change="cambiarLada"
@@ -238,150 +231,98 @@ const enviarFormulario = (e) => {
                                 {{ pais.sigla }}
                             </option>
                         </select>
-
                         <input
                             v-model="telefonoCompleto"
                             name="phone"
                             type="tel"
+                            autocomplete="tel"
                             class="border rounded-xl w-full border-[#cccccc] bg-[#F9F9F9] p-2"
                             :maxlength="select_code.length + 10"
                             :pattern="`^\\${select_code}\\d{10}$`"
-                            :title="`Debe ser ${select_code} seguido de 10 dígitos`"
+                            :title="$t('form_phone_title', { code: select_code })"
                             @input="asegurarPrefijo"
                             required
                         />
                     </div>
                 </div>
-                <div>
-                    <p>{{ $t('form_email') }}</p>
-                    <input
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        :placeholder="$t('ph_email')"
-                        pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                        type="email"
-                        inputmode="email"
-                        autocomplete="email"
-                        title="Escribe un correo válido (debe incluir @ y un dominio, ej. nombre@dominio.com)"
-                        required
-                    />
-                </div>
             </div>
             <div>
-                <label class="text-[#757575] flex gap-2 cursor-pointer">
-                    <input
-                        name="whatsapp_consent"
-                        type="checkbox"
-                        value="true"
-                    />
-                    {{ $t('form_whatsapp') }}
-                </label>
+                <p>{{ $t('form_location') }}</p>
+                <p class="text-sm">{{ $t('form_location_help') }}</p>
+                <input
+                    name="ubicacion_del_proyecto"
+                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl mt-1"
+                    :placeholder="$t('ph_location')"
+                    required
+                />
             </div>
-            <div class="grid lg:grid-cols-3 lg:gap-3">
-                <div>
-                    <p>{{ $t('form_country') }}</p>
-                    <select
-                        name="country"
-                        v-model="select_pais"
-                        class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
-                        required
+            <fieldset>
+                <legend class="text-[#757575]">{{ $t('form_interest') }}</legend>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+                    <label
+                        v-for="op in intereses"
+                        :key="op.value"
+                        class="text-[#757575] flex gap-2 items-center cursor-pointer border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2"
                     >
-                        <option v-for="i in paisesOrdenados" :key="i.pais" :value="i.pais">
-                            {{ nombrePais(i) }}
-                        </option>
-                    </select>
+                        <input
+                            type="radio"
+                            name="producto"
+                            :value="op.value"
+                            required
+                        />
+                        {{ $t(op.key) }}
+                    </label>
                 </div>
-                <div>
-                    <p>{{ $t('form_state') }}</p>
-                    <input
-                        v-if="estadoLibre"
-                        name="state"
-                        v-model="select_estado"
-                        class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
-                        :placeholder="$t('ph_state')"
-                        required
-                    />
-                    <select
-                        v-else
-                        name="state"
-                        v-model="select_estado"
-                        class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
-                        required
-                    >
-                        <option disabled value="">{{ $t('form_select_placeholder') }}</option>
-                        <option v-for="i in estadosDis" :key="i" :value="i">
-                            {{ i }}
-                        </option>
-                    </select>
-                </div>
-                <div>
-                    <p>{{ $t('form_city') }}</p>
-                    <input
-                        name="city"
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        :placeholder="$t('ph_city')"
-                        required
-                    />
-                </div>
+            </fieldset>
+            <div>
+                <p>{{ $t('form_details') }}</p>
+                <textarea
+                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
+                    :placeholder="$t('ph_details')"
+                    required
+                ></textarea>
             </div>
-            <div class="grid grid-cols-1 gap-2">
-                <div>
-                    <p>{{ $t('form_projecttype') }}</p>
-                    <select
-                        name="tipo_de_proyecto"
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        required
-                    >
-                        <option disabled value="">{{ $t('form_select_placeholder') }}</option>
-                        <option v-for="op in t_proyecto" :key="op" :value="op">
-                            {{ op }}
-                        </option>
-                    </select>
-                </div>
-
-                <div>
-                    <p>{{ $t('form_details') }}</p>
-                    <textarea
-                        ref="textAreaRef"
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
-                        :placeholder="$t('ph_details')"
-                    ></textarea>
-                </div>
-                <div>
-                    <p>{{ $t('form_upload') }}</p>
-                    <input
-                        type="file"
-                        multiple
-                        @change="onFilesSelected"
-                        accept=".pdf,.doc,.docx,.jpg,.png"
-                    />
-                </div>
-                <div>
-                    <p class="hidden">Url Archivo*</p>
-                    <input
-                        class="hidden"
-                        name="file_upload_urls"
-                        :value="urlArchivosHubspot"
-                    />
-                </div>
-                <div
-                    v-if="nombresArchivos.length"
-                    class="text-green-600 text-sm mt-2 flex flex-col gap-1"
+            <div class="flex flex-col gap-2">
+                <button
+                    type="button"
+                    @click="mostrarEspecificaciones = !mostrarEspecificaciones"
+                    :aria-expanded="mostrarEspecificaciones"
+                    class="text-left text-[#657d88] font-semibold cursor-pointer"
                 >
-                    <p class="font-semibold">Archivos subidos:</p>
-                    <p v-for="(n, i) in nombresArchivos" :key="n + i">
-                        • {{ n }}
-                    </p>
+                    {{ mostrarEspecificaciones ? "−" : "+" }}
+                    {{ $t('form_specs_toggle') }}
+                </button>
+                <!-- v-show, not v-if: closing the section must not throw away
+                     what the visitor already typed or uploaded. -->
+                <div v-show="mostrarEspecificaciones" class="flex flex-col gap-3">
+                    <textarea
+                        name="datos_proyecto"
+                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
+                        :placeholder="$t('ph_specs')"
+                    ></textarea>
+                    <div>
+                        <p>{{ $t('form_upload') }}</p>
+                        <input
+                            type="file"
+                            multiple
+                            @change="onFilesSelected"
+                            accept=".pdf,.doc,.docx,.jpg,.png"
+                        />
+                    </div>
+                    <div
+                        v-if="nombresArchivos.length"
+                        class="text-green-600 text-sm flex flex-col gap-1"
+                    >
+                        <p class="font-semibold">{{ $t('form_uploaded') }}</p>
+                        <p v-for="(n, i) in nombresArchivos" :key="n + i">
+                            • {{ n }}
+                        </p>
+                    </div>
                 </div>
-
-                <div>
-                    <p class="hidden">Nombre Archivo*</p>
-                    <input
-                        class="hidden"
-                        name="name_archivos"
-                        :value="nombresArchivosHubspot"
-                    />
-                </div>
+                <input type="hidden" name="file_upload_urls" :value="urlArchivosHubspot" />
+                <input type="hidden" name="name_archivos" :value="nombresArchivosHubspot" />
             </div>
+            <p class="text-sm">{{ $t('form_disclaimer') }}</p>
             <button
                 :disabled="archivos.length > 0 && archivoSubiendo"
                 type="submit"
