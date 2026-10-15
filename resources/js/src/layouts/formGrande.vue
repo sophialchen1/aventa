@@ -1,10 +1,10 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import { telefonia } from "../data/paises.js";
+import { paises, telefonia } from "../data/paises.js";
 import { track } from "../lib/track.js";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 // One full-name field for the visitor. HubSpot still gets firstname and
 // lastname, split at the first space, so greetings like "Hola {firstname}"
@@ -28,6 +28,41 @@ const intereses = [
 ];
 
 const mostrarEspecificaciones = ref(false);
+
+// Starts empty so the placeholder shows and the visitor has to choose.
+const producto = ref("");
+
+const select_pais = ref("México");
+const select_estado = ref("");
+
+// The submitted value is always p.pais; only the label follows the language.
+function nombrePais(p) {
+    return locale.value === "en" ? p.pais_en : p.pais;
+}
+
+// Sorted by the name the visitor actually reads, so United States sits under U
+// in English and Estados Unidos under E in Spanish. Otro stays last.
+const paisesOrdenados = computed(() => {
+    const collator = new Intl.Collator(locale.value === "en" ? "en" : "es");
+    return [...paises]
+        .filter((p) => p.pais !== "Otro")
+        .sort((a, b) => collator.compare(nombrePais(a), nombrePais(b)))
+        .concat(paises.filter((p) => p.pais === "Otro"));
+});
+
+const estadosDis = computed(() => {
+    const encontrado = paises.find((p) => p.pais === select_pais.value);
+    return encontrado ? encontrado.estados : [];
+});
+
+// Otro has no state list, so the visitor types it instead
+const estadoLibre = computed(() => estadosDis.value.length === 0);
+
+// Without this, switching country keeps the state picked for the previous one
+// and submits it, e.g. Jalisco with Canada.
+watch(select_pais, () => {
+    select_estado.value = "";
+});
 
 const select_code = ref("+52");
 const telefonoCompleto = ref("+52");
@@ -179,30 +214,32 @@ const enviarFormulario = (e) => {
             <h3 class="font-bold text-[#657d88] lg:text-[1.5rem]">
                 {{ $t('form_title') }}
             </h3>
-            <div>
-                <p>{{ $t('form_fullname') }}</p>
-                <input
-                    v-model="namePerson"
-                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                    :placeholder="$t('ph_fullname')"
-                    autocomplete="name"
-                    required
-                />
-                <input type="hidden" name="firstname" :value="firstname" />
-                <input type="hidden" name="lastname" :value="lastname" />
-            </div>
-            <div>
-                <p>{{ $t('form_email') }}</p>
-                <input
-                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                    :placeholder="$t('ph_email')"
-                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                    type="email"
-                    inputmode="email"
-                    autocomplete="email"
-                    :title="$t('ph_email_title')"
-                    required
-                />
+            <div class="grid lg:grid-cols-2 lg:gap-3">
+                <div>
+                    <p>{{ $t('form_fullname') }}</p>
+                    <input
+                        v-model="namePerson"
+                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
+                        :placeholder="$t('ph_fullname')"
+                        autocomplete="name"
+                        required
+                    />
+                    <input type="hidden" name="firstname" :value="firstname" />
+                    <input type="hidden" name="lastname" :value="lastname" />
+                </div>
+                <div>
+                    <p>{{ $t('form_email') }}</p>
+                    <input
+                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
+                        :placeholder="$t('ph_email')"
+                        pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                        type="email"
+                        inputmode="email"
+                        autocomplete="email"
+                        :title="$t('ph_email_title')"
+                        required
+                    />
+                </div>
             </div>
             <div class="flex flex-col gap-3">
                 <label class="text-[#757575] flex gap-2 cursor-pointer">
@@ -246,34 +283,67 @@ const enviarFormulario = (e) => {
                     </div>
                 </div>
             </div>
-            <div>
-                <p>{{ $t('form_location') }}</p>
-                <p class="text-sm">{{ $t('form_location_help') }}</p>
-                <input
-                    name="ubicacion_del_proyecto"
-                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl mt-1"
-                    :placeholder="$t('ph_location')"
-                    required
-                />
-            </div>
-            <fieldset>
-                <legend class="text-[#757575]">{{ $t('form_interest') }}</legend>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
-                    <label
-                        v-for="op in intereses"
-                        :key="op.value"
-                        class="text-[#757575] flex gap-2 items-center cursor-pointer border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2"
+            <div class="grid lg:grid-cols-3 lg:gap-3">
+                <div>
+                    <p>{{ $t('form_country') }}</p>
+                    <select
+                        name="country"
+                        v-model="select_pais"
+                        class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
+                        required
                     >
-                        <input
-                            type="radio"
-                            name="producto"
-                            :value="op.value"
-                            required
-                        />
-                        {{ $t(op.key) }}
-                    </label>
+                        <option v-for="i in paisesOrdenados" :key="i.pais" :value="i.pais">
+                            {{ nombrePais(i) }}
+                        </option>
+                    </select>
                 </div>
-            </fieldset>
+                <div>
+                    <p>{{ $t('form_state') }}</p>
+                    <input
+                        v-if="estadoLibre"
+                        name="state"
+                        v-model="select_estado"
+                        class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
+                        :placeholder="$t('ph_state')"
+                        required
+                    />
+                    <select
+                        v-else
+                        name="state"
+                        v-model="select_estado"
+                        class="w-full h-10.5 flex-none border border-[#cccccc] bg-[#F9F9F9] rounded-xl p-2 text-sm"
+                        required
+                    >
+                        <option disabled value="">{{ $t('form_select_placeholder') }}</option>
+                        <option v-for="i in estadosDis" :key="i" :value="i">
+                            {{ i }}
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <p>{{ $t('form_city') }}</p>
+                    <input
+                        name="city"
+                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
+                        :placeholder="$t('ph_city')"
+                        required
+                    />
+                </div>
+            </div>
+            <div>
+                <p>{{ $t('form_interest') }}</p>
+                <select
+                    v-model="producto"
+                    name="producto"
+                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
+                    required
+                >
+                    <option disabled value="">{{ $t('form_select_placeholder') }}</option>
+                    <option v-for="op in intereses" :key="op.value" :value="op.value">
+                        {{ $t(op.key) }}
+                    </option>
+                </select>
+            </div>
             <div>
                 <p>{{ $t('form_details') }}</p>
                 <textarea
