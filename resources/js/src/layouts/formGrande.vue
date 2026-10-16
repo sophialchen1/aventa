@@ -14,8 +14,7 @@ const nombreLimpio = computed(() => namePerson.value.trim().replace(/\s+/g, " ")
 const firstname = computed(() => nombreLimpio.value.split(" ")[0] || "");
 const lastname = computed(() => nombreLimpio.value.split(" ").slice(1).join(" "));
 
-// Phone is always shown but only required when the visitor opts into
-// WhatsApp.
+// Phone is always shown and always optional, WhatsApp opt-in included.
 const quiereWhatsapp = ref(false);
 
 // The submitted values match the options of the HubSpot "producto" property
@@ -247,9 +246,7 @@ const enviarFormulario = (e) => {
                     />
                 </div>
                 <div>
-                    <p>
-                        {{ quiereWhatsapp ? $t('form_phone') : $t('form_phone_optional') }}
-                    </p>
+                    <p>{{ $t('form_phone_optional') }}</p>
                     <div class="flex gap-1">
                         <select
                             v-model="select_code"
@@ -264,21 +261,17 @@ const enviarFormulario = (e) => {
                                 {{ pais.sigla }}
                             </option>
                         </select>
-                        <!-- Optional, so the bare prefix is valid too. It is
-                             only required, in full, when WhatsApp is checked.
-                             The hidden input below is what HubSpot receives. -->
+                        <!-- Optional, so the bare prefix is valid too. The
+                             hidden input below is what HubSpot receives. -->
                         <input
                             v-model="telefonoCompleto"
                             type="tel"
                             autocomplete="tel"
                             class="border rounded-xl w-full border-[#cccccc] bg-[#F9F9F9] p-2"
                             :maxlength="select_code.length + 10"
-                            :pattern="quiereWhatsapp
-                                ? `^\\${select_code}\\d{10}$`
-                                : `^\\${select_code}(\\d{10})?$`"
+                            :pattern="`^\\${select_code}(\\d{10})?$`"
                             :title="$t('form_phone_title', { code: select_code })"
                             @input="asegurarPrefijo"
-                            :required="quiereWhatsapp"
                         />
                         <input type="hidden" name="phone" :value="telefonoEnviado" />
                     </div>
