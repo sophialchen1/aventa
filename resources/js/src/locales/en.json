@@ -42,7 +42,7 @@
     "form_fullname": "Full name*",
     "ph_fullname": "Your full name",
     "form_phone_title": "Enter {code} followed by 10 digits",
-    "form_phone_optional": "Phone (optional)",
+    "form_phone_optional": "Phone",
     "form_interest": "What are you interested in?*",
     "form_interest_windows": "Windows",
     "form_interest_doors": "Doors",
