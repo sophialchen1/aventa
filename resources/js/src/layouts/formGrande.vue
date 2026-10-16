@@ -14,8 +14,8 @@ const nombreLimpio = computed(() => namePerson.value.trim().replace(/\s+/g, " ")
 const firstname = computed(() => nombreLimpio.value.split(" ")[0] || "");
 const lastname = computed(() => nombreLimpio.value.split(" ").slice(1).join(" "));
 
-// Phone is only asked for, and only required, when the visitor opts into
-// WhatsApp. Unchecking removes the field, so nothing stale is submitted.
+// Phone is always shown but only required when the visitor opts into
+// WhatsApp.
 const quiereWhatsapp = ref(false);
 
 // The submitted values match the options of the HubSpot "producto" property
@@ -66,6 +66,12 @@ watch(select_pais, () => {
 
 const select_code = ref("+52");
 const telefonoCompleto = ref("+52");
+
+// Sends nothing when the visitor left only the country code, so HubSpot
+// never stores a bare "+52" as a phone number.
+const telefonoEnviado = computed(() =>
+    telefonoCompleto.value === select_code.value ? "" : telefonoCompleto.value,
+);
 
 function cambiarLada() {
     // Detectar el código actual que está en el input
@@ -240,25 +246,15 @@ const enviarFormulario = (e) => {
                         required
                     />
                 </div>
-            </div>
-            <div class="flex flex-col gap-3">
-                <label class="text-[#757575] flex gap-2 cursor-pointer">
-                    <input
-                        v-model="quiereWhatsapp"
-                        name="whatsapp_consent"
-                        type="checkbox"
-                        value="true"
-                    />
-                    {{ $t('form_whatsapp') }}
-                </label>
-                <div v-if="quiereWhatsapp">
-                    <p>{{ $t('form_phone') }}</p>
+                <div>
+                    <p>
+                        {{ quiereWhatsapp ? $t('form_phone') : $t('form_phone_optional') }}
+                    </p>
                     <div class="flex gap-1">
                         <select
                             v-model="select_code"
                             @change="cambiarLada"
                             class="border p-2 rounded-xl bg-[#F9F9F9] border-[#cccccc]"
-                            required
                         >
                             <option
                                 v-for="pais in telefonia"
@@ -268,20 +264,36 @@ const enviarFormulario = (e) => {
                                 {{ pais.sigla }}
                             </option>
                         </select>
+                        <!-- Optional, so the bare prefix is valid too. It is
+                             only required, in full, when WhatsApp is checked.
+                             The hidden input below is what HubSpot receives. -->
                         <input
                             v-model="telefonoCompleto"
-                            name="phone"
                             type="tel"
                             autocomplete="tel"
                             class="border rounded-xl w-full border-[#cccccc] bg-[#F9F9F9] p-2"
                             :maxlength="select_code.length + 10"
-                            :pattern="`^\\${select_code}\\d{10}$`"
+                            :pattern="quiereWhatsapp
+                                ? `^\\${select_code}\\d{10}$`
+                                : `^\\${select_code}(\\d{10})?$`"
                             :title="$t('form_phone_title', { code: select_code })"
                             @input="asegurarPrefijo"
-                            required
+                            :required="quiereWhatsapp"
                         />
+                        <input type="hidden" name="phone" :value="telefonoEnviado" />
                     </div>
                 </div>
+            </div>
+            <div>
+                <label class="text-[#757575] flex gap-2 cursor-pointer">
+                    <input
+                        v-model="quiereWhatsapp"
+                        name="whatsapp_consent"
+                        type="checkbox"
+                        value="true"
+                    />
+                    {{ $t('form_whatsapp') }}
+                </label>
             </div>
             <div class="grid lg:grid-cols-3 lg:gap-3">
                 <div>
