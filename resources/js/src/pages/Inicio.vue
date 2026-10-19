@@ -564,7 +564,7 @@ onBeforeUnmount(() => {
                                     {{ $t("ini_puertas") }}
                                 </p>
                                 <img
-                                    src="../assets/media/nuestras_puertas_aventa.jpg"
+                                    src="../assets/media/nuestras_puertas_aventa.webp"
                                     class="absolute top-0 left-0 w-full h-full lg:scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
                                     alt="puertas"
                                     :title='$t("ini_puertas")'
@@ -599,7 +599,7 @@ onBeforeUnmount(() => {
                                 </p>
 
                                 <img
-                                    src="../assets/media/nuestras_ventanas_aventa.jpg"
+                                    src="../assets/media/nuestras_ventanas_aventa.webp"
                                     class="absolute top-0 left-0 w-full h-full scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
                                     alt="ventanas"
                                     :title='$t("ini_ventanas")'
@@ -638,7 +638,7 @@ onBeforeUnmount(() => {
                                         </p>
 
                                         <img
-                                            src="../assets/media/maderas.jpg"
+                                            src="../assets/media/maderas.webp"
                                             class="absolute top-0 left-0 w-full h-full scale-120 object-cover transition-transform duration-400 ease-in-out hover:scale-100 hover:brightness-90"
                                             alt="maderas"
                                             :title='$t("ini_maderas")'
@@ -699,7 +699,7 @@ onBeforeUnmount(() => {
                         <div class="flex-1/4 flex justify-center items-center">
                             <img
                                 class="object-contain w-15 lg:w-[140px]"
-                                src="../assets/media/esg.png"
+                                src="../assets/media/esg.webp"
                                 alt="esg"
                                 title="Esg"
                             />
@@ -1161,7 +1161,7 @@ onBeforeUnmount(() => {
                     >
                         <img
                             class="object-cover w-full h-full"
-                            src="../assets/media/nosotros_interior.jpg"
+                            src="../assets/media/nosotros_interior.webp"
                             alt="nosotros_interior"
                         />
                     </div>
@@ -1170,7 +1170,7 @@ onBeforeUnmount(() => {
                     >
                         <img
                             class="object-cover w-full h-full"
-                            src="../assets/media/nosotros_exterior.jpg"
+                            src="../assets/media/nosotros_exterior.webp"
                             alt="nosotros_exterior"
                         />
                     </div>
@@ -1179,7 +1179,7 @@ onBeforeUnmount(() => {
                     >
                         <img
                             class="object-cover w-full h-full"
-                            src="../assets/media/nosotros_puer.jpg"
+                            src="../assets/media/nosotros_puer.webp"
                             alt="nosotros_puerta"
                         />
                     </div>

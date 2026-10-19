@@ -69,7 +69,7 @@ function openFormW(){
                     >
                         <img
                             class="h-full w-full object-cover"
-                            src="../assets/media/puertas.png"
+                            src="../assets/media/puertas.webp"
                             alt="Puerta de madera abierta hacia exterior"
                             title="Puertas de madera"
                         />
@@ -202,19 +202,19 @@ function openFormW(){
             <div class="w-full lg:max-w-[1150px] px-5 flex flex-col py-8 lg:px-0">
                 <div class="flex flex-col md:flex-row lg:flex-row gap-[2vw] h-[800px] md:h-[300px] lg:h-[350px]">
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car1.png"
+                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car1.webp"
                              alt="nosotros_ventana">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car2.png"
+                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car2.webp"
                              alt="nosotros_interior">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car3.png"
+                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car3.webp"
                              alt="nosotros_exterior">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car4.png"
+                        <img class="object-cover w-full h-full" src="../assets/media/puertas_car4.webp"
                              alt="nosotros_puerta">
                     </div>
                 </div>
