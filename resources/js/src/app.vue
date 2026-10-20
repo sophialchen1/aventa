@@ -22,13 +22,22 @@ onMounted(() => {
 let timer = null;
 
 router.beforeEach((to, from, next) => {
+    // /gracias is short-lived and counts as a conversion page: the visitor
+    // should see the message at once, not a loader.
+    if (to.meta.sinLoader) {
+        clearTimeout(timer);
+        isLoading.value = false;
+        return next();
+    }
+
     isLoading.value = true;
 
     // No bloqueamos la navegación: deja que cargue el componente mientras mostramos loader
     next();
 });
 
-router.afterEach(() => {
+router.afterEach((to) => {
+    if (to.meta.sinLoader) return;
     clearTimeout(timer);
     timer = setTimeout(() => {
         isLoading.value = false;

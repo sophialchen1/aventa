@@ -12,10 +12,13 @@ const { t } = useI18n();
 
 const detalles_v = ["vis_list1", "vis_list2", "vis_list3", "vis_list4"];
 
-// value is what the form carries; label is what the visitor reads
+// value is what the form carries; label is what the visitor reads.
+// value must be one of the options of the HubSpot property motivo_de_tu_visita
+// ("Visita showroom", "Ver proceso"), or HubSpot drops it. The CDMX showroom is
+// the showroom visit, the San Miguel factory is seeing the process.
 const motivo_v = [
-    { value: "CDMX", labelKey: "vis_loc_cdmx" },
-    { value: "SMA", labelKey: "vis_loc_sma" },
+    { value: "Visita showroom", labelKey: "vis_loc_cdmx" },
+    { value: "Ver proceso", labelKey: "vis_loc_sma" },
 ];
 
 // Teléfono con prefijo
@@ -164,10 +167,9 @@ const enviarFormulario = (e) => {
         ta.value = t("vis_no_project");
     }
 
-    // Validación de horario
-    const err = validarHorario(visitaAt.value);
-    errorFecha.value = err;
-    if (err) return;
+    // Validación de horario. Marca el campo como inválido (lun a vie, 9 a 18)
+    // para que checkValidity lo frene abajo con el mensaje en el campo.
+    validateVisita(false);
 
     // Validación HTML estándar
     if (!form.checkValidity()) {
@@ -240,6 +242,7 @@ const enviarFormulario = (e) => {
                                 <div>
                                     <p>{{ $t('form_firstname') }}</p>
                                     <input
+                                        name="firstname"
                                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
                                         :placeholder="$t('ph_firstname')"
                                         required
@@ -248,6 +251,7 @@ const enviarFormulario = (e) => {
                                 <div>
                                     <p>{{ $t('form_lastname') }}</p>
                                     <input
+                                        name="lastname"
                                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
                                         :placeholder="$t('ph_lastname')"
                                         required
@@ -298,8 +302,8 @@ const enviarFormulario = (e) => {
                             <div class="grid lg:grid-cols-2 lg:gap-2">
                                 <div>
                                     <p>{{ $t('vis_form_location') }}</p>
-                                    <select class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl">
-                                        <option disabled value="">{{ $t('form_select_placeholder') }}</option>
+                                    <select name="motivo_de_tu_visita" class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl" required>
+                                        <option disabled selected value="">{{ $t('form_select_placeholder') }}</option>
                                         <option v-for="op in motivo_v" :key="op.value" :value="op.value">{{ $t(op.labelKey) }}</option>
                                     </select>
                                 </div>
@@ -309,6 +313,7 @@ const enviarFormulario = (e) => {
                                     <input
                                         ref="visitaInputRef"
                                         v-model="visitaAt"
+                                        name="fecha_de_visita"
                                         type="datetime-local"
                                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
                                         required
@@ -326,7 +331,7 @@ const enviarFormulario = (e) => {
                                 <p>{{ $t('vis_form_about') }}</p>
                                 <textarea
                                     ref="textAreaRef"
-                                    name="datos_cotizacion"
+                                    name="cu_ntanos_sobre_ti_tu_proyecto"
                                     class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
                                     :placeholder="$t('ph_project')"
                                 ></textarea>

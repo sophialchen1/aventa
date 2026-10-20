@@ -186,7 +186,8 @@ const routes = [
         component: () => import("../pages/Gracias.vue"),
         meta: {
             titleKey: "seo_gracias_title",
-            noindex: true
+            noindex: true,
+            sinLoader: true
         }
     },
     {

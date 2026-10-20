@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import MainLayout from "../layouts/MainLayout.vue";
 import { track } from "../lib/track.js";
@@ -9,12 +9,10 @@ import { track } from "../lib/track.js";
 // instead of a modal that leaves no trace in the URL.
 //
 // The form passes ?form=<type> so Ian can split conversions by form, and
-// ?from=<path> so the visitor goes back to where they were.
+// ?from=<path> so the visitor goes back to where they were. The route skips
+// the site loader (meta.sinLoader), so the full 8 seconds are visible.
 
-const SEGUNDOS = 8;
-// app.vue covers every page change with a 2s loader plus a 0.5s fade. The
-// countdown starts after it, so the visitor actually sees the full 8 seconds.
-const ESPERA_LOADER_MS = 2500;
+const DURACION_MS = 8000;
 
 const route = useRoute();
 const router = useRouter();
@@ -23,22 +21,14 @@ const formType = String(route.query.form || "desconocido");
 
 // Only same-site paths. Anything else ("//evil.com", "https://...") would make
 // this page an open redirect, so it falls back to the homepage.
-const destino = computed(() => {
+function destino() {
     const from = String(route.query.from || "");
     return from.startsWith("/") && !from.startsWith("//") && !from.startsWith("/gracias")
         ? from
         : "/";
-});
-
-const restante = ref(SEGUNDOS);
-let timer = null;
-let inicio = null;
-
-function volver() {
-    clearTimeout(inicio);
-    clearInterval(timer);
-    router.replace(destino.value);
 }
+
+let timer = null;
 
 onMounted(() => {
     // Opened directly (typed, bookmarked, refreshed) rather than reached from a
@@ -50,18 +40,10 @@ onMounted(() => {
 
     track("form_thankyou_view", { form_type: formType });
 
-    inicio = setTimeout(() => {
-        timer = setInterval(() => {
-            restante.value -= 1;
-            if (restante.value <= 0) volver();
-        }, 1000);
-    }, ESPERA_LOADER_MS);
+    timer = setTimeout(() => router.replace(destino()), DURACION_MS);
 });
 
-onBeforeUnmount(() => {
-    clearTimeout(inicio);
-    clearInterval(timer);
-});
+onBeforeUnmount(() => clearTimeout(timer));
 </script>
 
 <template>
@@ -71,17 +53,7 @@ onBeforeUnmount(() => {
                 <h1 class="text-2xl lg:text-3xl font-bold text-[#657d88] mb-4">
                     {{ $t("gracias_title") }}
                 </h1>
-                <p class="mb-2">{{ $t("gracias_body") }}</p>
-                <p class="mb-8 text-sm text-[#757575]">
-                    {{ $t("gracias_redirect", { s: restante }) }}
-                </p>
-                <button
-                    type="button"
-                    @click="volver"
-                    class="bg-[#657d88] text-white px-5 py-2 rounded-xl cursor-pointer hover:bg-[#64563c]"
-                >
-                    {{ destino === "/" ? $t("gracias_cta_home") : $t("gracias_cta_back") }}
-                </button>
+                <p>{{ $t("gracias_body") }}</p>
             </div>
         </div>
     </main-layout>

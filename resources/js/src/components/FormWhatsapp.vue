@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { irAGracias } from "../lib/track.js";
+
+const HS_FORM_ID = "e6b36d11-6197-4aa2-815f-9b13fd86cd41";
+
 const props = defineProps({
     show: {
         type: Boolean,
@@ -8,6 +14,24 @@ const props = defineProps({
 const emit = defineEmits<{
     (e: 'click'): void
 }>();
+
+// The form itself is a HubSpot embed, so we cannot see its submit. HubSpot
+// announces a successful submission on window instead.
+// https://developers.hubspot.com/docs/api-reference/latest/marketing/forms/global-form-events
+//
+// This component is mounted more than once on some pages (layout and
+// Instalaciones), so only the open one reacts.
+const route = useRoute();
+const router = useRouter();
+
+function onEnviado(e: Event) {
+    const detail = (e as CustomEvent).detail || {};
+    if (!props.show || detail.formId !== HS_FORM_ID) return;
+    irAGracias(router, route, "whatsapp");
+}
+
+onMounted(() => window.addEventListener("hs-form-event:on-submission:success", onEnviado));
+onBeforeUnmount(() => window.removeEventListener("hs-form-event:on-submission:success", onEnviado));
 </script>
 
 <template>
@@ -19,7 +43,7 @@ const emit = defineEmits<{
                         class="border rounded-lg py-1 px-2 text-[#cccccc] leading-none cursor-pointer transition-colors duration-300 hover:text-[#918164] lg:text-[1.5rem]">X</button>
             </div>
             <div class="overflow-auto">
-                <div class="hs-form-frame" data-region="na1" data-form-id="e6b36d11-6197-4aa2-815f-9b13fd86cd41" data-portal-id="24148893"></div>
+                <div class="hs-form-frame" data-region="na1" :data-form-id="HS_FORM_ID" data-portal-id="24148893"></div>
             </div>
         </div>
     </div>
