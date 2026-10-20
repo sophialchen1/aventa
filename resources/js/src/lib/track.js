@@ -39,8 +39,8 @@ export function track(event, params = {}) {
 }
 
 // Sends the visitor to /gracias after a form validates. form is the form type
-// GTM sees as form_type ("cotizacion", "visita"). The current page goes along as
-// ?from= so the thank-you page can send them back to it.
+// GTM sees as form_type ("cotizacion", "visita", "whatsapp", "contacto"). The
+// current page goes along as ?from= so the thank-you page can send them back.
 //
 // desdeFormulario in the history state is how /gracias tells a real submission
 // from someone opening or refreshing the URL. It is not in the URL, so it does

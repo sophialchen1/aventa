@@ -31,7 +31,7 @@ Every event also carries:
 | `whatsapp_click` | `link_location` | every WhatsApp link on the site |
 | `design_assistant_click` | `link_location` | product menu, "Explore our design assistant" |
 | `quote_submit` | `link_location` | quote form, once it validates, just before the redirect to `/gracias` |
-| `form_thankyou_view` | `form_type` | `/gracias`, only when reached from a form (`cotizacion`, `visita` or `whatsapp`). Not sent on a direct visit or refresh |
+| `form_thankyou_view` | `form_type` | `/gracias`, only when reached from a form (`cotizacion`, `visita`, `whatsapp` or `contacto`). Not sent on a direct visit or refresh |
 | `catalog_download` | `link_location`, `file_name` | catalogue page CTA |
 | `advisor_open` | `link_location` | the AI advisor panel opens |
 

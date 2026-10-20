@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, computed } from "vue";
-import { track } from "../lib/track.js";
+import { useRoute, useRouter } from "vue-router";
+import { irAGracias, track } from "../lib/track.js";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination, Scrollbar, A11y, Zoom } from "swiper/modules";
 import { useI18n } from "vue-i18n";
@@ -20,6 +21,18 @@ import FormGrande from "@/src/layouts/formGrande.vue";
 import VsModal from "../layouts/VsModal.vue";
 
 const { t } = useI18n();
+
+// Quick contact form further down the page. HubSpot picks the submission up
+// from the page on its own (it lands as "Contact" in HubSpot), so this only
+// has to stop the browser's default submit, which reloaded the page and put
+// the visitor's name, email and phone in the URL. The browser has already
+// checked the required fields before submit fires.
+const route = useRoute();
+const router = useRouter();
+
+function enviarContactoRapido() {
+    irAGracias(router, route, "contacto");
+}
 
 const video = ref<HTMLVideoElement | null>(null);
 const videoBanner = ref<HTMLVideoElement | null>(null);
@@ -1360,7 +1373,7 @@ onBeforeUnmount(() => {
                 <div
                     class="flex-1/2 relative flex bg-white rounded-xl w-full h-auto p-4 lg:p-[2vw] shadow-lg border-1 border-[#657d88]"
                 >
-                    <form class="flex flex-col w-full gap-5" action="">
+                    <form class="flex flex-col w-full gap-5" @submit.prevent="enviarContactoRapido">
                         <div class="grid grid-cols-2 gap-5">
                             <input
                                 name="firstname"
