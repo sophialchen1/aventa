@@ -1,15 +1,36 @@
 <script setup>
-import { computed, reactive, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { paises, telefonia } from "../data/paises.js";
 import { useRoute, useRouter } from "vue-router";
 import { irAGracias, track } from "../lib/track.js";
 
-const { locale } = useI18n();
+const { t, locale } = useI18n();
 
-// Bound to the first-name input. subirUnArchivo() reads it to name the
-// uploaded file, so without this declaration every upload threw.
+// One full-name field for the visitor. HubSpot still gets firstname and
+// lastname, split at the first space, so greetings like "Hola {firstname}"
+// keep working. subirUnArchivo() also reads it to name the uploaded file.
 const namePerson = ref("");
+const nombreLimpio = computed(() => namePerson.value.trim().replace(/\s+/g, " "));
+const firstname = computed(() => nombreLimpio.value.split(" ")[0] || "");
+const lastname = computed(() => nombreLimpio.value.split(" ").slice(1).join(" "));
+
+// Phone is always shown and always optional, WhatsApp opt-in included.
+const quiereWhatsapp = ref(false);
+
+// The submitted values match the options of the HubSpot "producto" property
+// (Ventana, Puerta, Ambos). The fourth is new there; see the commit message.
+const intereses = [
+    { value: "Ventana", key: "form_interest_windows" },
+    { value: "Puerta", key: "form_interest_doors" },
+    { value: "Ambos", key: "form_interest_both" },
+    { value: "Necesito ayuda para elegir", key: "form_interest_help" },
+];
+
+const mostrarEspecificaciones = ref(false);
+
+// Starts empty so the placeholder shows and the visitor has to choose.
+const producto = ref("");
 
 const select_pais = ref("México");
 const select_estado = ref("");
@@ -43,10 +64,14 @@ watch(select_pais, () => {
     select_estado.value = "";
 });
 
-const t_proyecto = ["Nuevo", "Remodelación"];
-
 const select_code = ref("+52");
 const telefonoCompleto = ref("+52");
+
+// Sends nothing when the visitor left only the country code, so HubSpot
+// never stores a bare "+52" as a phone number.
+const telefonoEnviado = computed(() =>
+    telefonoCompleto.value === select_code.value ? "" : telefonoCompleto.value,
+);
 
 function cambiarLada() {
     // Detectar el código actual que está en el input
@@ -85,89 +110,6 @@ watch(select_code, (nuevoCodigo) => {
     const sinLada = inputTel.value.replace(/^\+\d+\s?/, "");
     inputTel.value = nuevoCodigo + sinLada;
 });
-
-const productos = ref([]);
-
-const nuevo = reactive({
-    tipo: "Ventana",
-    apertura: "",
-    madera: "",
-    cantidad: 1,
-    ancho: null,
-    alto: null,
-});
-
-const madera = [
-    "Alder",
-    "Cedro Rojo",
-    "Encino",
-    "Rosa Morada",
-    "Teca",
-    "Tornillo",
-    "Tzalam",
-];
-
-const aper_puertas = ["Practicable", "Corrediza Elevable", "Plegable"];
-const aper_ventanas = [
-    "Fija",
-    "Abatible",
-    "Oscilobatiente",
-    "Corrediza",
-    "Plegable",
-    "Proyectante",
-];
-
-function toIntOrNull(v) {
-    // convierte a entero o null si es inválido
-    const n = typeof v === "string" ? v.trim() : v;
-    const x = Number(n);
-
-    if (!Number.isFinite(x)) return null;
-    // evita decimales: 1.2 => null
-    if (!Number.isInteger(x)) return null;
-    return x;
-}
-
-function agregarProducto() {
-    const item = {
-        tipo: String(nuevo.tipo || "").trim(),
-        apertura: String(nuevo.apertura || "").trim(),
-        madera: String(nuevo.madera || "").trim(),
-        cantidad: toIntOrNull(nuevo.cantidad),
-        ancho: toIntOrNull(nuevo.ancho),
-        alto: toIntOrNull(nuevo.alto),
-    };
-
-    if (!productoValido(item)) {
-        alert(
-            "Completa todos los campos. Cantidad/Ancho/Alto deben ser ENTEROS y mínimo 1.",
-        );
-        return;
-    }
-
-    productos.value.push(item);
-
-    // reset
-    nuevo.tipo = "Ventana";
-    nuevo.apertura = "";
-    nuevo.madera = "";
-    nuevo.cantidad = 1;
-    nuevo.ancho = null;
-    nuevo.alto = null;
-}
-
-const datosProyecto = computed(() => {
-    return productos.value
-        .map(
-            (p) =>
-                `${p.tipo}/qty=${p.cantidad}/ancho=${p.ancho}/alto=${p.alto}/apertura=${p.apertura}/madera=${p.madera}`,
-        )
-        .join(" /// ");
-});
-
-function eliminarProducto(index) {
-    productos.value.splice(index, 1);
-}
 
 const archivos = ref([]); // File[]
 const urlsArchivos = ref([]); // string[]
@@ -227,7 +169,7 @@ const onFilesSelected = async (event) => {
     } catch (err) {
         urlsArchivos.value = [];
         nombresArchivos.value = [];
-        alert("Error al subir archivos: " + (err?.message || err));
+        alert(t("form_upload_error") + " " + (err?.message || err));
     } finally {
         archivoSubiendo.value = false;
     }
@@ -235,53 +177,13 @@ const onFilesSelected = async (event) => {
 
 const route = useRoute();
 const router = useRouter();
-const textAreaRef = ref(null);
-
-function isPositiveNumber(n) {
-    const x = Number(n);
-    return Number.isFinite(x) && x > 0;
-}
-
-function productoValido(p) {
-    if (!String(p.tipo || "").trim()) return false;
-    if (!String(p.apertura || "").trim()) return false;
-    if (!String(p.madera || "").trim()) return false;
-
-    if (!isPositiveNumber(p.cantidad)) return false;
-    if (!isPositiveNumber(p.ancho)) return false;
-    if (!isPositiveNumber(p.alto)) return false;
-
-    return true;
-}
-
-function validarProductosAntesDeEnviar() {
-    if (!Array.isArray(productos.value) || productos.value.length === 0) {
-        alert(
-            'Debes agregar al menos un producto en "Datos del proyecto" antes de enviar',
-        );
-        return false;
-    }
-
-    const bad = productos.value.findIndex((p) => !productoValido(p));
-    if (bad !== -1) {
-        alert(
-            `El producto #${bad + 1} está incompleto o tiene números en 0. Corrígelo antes de enviar.`,
-        );
-        return false;
-    }
-
-    return true;
-}
 
 const enviarFormulario = (e) => {
     e.preventDefault();
 
-    // ✅ si esto falla, no se envía nada
-    if (!validarProductosAntesDeEnviar()) return;
-
     // ⛔ no permitir enviar si aún está subiendo archivos
     if (archivoSubiendo.value) {
-        alert("Espera a que terminen de subirse los archivos.");
+        alert(t("form_wait_upload"));
         return;
     }
 
@@ -293,11 +195,6 @@ const enviarFormulario = (e) => {
     if (!Array.isArray(urlsArchivos.value) || urlsArchivos.value.length === 0) {
         urlsArchivos.value = [];
         nombresArchivos.value = [];
-    }
-
-    if (!textAreaRef.value?.value?.trim()) {
-        textAreaRef.value.value =
-            "No se proporcionó informacion sobre el proyecto";
     }
 
     if (!form.checkValidity()) {
@@ -326,55 +223,16 @@ const enviarFormulario = (e) => {
             </h3>
             <div class="grid lg:grid-cols-2 lg:gap-3">
                 <div>
-                    <p>{{ $t('form_firstname') }}</p>
+                    <p>{{ $t('form_fullname') }}</p>
                     <input
                         v-model="namePerson"
-                        name="firstname"
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        :placeholder="$t('ph_firstname')"
+                        :placeholder="$t('ph_fullname')"
+                        autocomplete="name"
                         required
                     />
-                </div>
-                <div>
-                    <p>{{ $t('form_lastname') }}</p>
-                    <input
-                        name="lastname"
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        :placeholder="$t('ph_lastname')"
-                        required
-                    />
-                </div>
-                <div>
-                    <p>{{ $t('form_phone') }}</p>
-                    <div class="flex gap-1">
-                        <!-- Select para la lada -->
-                        <select
-                            v-model="select_code"
-                            @change="cambiarLada"
-                            class="border p-2 rounded-xl bg-[#F9F9F9] border-[#cccccc]"
-                            required
-                        >
-                            <option
-                                v-for="pais in telefonia"
-                                :key="pais.codigo + pais.sigla"
-                                :value="pais.codigo"
-                            >
-                                {{ pais.sigla }}
-                            </option>
-                        </select>
-
-                        <input
-                            v-model="telefonoCompleto"
-                            name="phone"
-                            type="tel"
-                            class="border rounded-xl w-full border-[#cccccc] bg-[#F9F9F9] p-2"
-                            :maxlength="select_code.length + 10"
-                            :pattern="`^\\${select_code}\\d{10}$`"
-                            :title="`Debe ser ${select_code} seguido de 10 dígitos`"
-                            @input="asegurarPrefijo"
-                            required
-                        />
-                    </div>
+                    <input type="hidden" name="firstname" :value="firstname" />
+                    <input type="hidden" name="lastname" :value="lastname" />
                 </div>
                 <div>
                     <p>{{ $t('form_email') }}</p>
@@ -385,14 +243,46 @@ const enviarFormulario = (e) => {
                         type="email"
                         inputmode="email"
                         autocomplete="email"
-                        title="Escribe un correo válido (debe incluir @ y un dominio, ej. nombre@dominio.com)"
+                        :title="$t('ph_email_title')"
                         required
                     />
+                </div>
+                <div>
+                    <p>{{ $t('form_phone_optional') }}</p>
+                    <div class="flex gap-1">
+                        <select
+                            v-model="select_code"
+                            @change="cambiarLada"
+                            class="border p-2 rounded-xl bg-[#F9F9F9] border-[#cccccc]"
+                        >
+                            <option
+                                v-for="pais in telefonia"
+                                :key="pais.codigo + pais.sigla"
+                                :value="pais.codigo"
+                            >
+                                {{ pais.sigla }}
+                            </option>
+                        </select>
+                        <!-- Optional, so the bare prefix is valid too. The
+                             hidden input below is what HubSpot receives. -->
+                        <input
+                            v-model="telefonoCompleto"
+                            type="tel"
+                            autocomplete="tel"
+                            class="border rounded-xl w-full border-[#cccccc] bg-[#F9F9F9] p-2"
+                            :maxlength="select_code.length + 10"
+                            :pattern="`^\\${select_code}(\\d{10})?$`"
+                            :title="$t('form_phone_title', { code: select_code })"
+                            @input="asegurarPrefijo"
+                        />
+                        <input type="hidden" name="phone" :value="telefonoEnviado" />
+                    </div>
                 </div>
             </div>
             <div>
                 <label class="text-[#757575] flex gap-2 cursor-pointer">
                     <input
+                        v-model="quiereWhatsapp"
                         name="whatsapp_consent"
                         type="checkbox"
                         value="true"
@@ -447,266 +337,69 @@ const enviarFormulario = (e) => {
                     />
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-2">
-                <div>
-                    <p>{{ $t('form_projecttype') }}</p>
-                    <select
-                        name="tipo_de_proyecto"
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                        required
-                    >
-                        <option disabled value="">{{ $t('form_select_placeholder') }}</option>
-                        <option v-for="op in t_proyecto" :key="op" :value="op">
-                            {{ op }}
-                        </option>
-                    </select>
-                </div>
-
-                <!-- The fields below are a draft row, not part of the submission:
-                     agregarProducto() reads them, validates them with
-                     productoValido() and then clears them. They carry no
-                     required attribute on purpose. They used to, and because
-                     the row is cleared after every Agregar, the browser then
-                     blocked Send on fields the visitor had already filled. -->
-                <div class="flex flex-col gap-2">
-                    <p class="font-bold">{{ $t('form_projectdata') }}</p>
-                    <div class="grid grid-cols-4 gap-2">
-                        <div>
-                            <p>{{ $t('form_product') }}</p>
-                            <select
-                                v-model="nuevo.tipo"
-                                class="border border-[#cccccc]bg-[#F9F9F9] p-2 w-full rounded-xl"
-                            >
-                                <option>Ventana</option>
-                                <option>Puerta</option>
-                            </select>
-                        </div>
-                        <div>
-                            <p>{{ $t('form_quantity') }}</p>
-                            <input
-                                v-model.number="nuevo.cantidad"
-                                type="number"
-                                name="cantidad"
-                                min="1"
-                                :placeholder="$t('ph_quantity')"
-                                class="border border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                            />
-                        </div>
-                        <div>
-                            <p>{{ $t('form_width') }}</p>
-                            <input
-                                v-model.number="nuevo.ancho"
-                                type="number"
-                                placeholder="cm"
-                                class="border border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                            />
-                        </div>
-                        <div>
-                            <p>{{ $t('form_height') }}</p>
-                            <input
-                                v-model.number="nuevo.alto"
-                                type="number"
-                                placeholder="cm"
-                                class="border border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                            />
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-5 gap-2">
-                        <div class="col-span-2">
-                            <p>{{ $t('form_opening') }}</p>
-                            <select
-                                v-model="nuevo.apertura"
-                                class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                            >
-                                <option disabled value="">
-                                    {{ $t('form_select_placeholder') }}
-                                </option>
-                                <option
-                                    v-for="aper in nuevo.tipo === 'Ventana'
-                                        ? aper_ventanas
-                                        : aper_puertas"
-                                    :key="aper"
-                                    :value="aper"
-                                >
-                                    {{ aper }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-span-2">
-                            <p>{{ $t('form_wood') }}</p>
-                            <select
-                                v-model="nuevo.madera"
-                                class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                            >
-                                <option disabled value="">
-                                    {{ $t('form_select_placeholder') }}
-                                </option>
-                                <option
-                                    v-for="mad in madera"
-                                    :key="mad"
-                                    :value="mad"
-                                >
-                                    {{ mad }}
-                                </option>
-                            </select>
-                        </div>
-                        <div>
-                            <p class="opacity-0">+</p>
-                            <div
-                                @click="agregarProducto"
-                                class="bg-[#657d88] cursor-pointer w-full h-10 flex items-center justify-center text-white px-4 rounded-xl hover:bg-[#64563c]"
-                            >
-                                {{ $t('form_additem') }}
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        v-if="productos.length > 0"
-                        class="relative flex flex-col w-full h-full overflow-x-auto shadow-md rounded-xl bg-clip-border"
-                    >
-                        <table class="w-full text-left table-auto min-w-max">
-                            <thead class="bg-[#657d88]/80 text-white">
-                                <tr>
-                                    <th class="p-2">Tipo</th>
-                                    <th class="p-2">Apertura</th>
-                                    <th class="p-2">Madera</th>
-                                    <th class="p-2">Cantidad</th>
-                                    <th class="p-2">Ancho</th>
-                                    <th class="p-2">Alto</th>
-                                    <th class="p-2"></th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-[#858796]">
-                                <tr
-                                    v-for="(item, index) in productos"
-                                    :key="index"
-                                >
-                                    <td
-                                        class="p-2"
-                                        :class="{
-                                            'border-b border-[#657d88]':
-                                                index !== productos.length - 1,
-                                        }"
-                                    >
-                                        {{ item.tipo }}
-                                    </td>
-                                    <td
-                                        class="p-2"
-                                        :class="{
-                                            'border-b border-[#657d88]':
-                                                index !== productos.length - 1,
-                                        }"
-                                    >
-                                        {{ item.apertura }}
-                                    </td>
-                                    <td
-                                        class="p-2"
-                                        :class="{
-                                            'border-b border-[#657d88]':
-                                                index !== productos.length - 1,
-                                        }"
-                                    >
-                                        {{ item.madera }}
-                                    </td>
-                                    <td
-                                        class="p-2"
-                                        :class="{
-                                            'border-b border-[#657d88]':
-                                                index !== productos.length - 1,
-                                        }"
-                                    >
-                                        {{ item.cantidad }}
-                                    </td>
-                                    <td
-                                        class="p-2"
-                                        :class="{
-                                            'border-b border-[#657d88]':
-                                                index !== productos.length - 1,
-                                        }"
-                                    >
-                                        {{ item.ancho }} cm
-                                    </td>
-                                    <td
-                                        class="p-2"
-                                        :class="{
-                                            'border-b border-[#657d88]':
-                                                index !== productos.length - 1,
-                                        }"
-                                    >
-                                        {{ item.alto }} cm
-                                    </td>
-                                    <td
-                                        class="p-2"
-                                        :class="{
-                                            'border-b border-[#657d88]':
-                                                index !== productos.length - 1,
-                                        }"
-                                    >
-                                        <div
-                                            @click="eliminarProducto(index)"
-                                            class="text-black cursor-pointer font-bold hover:text-red-500"
-                                        >
-                                            Eliminar
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div>
+                <p>{{ $t('form_interest') }}</p>
+                <select
+                    v-model="producto"
+                    name="producto"
+                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
+                    required
+                >
+                    <option disabled value="">{{ $t('form_select_placeholder') }}</option>
+                    <option v-for="op in intereses" :key="op.value" :value="op.value">
+                        {{ $t(op.key) }}
+                    </option>
+                </select>
+            </div>
+            <div>
+                <p>{{ $t('form_details') }}</p>
+                <textarea
+                    class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
+                    :placeholder="$t('ph_details')"
+                    required
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <button
+                    type="button"
+                    @click="mostrarEspecificaciones = !mostrarEspecificaciones"
+                    :aria-expanded="mostrarEspecificaciones"
+                    class="text-left text-[#657d88] font-semibold cursor-pointer"
+                >
+                    {{ mostrarEspecificaciones ? "−" : "+" }}
+                    {{ $t('form_specs_toggle') }}
+                </button>
+                <!-- v-show, not v-if: closing the section must not throw away
+                     what the visitor already typed or uploaded. -->
+                <div v-show="mostrarEspecificaciones" class="flex flex-col gap-3">
+                    <textarea
+                        name="datos_proyecto"
+                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
+                        :placeholder="$t('ph_specs')"
+                    ></textarea>
                     <div>
-                        <p class="hidden">Datos*</p>
+                        <p>{{ $t('form_upload') }}</p>
                         <input
-                            class="hidden"
-                            name="datos_proyecto"
-                            :value="datosProyecto"
+                            type="file"
+                            multiple
+                            @change="onFilesSelected"
+                            accept=".pdf,.doc,.docx,.jpg,.png"
                         />
                     </div>
+                    <div
+                        v-if="nombresArchivos.length"
+                        class="text-green-600 text-sm flex flex-col gap-1"
+                    >
+                        <p class="font-semibold">{{ $t('form_uploaded') }}</p>
+                        <p v-for="(n, i) in nombresArchivos" :key="n + i">
+                            • {{ n }}
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <p>{{ $t('form_details') }}</p>
-                    <textarea
-                        ref="textAreaRef"
-                        class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
-                        :placeholder="$t('ph_project')"
-                        required
-                    ></textarea>
-                </div>
-                <div>
-                    <p>{{ $t('form_upload') }}</p>
-                    <input
-                        type="file"
-                        multiple
-                        @change="onFilesSelected"
-                        accept=".pdf,.doc,.docx,.jpg,.png"
-                    />
-                </div>
-                <div>
-                    <p class="hidden">Url Archivo*</p>
-                    <input
-                        class="hidden"
-                        name="file_upload_urls"
-                        :value="urlArchivosHubspot"
-                    />
-                </div>
-                <div
-                    v-if="nombresArchivos.length"
-                    class="text-green-600 text-sm mt-2 flex flex-col gap-1"
-                >
-                    <p class="font-semibold">Archivos subidos:</p>
-                    <p v-for="(n, i) in nombresArchivos" :key="n + i">
-                        • {{ n }}
-                    </p>
-                </div>
-
-                <div>
-                    <p class="hidden">Nombre Archivo*</p>
-                    <input
-                        class="hidden"
-                        name="name_archivos"
-                        :value="nombresArchivosHubspot"
-                    />
-                </div>
+                <input type="hidden" name="file_upload_urls" :value="urlArchivosHubspot" />
+                <input type="hidden" name="name_archivos" :value="nombresArchivosHubspot" />
             </div>
+            <p class="text-sm">{{ $t('form_disclaimer') }}</p>
             <button
                 :disabled="archivos.length > 0 && archivoSubiendo"
                 type="submit"

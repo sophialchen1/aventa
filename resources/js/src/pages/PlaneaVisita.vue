@@ -21,15 +21,21 @@ const motivo_v = [
     { value: "Ver proceso", labelKey: "vis_loc_sma" },
 ];
 
-// Teléfono con prefijo
+// Teléfono con prefijo. Es opcional, así que empieza vacío y vuelve a vacío si
+// solo queda la lada: un "+52" suelto no debe llegar a HubSpot como teléfono.
 const select_code = ref("+52");
-const telefonoCompleto = ref("+52");
+const telefonoCompleto = ref("");
+
+function vaciarSiSoloLada() {
+    if (telefonoCompleto.value === select_code.value) telefonoCompleto.value = "";
+}
 
 function cambiarLada() {
     const codigos = telefonia.map((p) => p.codigo).sort((a, b) => b.length - a.length);
     const codigoActual = codigos.find((cod) => telefonoCompleto.value.startsWith(cod)) || "";
     const numeroUsuario = telefonoCompleto.value.slice(codigoActual.length);
     telefonoCompleto.value = select_code.value + numeroUsuario;
+    vaciarSiSoloLada();
 }
 
 function asegurarPrefijo() {
@@ -39,6 +45,7 @@ function asegurarPrefijo() {
         const soloNumero = telefonoCompleto.value.slice(codigoDetectado.length).replace(/\D/g, "");
         telefonoCompleto.value = select_code.value + soloNumero;
     }
+    vaciarSiSoloLada();
 }
 
 // Textarea
@@ -127,7 +134,8 @@ function formatForInput(d) {
 function validateVisita(showNativeBubble = false) {
     const el = visitaInputRef.value;
     const d = parseLocalDateTime(visitaAt.value);
-    const res = isAllowed(d);
+    // La fecha es opcional: vacía es válida, solo se revisa si la llenaron
+    const res = visitaAt.value ? isAllowed(d) : { ok: true, msg: "" };
 
     if (el) {
         el.setCustomValidity(res.ok ? "" : res.msg);
@@ -277,8 +285,8 @@ const enviarFormulario = (e) => {
                                             type="tel"
                                             class="border rounded-xl w-full border-[#cccccc] bg-[#F9F9F9] p-2"
                                             :maxlength="20"
+                                            :placeholder="select_code"
                                             @input="asegurarPrefijo"
-                                            required
                                         />
                                     </div>
                                 </div>
@@ -302,7 +310,7 @@ const enviarFormulario = (e) => {
                             <div class="grid lg:grid-cols-2 lg:gap-2">
                                 <div>
                                     <p>{{ $t('vis_form_location') }}</p>
-                                    <select name="motivo_de_tu_visita" class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl" required>
+                                    <select name="motivo_de_tu_visita" class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl">
                                         <option disabled selected value="">{{ $t('form_select_placeholder') }}</option>
                                         <option v-for="op in motivo_v" :key="op.value" :value="op.value">{{ $t(op.labelKey) }}</option>
                                     </select>
@@ -316,7 +324,6 @@ const enviarFormulario = (e) => {
                                         name="fecha_de_visita"
                                         type="datetime-local"
                                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl"
-                                        required
                                         step="900"
                                         @change="onVisitaChange"
                                         @blur="onVisitaBlur"

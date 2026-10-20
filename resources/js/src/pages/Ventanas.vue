@@ -67,7 +67,7 @@ function openFormW(){
                     >
                         <img
                             class="object-cover h-full w-full"
-                            src="../assets/media/ventanas-landing.png"
+                            src="../assets/media/ventanas-landing.webp"
                             alt="Ventanas de madera"
                             title="Ventanas de madera"
                         />
@@ -209,15 +209,15 @@ function openFormW(){
                              alt="nosotros_ventana">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/ventanas_car2.jpeg"
+                        <img class="object-cover w-full h-full" src="../assets/media/ventanas_car2.webp"
                              alt="nosotros_interior">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/ventanas_car3.jpeg"
+                        <img class="object-cover w-full h-full" src="../assets/media/ventanas_car3.webp"
                              alt="nosotros_exterior">
                     </div>
                     <div class="flex-1/4 rounded-xl overflow-hidden duration-300 ease-in-out hover:brightness-90">
-                        <img class="object-cover w-full h-full" src="../assets/media/ventanas_car4.jpeg"
+                        <img class="object-cover w-full h-full" src="../assets/media/ventanas_car4.webp"
                              alt="nosotros_puerta">
                     </div>
                 </div>
