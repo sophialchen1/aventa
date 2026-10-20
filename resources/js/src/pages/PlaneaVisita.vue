@@ -5,6 +5,8 @@ import TittleCustom from "../components/TittleCustom.vue";
 import MainLayout from "../layouts/MainLayout.vue";
 import { telefonia } from "../data/paises.js";
 import { useI18n } from "vue-i18n";
+import { useRoute, useRouter } from "vue-router";
+import { irAGracias } from "../lib/track.js";
 
 const { t } = useI18n();
 
@@ -40,7 +42,8 @@ function asegurarPrefijo() {
 const textAreaRef = ref(null);
 
 // Modal
-const mostrarGracias = ref(false);
+const route = useRoute();
+const router = useRouter();
 
 const visitaAt = ref("");        // v-model del input datetime-local
 const visitaInputRef = ref(null); // ref del input para setCustomValidity()
@@ -172,7 +175,7 @@ const enviarFormulario = (e) => {
         return;
     }
 
-    mostrarGracias.value = true;
+    irAGracias(router, route, "visita");
 };
 </script>
 
@@ -345,20 +348,6 @@ const enviarFormulario = (e) => {
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-
-        <div v-if="mostrarGracias" class="fixed inset-0 bg-black/10 z-50 flex items-center justify-center">
-            <div class="bg-white p-6 rounded-xl text-center max-w-md mx-auto">
-                <h2 class="text-xl font-bold text-[#657d88] mb-4">{{ $t('vis_thanks_title') }}</h2>
-                <p class="mb-6">{{ $t('vis_thanks_body') }}</p>
-                <router-link
-                    to="/"
-                    @click="mostrarGracias = false"
-                    class="bg-[#657d88] text-white px-4 py-2 rounded-xl hover:bg-[#657d88]/70"
-                >
-                    {{ $t('vis_thanks_cta') }}
-                </router-link>
             </div>
         </div>
     </main-layout>

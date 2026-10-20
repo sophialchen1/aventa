@@ -422,5 +422,11 @@
     
     "found_p1": "Pagina no encontrada",
     "found_p2": "Lo sentimos, la página que estás buscando no existe. Verifica la URL o vuelve al inicio.",
-    "found_p3": "Volver al inicio"
+    "found_p3": "Volver al inicio",
+    "seo_gracias_title": "Gracias {'|'} Aventa Windows",
+    "gracias_title": "¡Gracias! Recibimos tu solicitud.",
+    "gracias_body": "Un asesor de Aventa se pondrá en contacto contigo en breve.",
+    "gracias_redirect": "Te regresaremos en {s} segundos.",
+    "gracias_cta_back": "Regresar ahora",
+    "gracias_cta_home": "Ir al inicio"
 }

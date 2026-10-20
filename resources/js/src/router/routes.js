@@ -181,6 +181,15 @@ const routes = [
         }
     },
     {
+        path: "/gracias",
+        name: "gracias",
+        component: () => import("../pages/Gracias.vue"),
+        meta: {
+            titleKey: "seo_gracias_title",
+            noindex: true
+        }
+    },
+    {
         path: "/:pathMatch",
         name: "NotFound",
         component: () => import("../layouts/NotFound.vue"),

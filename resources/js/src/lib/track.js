@@ -21,6 +21,7 @@
 //   design_assistant_click link_location
 //   quote_submit           link_location
 //   catalog_download       link_location, file_name
+//   form_thankyou_view     form_type   (on /gracias, only when reached from a form)
 //
 // link_location is where the link sits, not which page it is on. The page is
 // added automatically below.
@@ -34,5 +35,24 @@ export function track(event, params = {}) {
         page_path: window.location.pathname,
         site_language: document.documentElement.lang || "es",
         ...params,
+    });
+}
+
+// Sends the visitor to /gracias after a form validates. form is the form type
+// GTM sees as form_type ("cotizacion", "visita"). The current page goes along as
+// ?from= so the thank-you page can send them back to it.
+//
+// desdeFormulario in the history state is how /gracias tells a real submission
+// from someone opening or refreshing the URL. It is not in the URL, so it does
+// not survive a refresh or a shared link.
+export function irAGracias(router, route, form) {
+    // The quote form also lives in the navbar modal, which locks page scroll
+    // while open. The modal goes away with the page, the lock would not.
+    document.body.style.overflow = "";
+
+    router.push({
+        path: "/gracias",
+        query: { form, from: route.fullPath },
+        state: { desdeFormulario: true },
     });
 }

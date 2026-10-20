@@ -2,7 +2,8 @@
 import { computed, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { paises, telefonia } from "../data/paises.js";
-import { track } from "../lib/track.js";
+import { useRoute, useRouter } from "vue-router";
+import { irAGracias, track } from "../lib/track.js";
 
 const { locale } = useI18n();
 
@@ -232,7 +233,8 @@ const onFilesSelected = async (event) => {
     }
 };
 
-const mostrarGracias = ref(false);
+const route = useRoute();
+const router = useRouter();
 const textAreaRef = ref(null);
 
 function isPositiveNumber(n) {
@@ -307,7 +309,7 @@ const enviarFormulario = (e) => {
     // visitor is about to see the thank-you state, so it counts one real lead.
     track("quote_submit", { link_location: "formulario_cotizacion" });
 
-    mostrarGracias.value = true;
+    irAGracias(router, route, "cotizacion");
 };
 </script>
 
@@ -718,25 +720,6 @@ const enviarFormulario = (e) => {
             </button>
         </div>
     </form>
-
-    <div
-        v-if="mostrarGracias"
-        class="fixed inset-0 bg-black/10 z-50 flex items-center justify-center"
-    >
-        <div class="bg-white p-6 rounded-xl text-center max-w-md mx-auto">
-            <h2 class="text-xl font-bold text-[#657d88] mb-4">
-                {{ $t('form_thanks_title') }}
-            </h2>
-            <p class="mb-6">{{ $t('form_thanks_body') }}</p>
-            <router-link
-                to="/"
-                @click="mostrarGracias = false"
-                class="bg-[#657d88] text-white px-4 py-2 rounded-xl hover:bg-[#64563c]"
-            >
-                {{ $t('form_thanks_cta') }}
-            </router-link>
-        </div>
-    </div>
 </template>
 
 <style scoped>
