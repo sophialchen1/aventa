@@ -370,31 +370,32 @@ const enviarFormulario = (e) => {
                     {{ $t('form_specs_toggle') }}
                 </button>
                 <!-- v-show, not v-if: closing the section must not throw away
-                     what the visitor already typed or uploaded. -->
+                     what the visitor already typed. -->
                 <div v-show="mostrarEspecificaciones" class="flex flex-col gap-3">
                     <textarea
                         name="datos_proyecto"
                         class="border-1 border-[#cccccc] bg-[#F9F9F9] p-2 w-full rounded-xl h-[100px]"
                         :placeholder="$t('ph_specs')"
                     ></textarea>
-                    <div>
-                        <p>{{ $t('form_upload') }}</p>
-                        <input
-                            type="file"
-                            multiple
-                            @change="onFilesSelected"
-                            accept=".pdf,.doc,.docx,.jpg,.png"
-                        />
-                    </div>
-                    <div
-                        v-if="nombresArchivos.length"
-                        class="text-green-600 text-sm flex flex-col gap-1"
-                    >
-                        <p class="font-semibold">{{ $t('form_uploaded') }}</p>
-                        <p v-for="(n, i) in nombresArchivos" :key="n + i">
-                            • {{ n }}
-                        </p>
-                    </div>
+                </div>
+                <!-- Upload stays visible even with the section closed -->
+                <div>
+                    <p>{{ $t('form_upload') }}</p>
+                    <input
+                        type="file"
+                        multiple
+                        @change="onFilesSelected"
+                        accept=".pdf,.doc,.docx,.jpg,.png"
+                    />
+                </div>
+                <div
+                    v-if="nombresArchivos.length"
+                    class="text-green-600 text-sm flex flex-col gap-1"
+                >
+                    <p class="font-semibold">{{ $t('form_uploaded') }}</p>
+                    <p v-for="(n, i) in nombresArchivos" :key="n + i">
+                        • {{ n }}
+                    </p>
                 </div>
                 <input type="hidden" name="file_upload_urls" :value="urlArchivosHubspot" />
                 <input type="hidden" name="name_archivos" :value="nombresArchivosHubspot" />
