@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, computed } from "vue";
-import { track } from "../lib/track.js";
+import { useRoute, useRouter } from "vue-router";
+import { irAGracias, track } from "../lib/track.js";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination, Scrollbar, A11y, Zoom } from "swiper/modules";
 import { useI18n } from "vue-i18n";
@@ -18,9 +19,20 @@ import MainLayout from "../layouts/MainLayout.vue";
 import IconCustom from "../components/IconCustom.vue";
 import FormGrande from "@/src/layouts/formGrande.vue";
 import VsModal from "../layouts/VsModal.vue";
-import FormRapido from "../components/FormRapido.vue";
 
 const { t } = useI18n();
+
+// Quick contact form further down the page. HubSpot picks the submission up
+// from the page on its own (it lands as "Contact" in HubSpot), so this only
+// has to stop the browser's default submit, which reloaded the page and put
+// the visitor's name, email and phone in the URL. The browser has already
+// checked the required fields before submit fires.
+const route = useRoute();
+const router = useRouter();
+
+function enviarContactoRapido() {
+    irAGracias(router, route, "contacto");
+}
 
 const video = ref<HTMLVideoElement | null>(null);
 const videoBanner = ref<HTMLVideoElement | null>(null);
@@ -1361,7 +1373,54 @@ onBeforeUnmount(() => {
                 <div
                     class="flex-1/2 relative flex bg-white rounded-xl w-full h-auto p-4 lg:p-[2vw] shadow-lg border-1 border-[#657d88]"
                 >
-                    <form-rapido />
+                    <form class="flex flex-col w-full gap-5" @submit.prevent="enviarContactoRapido">
+                        <div class="grid grid-cols-2 gap-5">
+                            <input
+                                name="firstname"
+                                class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE]"
+                                :placeholder="$t('f_name')"
+                                required
+                            />
+                            <input
+                                name="lastname"
+                                class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE]"
+                                :placeholder="$t('f_lastname')"
+                                required
+                            />
+                        </div>
+                        <input
+                            name="phone"
+                            class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE] rounded-borders"
+                            :placeholder="$t('f_numero')"
+                            required
+                        />
+                        <input
+                            name="email"
+                            class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE] rounded-borders"
+                            :placeholder="$t('f_correo')"
+                            required
+                        />
+                        <textarea
+                            class="pt-2 pb-2 pl-4 pr-4 rounded-xl bg-[#EBEDEE] rounded-borders min-h-[120px]"
+                            :placeholder="$t('f_msg')"
+                            required
+                        ></textarea>
+                        <div>
+                            <label
+                                class="text-[#757575] flex gap-2 cursor-pointer"
+                            >
+                                <input name="quiere_llamada" type="checkbox" />
+                                {{ $t("ini_quick_callback") }}
+                            </label>
+                        </div>
+                        <div class="flex justify-start">
+                            <button
+                                class="bg-[#ee7465] text-white rounded-lg py-1.5 px-5 lg:pl-[4vw] lg:pr-[4vw] lg:pt-1 lg:pb-1 cursor-pointer transition-colors duration-300 hover:text-white hover:bg-[#568a64]"
+                            >
+                                {{ $t("f_enviar") }}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
