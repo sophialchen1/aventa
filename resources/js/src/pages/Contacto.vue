@@ -3,6 +3,7 @@
 import {computed, onMounted, reactive, ref, watch} from "vue";
 import axios from "axios";
 import FormGrande from "../layouts/formGrande.vue";
+import FormRapido from "../components/FormRapido.vue";
 import TittleCustom from "@/src/components/TittleCustom.vue";
 import InstalacionesSection from "@/src/layouts/InstalacionesSection.vue";
 import MainLayout from "@/src/layouts/MainLayout.vue";
@@ -68,6 +69,25 @@ function openFormW(){
 
         <instalaciones-section class="bg-[whitesmoke]"/>
 
+        <!-- Short contact form, same as the homepage's, for visitors with a
+             question rather than a project to quote -->
+        <div class="flex justify-center relative pt-12 pb-4">
+            <div class="flex flex-col w-full relative gap-5 px-5 lg:flex-row lg:max-w-[1150px]">
+                <div class="flex-1/4 flex flex-col gap-2">
+                    <p class="w-full text-[#657d88] italic font-semibold text-xl text-center lg:text-left">
+                        {{ $t('ini_p19') }}
+                    </p>
+                    <p class="w-full text-[#657d88] italic text-lg text-center lg:text-left">
+                        {{ $t('ini_p20') }}
+                    </p>
+                </div>
+                <div class="flex-3/4 lg:px-10">
+                    <div class="bg-white rounded-xl w-full p-4 lg:p-10 shadow-xl">
+                        <form-rapido />
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="flex justify-center relative pb-20 pt-8">
             <div class="absolute inset-0 opacity-75"></div>
