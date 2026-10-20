@@ -77,6 +77,9 @@ function openFormW(){
                     <p class="w-full text-[#657d88] italic font-semibold text-xl text-center lg:text-left">
                         {{ $t('ini_p19') }}
                     </p>
+                    <p class="w-full text-[#657d88] italic text-lg text-center lg:text-left">
+                        {{ $t('ini_p20') }}
+                    </p>
                 </div>
                 <div class="flex-3/4 lg:px-10">
                     <div class="bg-white rounded-xl w-full p-4 lg:p-10 shadow-xl">
