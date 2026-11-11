@@ -360,6 +360,25 @@ removed. Rotating credentials is standard whenever someone leaves a project.
 **Fix:** in cPanel, review FTP Accounts and any sub-accounts. Change the main
 password.
 
+## 4b. The repository is on Sophia's personal GitHub, and public
+
+**Confirmed.** Raised 11 Nov 2026.
+
+`sophialchen1/aventa` is a personal account and the repository is public. When
+Sophia leaves (around December 2026), Aventa would have no control over its own
+site code, and anyone can read it today.
+
+**Fix, before the handover:**
+
+1. Create an Aventa-owned GitHub account or organization, owned by an Aventa
+   employee.
+2. Transfer the repository to it (GitHub Settings > Transfer). Transfers keep
+   history, issues and redirects from the old URL.
+3. Make it private.
+4. Check what is already public: confirm `database/database.sqlite` holds no
+   real data, and that no secret was ever committed in the history.
+5. Do the same for `aventa-hubspot-theme` (already private).
+
 ---
 
 # P1 · This is costing money

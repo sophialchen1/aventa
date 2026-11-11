@@ -13,6 +13,33 @@ Maintained by Sophia Chen, an independent consultant, after handoff from a
 third-party developer. **There is no CMS and no admin panel.** All content
 changes are code changes.
 
+## Status and handover (read first)
+
+**This site is being replaced.** As of November 2026 Aventa is building a new
+site on Webflow. When it launches it takes over aventawindows.com, and this
+repository becomes the legacy site.
+
+Until then, treat this repository as **maintenance only**: fixes, copy changes
+and anything that protects lead capture (forms into HubSpot). No new features
+or redesigns. Larger items in `docs/BACKLOG.md` should be checked against the
+Webflow plan before anyone spends time on them.
+
+**Sophia's engagement ends around December 2026.** After that:
+
+- **Owner: not yet assigned.** Until someone is named, nobody deploys, and
+  changes can wait for the Webflow launch.
+- Whoever takes it over needs: access to this repository, the Namecheap/cPanel
+  credentials, the `.env` file (never in git), a Mac set up per
+  `docs/local-setup-mac.md`, and `DEPLOY.md`.
+- The repository lives on Sophia's personal GitHub. It should move to an
+  Aventa-owned account before she leaves (see `docs/BACKLOG.md`, item 4b).
+- When Webflow is live: keep the hosting until DNS has fully moved and forms are
+  confirmed working, back up `public_html/media` and `public_html/proyectos`
+  (BACKLOG items 1 and 2), then archive this repository read-only.
+
+Where this file says "Sophia" below, read it as "the current site owner" once
+the handover happens.
+
 ## Stack
 
 - **Laravel 12** (PHP) as a thin backend shell. One Blade view, minimal routes.
@@ -83,7 +110,8 @@ Pages: `Inicio`, `Ventanas`, `Puertas`, `Catalogo`, `Contacto`, `Inspiracion`,
 5. **Never commit `public/build/`.** It is generated output and is gitignored.
 
 6. **Claude cannot deploy.** Deployment is a manual upload to Namecheap/cPanel
-   that only Sophia can perform. See DEPLOY.md. When work is pushed, say plainly
+   that only the site owner can perform (Sophia until her handover, see
+   "Status and handover"). See DEPLOY.md. When work is pushed, say plainly
    that it is on GitHub but **not yet live**, and point to the deploy steps.
 
 7. **Verify before claiming done.** Run `npm run build` to confirm the change
